@@ -24,14 +24,14 @@ void loop() {
       // считываем байт
       incomingByte = Serial.read();
       // зелений
-      if(incomingByte == 53){
+      if(weight == 0 and y == 0){
       digitalWrite(led_green, HIGH);
       digitalWrite(led_red, LOW);
       y = y + 1;
       incomingByte = 0;
       }                                                     
       // червоний
-      if(incomingByte == 54){
+      if(weight > 0 and y == 1){
       digitalWrite(led_red, HIGH);
       digitalWrite(led_green, LOW);
       y = 0;
@@ -124,5 +124,4 @@ void loop() {
 }
 
   
-
 
