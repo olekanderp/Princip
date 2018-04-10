@@ -50,19 +50,22 @@ void loop() {
       if(incomingByte == 67 and j < 6 and j > 0 ){
       weight = weight + randNumber_step_2;
       Serial.println(weight, DEC);
+      delay(1000);
       incomingByte = 0; 
       j = j + 1;       
       }
       // ВИВОДИМ ТЕ ЩО ОТРИМАЛИ В РЕЗУЛЬТАТІ ДОДАВАННЯ
       if(incomingByte == 67 and j == 6){
       Serial.println(weight, DEC);
+      delay(1000);
       incomingByte = 0; 
       j = j + 1;  
       }
       // ВОДІЙ ВИЙШОВ З МАШИНИ
       if(incomingByte == 67 and j == 7){
       weight = weight - 150 ;
-      Serial.println(weight, DEC);         
+      Serial.println(weight, DEC);
+      delay(1000);         
       incomingByte = 0; 
       j = j + 1;  
       }
@@ -73,25 +76,33 @@ void loop() {
       j = j + 1;  
       }
       if(incomingByte == 67 and j == 9){
-      Serial.println(weight, DEC);         
-      incomingByte = 0; 
+      Serial.println(weight, DEC);
+        for(int r = 0; r <= 10; r++){
+        weight = weight;
+        Serial.println(weight, DEC);
+        delay(1000);           
+        }
+      incomingByte = 0;   
       j = j + 1;  
       }     
       // ВОДІЙ  ЗАЙШОВ В МАШИНУ
       if(incomingByte == 67 and j == 10){
       weight = weight + 150 ;
-      Serial.println(weight, DEC);                 
+      Serial.println(weight, DEC);
+      delay(1000);              
       incomingByte = 0; 
       j = j + 1;  
       }                                                
       // ВИВОДИМ ВАГУ МАШИНИ І ВОДІЯ КОЛИ ВІН ЗАЙшОВ
       if(incomingByte == 67 and j == 11){
-      Serial.println(weight, DEC);                 
+      Serial.println(weight, DEC);
+      delay(1000);                 
       incomingByte = 0; 
       j = j + 1;  
       }
       if(incomingByte == 67 and j == 12){
-      Serial.println(weight, DEC);                 
+      Serial.println(weight, DEC);
+      delay(1000);                 
       incomingByte = 0; 
       j = j + 1;  
       }
@@ -99,6 +110,7 @@ void loop() {
       if(incomingByte == 67 and j >= 13 and j <= 17){
       weight = weight - randNumber_step_2;
       Serial.println(weight, DEC);
+      delay(1000);
       incomingByte = 0; 
       j = j + 1;       
       }                                                                    
@@ -106,16 +118,23 @@ void loop() {
       if(incomingByte == 67 and j == 18){
       weight = 0;
       Serial.println(weight, DEC);
+      delay(1000);
       incomingByte = 0; 
       j = j + 1;
       }
       if(incomingByte == 67 and j == 19){
       Serial.println(weight, DEC);
+      delay(1000);
       incomingByte = 0; 
       j = j + 1;
       }
       if(incomingByte == 67 and j == 20){
       Serial.println(weight, DEC);
+       for(int ri = 0; ri <= 10; ri++){
+        weight = weight;
+        Serial.println(weight, DEC);
+        delay(1000);           
+        }
       incomingByte = 0; 
       j = 0;  
       }
