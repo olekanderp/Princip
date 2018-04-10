@@ -1,0 +1,27 @@
+curl -sSL https://get.docker.com | sh
+
+
+sudo apt-get update
+
+
+sudo apt-get install apt-transport-https \
+                       ca-certificates \
+                       software-properties-common
+                       
+                       
+curl -fsSL https://yum.dockerproject.org/gpg | sudo apt-key add -
+
+
+
+sudo add-apt-repository \
+       "deb https://apt.dockerproject.org/repo/ \
+       raspbian-$(lsb_release -cs) \
+       main"
+       
+       
+sudo apt-get update
+
+
+
+
+sudo apt-get -y install docker-engine
