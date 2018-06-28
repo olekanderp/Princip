@@ -1,0 +1,6 @@
+https://hallard.me/fixed-usb-dev-uteleinfo/
+
+
+
+udevadm info --attribute-walk -n /dev/ttyUSB0  |grep serial
+
