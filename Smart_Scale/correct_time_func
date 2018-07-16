@@ -1,0 +1,12 @@
+var d = new Date();
+
+var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+
+var offset = 3; // This is the offset for UTC+3, in your case (UTC+1) should be 1
+
+newDate = new Date(utc + (3600000*offset));
+
+msg.payload = newDate;
+//msg.payload = newDate.toLocaleString();
+
+return msg;
