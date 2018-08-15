@@ -1,0 +1,27 @@
+Installing Node-RED
+Getting Node-RED installed in your Raspberry Pi is quick and easy. It just takes a few commands.
+
+Having an SSH connection established with your Raspberry Pi, enter the following commands to install Node-RED:
+
+pi@raspberry:~ $ bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
+The installation should be completed after a couple of minutes.
+
+Autostart Node-RED on boot
+To automatically run Node-RED when the Pi boots up, you need to enter the following command:
+
+pi@raspberry:~ $ sudo systemctl enable nodered.service
+Now, restart your Pi so the autostart takes effect:
+
+pi@raspberry:~ $ sudo reboot
+Testing the Installation
+When your Pi is back on, you can test the installation by entering the IP address of your Pi in a web browser followed by the 1880 port number:
+
+http://YOUR_RPi_IP_ADDRESS:1880
+In my case is:
+
+http://192.168.1.98:1880
+A page like this loads:
+
+node-red-first-look
+
+Node-RED overview
