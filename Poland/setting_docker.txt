@@ -1,0 +1,8 @@
+скачуєм тулбокс
+https://docs.docker.com/toolbox/toolbox_install_windows/
+
+
+
+
+строка встановлення докера
+docker run -d -p 4000-4005:4000-4005 --restart always --privileged princip/atom2:x
