@@ -1,1 +1,25 @@
+reset_usb_device.py - скріпт що скидає підключення
+rest_usb.service - робиться файл служби з bash script
+scr.sh - запускає в циклі скріпт пайтона
 
+
+
+
+/etc/systemd/system/rest_usb.service
+
+[Unit]
+Description=My Script
+
+[Service]
+Type=forking
+ExecStart=/homi/pi/scr.sh
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+Reload all systemd service files: systemctl daemon-reload
+sudo systemctl start rest_usb.service
+sudo systemctl stop rest_usb.service
+sudo systemctl enable rest_usb.service
