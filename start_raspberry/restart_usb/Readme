@@ -23,3 +23,6 @@ Reload all systemd service files: systemctl daemon-reload
 sudo systemctl start rest_usb.service
 sudo systemctl stop rest_usb.service
 sudo systemctl enable rest_usb.service
+
+
+sudo python reset_usb_device.py  
