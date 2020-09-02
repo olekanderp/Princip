@@ -1,0 +1,22 @@
+1. sudo nano /home/pi/.config/chromium/Default/Preferences
+
+2. Шукаєм запис "exit_type:"
+   Виправляєм на "exit_type:"Normal"
+   Зберігаєм і виходим
+   
+3. mkdir /home/pi/chromium_prefs
+
+4. cp /home/pi/.config/chromium/Default/Preferences /home/pi/chromium_prefs
+
+5. sudo nano start.sh ( у корні система /home/pi)
+
+6. У скріпті робим запис
+#!/usr/bin/sh
+
+cp /home/pi/chromium_prefs/Preferences /home/pi/.config/chromium/Default
+
+  Зберігаєм і виходим
+
+7. sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
+
+8. Додаєм запис у файл -  @sh /home/pi/start.sh
