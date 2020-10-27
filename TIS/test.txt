@@ -1,0 +1,34 @@
+Delay 2
+MotionNotify 743 296
+ButtonPress 1
+ButtonRelease 1
+MotionNotify 667 413
+ButtonPress 1
+ButtonRelease 1
+MotionNotify 727 405
+ButtonPress 1
+ButtonRelease 1
+MotionNotify 724 343
+ButtonPress 1
+ButtonRelease 1
+MotionNotify 657 341
+ButtonPress 1
+ButtonRelease 1
+MotionNotify 660 405
+ButtonPress 1
+ButtonRelease 1
+MotionNotify 719 409
+ButtonPress 1
+ButtonRelease 1
+MotionNotify 721 362
+ButtonPress 1
+ButtonRelease 1
+KeyStrPress 1
+KeyStrRelease 1
+KeyStrPress 2
+KeyStrRelease 2
+KeyStrPress 3
+KeyStrRelease 3
+#MotionNotify 474 16
+#ButtonPress 1
+#ButtonRelease 1
