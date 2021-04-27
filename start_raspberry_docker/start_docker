@@ -38,6 +38,9 @@ sudo docker run -d -p 4000-4005:4000-4005 --log-driver=none --restart always --p
 
 
 Силка де зберігаються образи під різні архітектури- https://hub.docker.com/r/princip/atom2/tags
+sudo docker run -d -p 4000-4005:4000-4005 --log-driver=none --restart always --privileged -v /dev:/dev -v /home/pi/atomdata:/distr/data --name atom princip/atom2:x-noauth
+
+
 
 
 Быстрая очистка логов всех докер контейнеров під root
