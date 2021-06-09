@@ -26,3 +26,6 @@ sudo systemctl enable rest_usb.service
 
 
 sudo python reset_usb_device.py  
+
+
+У файлі flow.json налаштування для НОД-РЕДА
