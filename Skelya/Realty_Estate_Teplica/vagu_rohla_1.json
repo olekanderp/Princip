@@ -1,0 +1,561 @@
+[
+    {
+        "id": "fc0637b703c449c7",
+        "type": "tab",
+        "label": "Поток 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6153bc726fed9ae6",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "fb094479b0a86ef9"
+            ]
+        ]
+    },
+    {
+        "id": "fb094479b0a86ef9",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "cmd",
+        "func": "msg.payload = new Buffer(\"53490d0a\", \"hex\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "babbf03780a3af14"
+            ]
+        ]
+    },
+    {
+        "id": "2de66b09e268be22",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "babbf03780a3af14",
+        "type": "tcp request",
+        "z": "fc0637b703c449c7",
+        "server": "192.168.17.104",
+        "port": "1001",
+        "out": "char",
+        "splitc": "\\n",
+        "name": "",
+        "x": 270,
+        "y": 220,
+        "wires": [
+            [
+                "878974a1f31d9a9b"
+            ]
+        ]
+    },
+    {
+        "id": "878974a1f31d9a9b",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "func": "var weight = msg.payload.toString();\nweight = weight.replace(\"kg\", \"\")\nmsg.payload = Number(weight);\n\n\nflow.set('current_weight', msg.payload)\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "2de66b09e268be22"
+            ]
+        ]
+    },
+    {
+        "id": "55bc265a547e9f36",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "033c5eca39065f52"
+            ]
+        ]
+    },
+    {
+        "id": "033c5eca39065f52",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "correct_date",
+        "func": "  \nvar d = new Date();\n\nvar utc = d.getTime() + (d.getTimezoneOffset() * 60000);\n\nvar offset = 3; // This is the offset for UTC+3, in your case (UTC+1) should be 1\n\nnewDate = new Date(utc + (3600000*offset));\n\nmsg.payload = newDate;\n//msg.payload = newDate.toLocaleString();\n\nflow.set(\"correct_date\", newDate);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 40,
+        "wires": [
+            [
+                "14467a23a2324bbb"
+            ]
+        ]
+    },
+    {
+        "id": "14467a23a2324bbb",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "6e602dbda89f8b6e",
+        "type": "http in",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "url": "/getFile",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 900,
+        "wires": [
+            [
+                "89bc066565200fcd"
+            ]
+        ]
+    },
+    {
+        "id": "89bc066565200fcd",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "func": "var date = msg.req.query.date;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2472a4245e50fc3d",
+        "type": "file",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 610,
+        "y": 620,
+        "wires": [
+            [
+                "ae2ae7fdb67fe4ea"
+            ]
+        ]
+    },
+    {
+        "id": "7a2f4b3f17f176dc",
+        "type": "file in",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 360,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "858a6860a2073126",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "func": "var current_Date = flow.get('correct_date')\nvar date = {\n    day: current_Date.getDate(),\n    mounth: current_Date.getMonth() +1 ,\n    year: current_Date.getFullYear()\n}; //дата зараз\n\n\nvar dirName = `${date.day }_${date.mounth}_${date.year}`\nmsg.filename = \"/home/pi/\" + dirName + \"/file_weight.json\"\n\n\nvar send_file = {\n    \"barcode\": flow.get('barcode'),\n    \"weight\": flow.get('current_weight'),\n    \"date\": flow.get('correct_date'),\n  }\n  \nmsg.payload = send_file;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 620,
+        "wires": [
+            [
+                "2472a4245e50fc3d"
+            ]
+        ]
+    },
+    {
+        "id": "78127884387f37ce",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "a14fe03daca55d77"
+            ]
+        ]
+    },
+    {
+        "id": "a14fe03daca55d77",
+        "type": "exec",
+        "z": "fc0637b703c449c7",
+        "command": "sudo python read-rfid-on-rpi.py",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 360,
+        "wires": [
+            [
+                "2abed1e12bd93e1e",
+                "b5f616246bb31283"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "93480d898ca0c147",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "cb63ed8df9520ae1",
+        "type": "comment",
+        "z": "fc0637b703c449c7",
+        "name": "info",
+        "info": " sudo killall python read-*",
+        "x": 130,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "2abed1e12bd93e1e",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "func": "var barccode = msg.payload;\nif(barccode.length > 3){\n   barccode = barccode.replace(\"\\n\", \"\");\n    flow.set('barcode', barccode);\n    return msg; \n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 340,
+        "wires": [
+            [
+                "93480d898ca0c147",
+                "fd27184c1c27ebb5",
+                "7d5f8197d8435e01"
+            ]
+        ]
+    },
+    {
+        "id": "b5f616246bb31283",
+        "type": "delay",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "a14fe03daca55d77"
+            ]
+        ]
+    },
+    {
+        "id": "216192b29c5d3eed",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 620,
+        "wires": [
+            [
+                "d733129104f142e2"
+            ]
+        ]
+    },
+    {
+        "id": "d733129104f142e2",
+        "type": "switch",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "property": "tr_start_write_to_file",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 620,
+        "wires": [
+            [
+                "858a6860a2073126"
+            ]
+        ]
+    },
+    {
+        "id": "fd27184c1c27ebb5",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "Start tr_start_write_to_file",
+        "func": "flow.set(\"tr_start_write_to_file\", true);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae2ae7fdb67fe4ea",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "7d5f8197d8435e01",
+        "type": "delay",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "x": 930,
+        "y": 420,
+        "wires": [
+            [
+                "2bad1d70373fc407"
+            ]
+        ]
+    },
+    {
+        "id": "2bad1d70373fc407",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "END tr_start_write_to_file",
+        "func": "flow.set(\"tr_start_write_to_file\", false);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3f3f08dbd227f7a9",
+        "type": "comment",
+        "z": "fc0637b703c449c7",
+        "name": "Start/End write to file",
+        "info": "",
+        "x": 960,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "6c86ba9172cda28c",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.3",
+        "topic": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "28ef073c0d49da44"
+            ]
+        ]
+    },
+    {
+        "id": "28ef073c0d49da44",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "INIT",
+        "func": "flow.set(\"tr_start_write_to_file\", false);\nflow.set('barcode',\"\");\nflow.set('current_weight',0);\nflow.set('correct_date', \"\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    }
+]
