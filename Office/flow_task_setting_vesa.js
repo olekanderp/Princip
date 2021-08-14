@@ -1,13 +1,13 @@
 [
     {
-        "id": "53dc1ab1.133274",
+        "id": "9299072795857ce3",
         "type": "tab",
         "label": "laz_avto1"
     },
     {
-        "id": "82e451bf.201bf",
+        "id": "4715c842ff90eb80",
         "type": "inject",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "repeat": "1",
         "crontab": "",
@@ -19,14 +19,14 @@
         "y": 180,
         "wires": [
             [
-                "d210e97042da23b0"
+                "1dc7772eec3291cb"
             ]
         ]
     },
     {
-        "id": "4f177a9.eed9d84",
+        "id": "71fec7e6db64e2cf",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "GET WEIGHT",
         "func": "var payload = msg.payload;\nvar parser = flow.get('parser');\nvar currentWeight = parser(payload);\n\nflow.set('currentWeight',currentWeight);\n\nmsg.payload       = currentWeight;\n\nreturn msg;",
         "outputs": 1,
@@ -35,19 +35,19 @@
         "y": 220,
         "wires": [
             [
-                "b84be2c8.433ac",
-                "a7d6be29.2c904",
-                "678c2dcf.2aa084",
-                "14fa6ae7.878f15",
-                "1d217f5b.c93171",
-                "d8c592d5.1f89d"
+                "47c1ebc853d3abb6",
+                "6742d92a2c9257e5",
+                "c27f925d45856ce1",
+                "21298d833e29f63f",
+                "e018e3c10d330718",
+                "9f6fb62f28f6afba"
             ]
         ]
     },
     {
-        "id": "858121c6.81649",
+        "id": "476dc4eadbd1e7f5",
         "type": "http in",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "url": "/laz_avto1/getWeight/status",
         "method": "get",
@@ -56,14 +56,14 @@
         "y": 440,
         "wires": [
             [
-                "1b7ac6fa.e722a9"
+                "f7c3e0a786553c22"
             ]
         ]
     },
     {
-        "id": "944915ec.b3efd8",
+        "id": "44091aee25a2e3c3",
         "type": "http in",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "url": "/laz_avto1/getWeight",
         "method": "get",
@@ -72,14 +72,14 @@
         "y": 480,
         "wires": [
             [
-                "d3ad7e91.05b85"
+                "a17bb45bafed96d1"
             ]
         ]
     },
     {
-        "id": "d3ad7e91.05b85",
+        "id": "a17bb45bafed96d1",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "FAST WEIGHT",
         "func": "msg.payload = {\n    weight: flow.get('currentWeight'),\n    status:true,\n    stable:true,    \n    perimetr:true\n}\nreturn msg;\n",
         "outputs": 1,
@@ -88,23 +88,23 @@
         "y": 480,
         "wires": [
             [
-                "8d073aac.390808"
+                "bf8b9f12355e5661"
             ]
         ]
     },
     {
-        "id": "8d073aac.390808",
+        "id": "bf8b9f12355e5661",
         "type": "http response",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "x": 570,
         "y": 480,
         "wires": []
     },
     {
-        "id": "ab87926c.77ca9",
+        "id": "dab59e0bb560424a",
         "type": "comment",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "Device level",
         "info": "",
         "x": 90,
@@ -112,9 +112,9 @@
         "wires": []
     },
     {
-        "id": "682b7daa.83b794",
+        "id": "7a5347820008cb36",
         "type": "comment",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "INTEGRATION LEVEL (API)",
         "info": "",
         "x": 140,
@@ -122,9 +122,9 @@
         "wires": []
     },
     {
-        "id": "5ba8ca4.b56d734",
+        "id": "6e2c4d15a525df53",
         "type": "http in",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "url": "/laz_avto1/socket",
         "method": "get",
@@ -133,14 +133,14 @@
         "y": 520,
         "wires": [
             [
-                "59130dce.dc1bd4"
+                "01c6719fcbc2c079"
             ]
         ]
     },
     {
-        "id": "59130dce.dc1bd4",
+        "id": "01c6719fcbc2c079",
         "type": "template",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "socket page",
         "field": "payload",
         "fieldType": "msg",
@@ -151,23 +151,23 @@
         "y": 520,
         "wires": [
             [
-                "877ca2a8.65be8"
+                "c14724b7dbc12eb8"
             ]
         ]
     },
     {
-        "id": "877ca2a8.65be8",
+        "id": "c14724b7dbc12eb8",
         "type": "http response",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "x": 630,
         "y": 520,
         "wires": []
     },
     {
-        "id": "e994686b.e1c4b8",
+        "id": "30da40bd71096c8d",
         "type": "switch",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "Logging",
         "property": "log",
         "propertyType": "msg",
@@ -184,15 +184,15 @@
         "y": 240,
         "wires": [
             [
-                "895b438e.03527",
-                "48775db.5bd0ca4"
+                "d82d389d64b99490",
+                "4e9e97719ef61ae4"
             ]
         ]
     },
     {
-        "id": "90a2a361.55e35",
+        "id": "1865bf88131624da",
         "type": "inject",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "init",
         "repeat": "",
         "crontab": "",
@@ -204,14 +204,14 @@
         "y": 80,
         "wires": [
             [
-                "459264ef.87ef1c"
+                "b61adc38f534e520"
             ]
         ]
     },
     {
-        "id": "35672329.92d80c",
+        "id": "f8ce290b57e86cd5",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "CONFIG",
         "func": "var config;\n\nconfig = {\n    'scale':'laz_avto1',\n    'deltaWeight':250,\n    'sizeOfArrayOfWeights':5,\n    'inaccuracy':60\n}\n \nflow.set('config',config);\n\nreturn msg;",
         "outputs": 1,
@@ -220,14 +220,14 @@
         "y": 80,
         "wires": [
             [
-                "46c2488f.4dcd58"
+                "bd56729d9796c7dd"
             ]
         ]
     },
     {
-        "id": "5155bf61.710d3",
+        "id": "18c47bd6e9bace79",
         "type": "debug",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "active": false,
         "console": "false",
@@ -237,9 +237,9 @@
         "wires": []
     },
     {
-        "id": "23a6ec0e.2ef884",
+        "id": "f32789ab6a200a43",
         "type": "comment",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "INITIALIZING",
         "info": "",
         "x": 90,
@@ -247,9 +247,9 @@
         "wires": []
     },
     {
-        "id": "b84be2c8.433ac",
+        "id": "47c1ebc853d3abb6",
         "type": "ui_gauge",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "group": "41740ef1.c5f78",
         "order": 3,
@@ -271,9 +271,9 @@
         "wires": []
     },
     {
-        "id": "a7d6be29.2c904",
+        "id": "6742d92a2c9257e5",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "MAKE PAGE",
         "func": "return msg;",
         "outputs": 1,
@@ -285,9 +285,9 @@
         ]
     },
     {
-        "id": "44e3016b.d6467",
+        "id": "9fbd42a798612fdd",
         "type": "comment",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "TRAFFIC LIGHT",
         "info": "!",
         "x": 900,
@@ -295,9 +295,9 @@
         "wires": []
     },
     {
-        "id": "1b7ac6fa.e722a9",
+        "id": "f7c3e0a786553c22",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "STATUSZERO",
         "func": "var UID = msg.req.query.reader;\nvar lastUID = flow.get('lastUID');\nvar zero    = flow.get('zero');\n\nif (UID!==lastUID && !zero) \n{\n    msg.statusZero = false;    \n} else {\n    msg.statusZero = true;\n   flow.set('zero',false);\n   flow.set('lastUID',UID);\n}\n\nmsg.uid = UID; \n\nmsg.payload = zero;\nreturn msg;\n",
         "outputs": 1,
@@ -306,15 +306,15 @@
         "y": 440,
         "wires": [
             [
-                "e994686b.e1c4b8",
-                "845d5b83.c7ea18"
+                "30da40bd71096c8d",
+                "cd5eb2ad6c0037a1"
             ]
         ]
     },
     {
-        "id": "895b438e.03527",
+        "id": "d82d389d64b99490",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "Logging to table",
         "func": "var table = flow.get('table');\nvar currentWeight = flow.get('currentWeight');\nvar obj = {\n    'datetime': new Date(),\n    'uid': msg.uid,\n    'weight': currentWeight\n};\n\ntable.push(obj);\n\nflow.set('table',table);\nflow.set('lastWeight',currentWeight);\n\nmsg.payload = obj;\n\nreturn msg;",
         "outputs": 1,
@@ -323,15 +323,15 @@
         "y": 280,
         "wires": [
             [
-                "7ebfc2a9.52031c",
-                "112bd11f.d4ae9f"
+                "dfb27b417de1f0f8",
+                "ce676d718c76fb0d"
             ]
         ]
     },
     {
-        "id": "1d217f5b.c93171",
+        "id": "e018e3c10d330718",
         "type": "ui_chart",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "group": "41740ef1.c5f78",
         "order": 2,
@@ -358,9 +358,9 @@
         ]
     },
     {
-        "id": "678c2dcf.2aa084",
+        "id": "c27f925d45856ce1",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "LAST WEIGHT",
         "func": "var lastWeight    = flow.get('lastWeight');\nvar currentWeight = flow.get('currentWeight');\nvar deltaWeight   = flow.get('config').deltaWeight;\n\nvar log = 0;\nif ((lastWeight - currentWeight)>deltaWeight || (lastWeight - currentWeight) < -deltaWeight){\n    log = 1;\n} else if( lastWeight!==0 && currentWeight === 0){\n    log = 1;\n} else {\n    log = 0;\n}\n\nif (log){\n    if (currentWeight > lastWeight){\n        flow.set('in',true);\n        flow.set('out',false);\n    }else{\n        flow.set('in',false);\n        flow.set('out',true);\n    } \n}else{\n    flow.set('in',false);\n    flow.set('out',false);\n}\n\nif (currentWeight === 0){\n    flow.set('zero',true);\n} \n\nmsg.log = log;\nmsg.uid = '';\n\nreturn msg;",
         "outputs": 1,
@@ -369,14 +369,14 @@
         "y": 240,
         "wires": [
             [
-                "e994686b.e1c4b8"
+                "30da40bd71096c8d"
             ]
         ]
     },
     {
-        "id": "845d5b83.c7ea18",
+        "id": "cd5eb2ad6c0037a1",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "MAKE BODY",
         "func": "msg.payload = {\n    weight:flow.get('currentWeight'),\n    status:msg.statusZero,\n    stable:flow.get('stability'),    \n    perimetr:flow.get('perimetrStatus')\n}\nreturn msg;\n",
         "outputs": 1,
@@ -385,23 +385,23 @@
         "y": 440,
         "wires": [
             [
-                "92e0b8f4.2de2e8"
+                "879516cc66f41f9e"
             ]
         ]
     },
     {
-        "id": "92e0b8f4.2de2e8",
+        "id": "879516cc66f41f9e",
         "type": "http response",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "x": 830,
         "y": 440,
         "wires": []
     },
     {
-        "id": "7ebfc2a9.52031c",
+        "id": "dfb27b417de1f0f8",
         "type": "debug",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "active": false,
         "console": "false",
@@ -411,9 +411,9 @@
         "wires": []
     },
     {
-        "id": "48775db.5bd0ca4",
+        "id": "4e9e97719ef61ae4",
         "type": "debug",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "active": false,
         "console": "false",
@@ -423,9 +423,9 @@
         "wires": []
     },
     {
-        "id": "14fa6ae7.878f15",
+        "id": "21298d833e29f63f",
         "type": "debug",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "active": false,
         "console": "false",
@@ -435,9 +435,9 @@
         "wires": []
     },
     {
-        "id": "14863807.b89c08",
+        "id": "f0b8776fc2cd0468",
         "type": "debug",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "active": true,
         "console": "false",
@@ -447,9 +447,9 @@
         "wires": []
     },
     {
-        "id": "d8c592d5.1f89d",
+        "id": "9f6fb62f28f6afba",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "STABLE",
         "func": "var arrayOfWeights       = flow.get('arrayOfWeights');\nvar sizeOfArrayOfWeights = flow.get('config').sizeOfArrayOfWeights;\nvar inaccuracy           = flow.get('config').inaccuracy;\nvar size = arrayOfWeights.length - 1 - sizeOfArrayOfWeights;\n\narrayOfWeights.push(msg.payload);\n\nif (size > 0){\n    \n    flow.set('stability',true);\n    \n    for (var i = 0; i <= sizeOfArrayOfWeights; i++ ){\n        var ai = (arrayOfWeights.length - 1 - i);\n        var bi = (ai - 1);\n        var a = arrayOfWeights[ai];\n        var b = arrayOfWeights[bi];\n        if ((a-b)>inaccuracy || (a-b)<-inaccuracy){\n            flow.set('stability',false);\n            break;\n        }\n    }\n    \n}else {\n    flow.set('stability',false);\n}\n\nflow.set('arrayOfWeights',arrayOfWeights);\n\nmsg.payload = flow.get('stability');\n\nreturn msg;",
         "outputs": 1,
@@ -458,14 +458,14 @@
         "y": 280,
         "wires": [
             [
-                "756abfa5.33fac"
+                "9f9f248ddccd6065"
             ]
         ]
     },
     {
-        "id": "756abfa5.33fac",
+        "id": "9f9f248ddccd6065",
         "type": "ui_text",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "group": "41740ef1.c5f78",
         "order": 4,
         "width": 0,
@@ -479,11 +479,11 @@
         "wires": []
     },
     {
-        "id": "46c2488f.4dcd58",
+        "id": "bd56729d9796c7dd",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "Модель весов",
-        "func": "flow.set('inputString',\"cmd\"); //тут пишем строку, которую шлем в ком порт, при необходимости\nflow.set('parser',function(v){\n        //тут парсим строку, которая приходит с весовго модуля\n       v = 0;\n       return Number(v);\n        }\n  );\nreturn msg;",
+        "func": "flow.set('inputString', \"cmd\"); //тут пишем строку, которую шлем в ком порт, при необходимости\nflow.set('parser',function(v){\n        //тут парсим строку, которая приходит с весовго модуля\n       v = 0;\n       return Number(v);\n        }\n  );\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -493,14 +493,14 @@
         "y": 80,
         "wires": [
             [
-                "5155bf61.710d3"
+                "18c47bd6e9bace79"
             ]
         ]
     },
     {
-        "id": "459264ef.87ef1c",
+        "id": "b61adc38f534e520",
         "type": "function",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "INIT",
         "func": "flow.set('currentWeight',0);\nflow.set('perimetrStatus',0);\nflow.set('stability',true);\nflow.set('zero',false);\nflow.set('lastUID','');\nflow.set('lastWeight',0);\nflow.set('arrayOfWeights',[]);\nflow.set('table',[]);\nflow.set('log',0);\nflow.set('in',false);\nflow.set('out',true);\n  \n\nreturn msg;",
         "outputs": 1,
@@ -509,14 +509,14 @@
         "y": 80,
         "wires": [
             [
-                "35672329.92d80c"
+                "f8ce290b57e86cd5"
             ]
         ]
     },
     {
-        "id": "112bd11f.d4ae9f",
+        "id": "ce676d718c76fb0d",
         "type": "ui_template",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "group": "5f2aaaa8.ef51a4",
         "name": "",
         "order": 1,
@@ -532,9 +532,9 @@
         ]
     },
     {
-        "id": "20cb96d2.641b8a",
+        "id": "f87631e8882318a2",
         "type": "inject",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "repeat": "",
         "crontab": "",
@@ -546,14 +546,14 @@
         "y": 640,
         "wires": [
             [
-                "e8e2b1db.f5828"
+                "078c0e23db6a7942"
             ]
         ]
     },
     {
-        "id": "e8e2b1db.f5828",
+        "id": "078c0e23db6a7942",
         "type": "debug",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "active": true,
         "console": "false",
@@ -563,12 +563,12 @@
         "wires": []
     },
     {
-        "id": "6a2a82e3088b9845",
+        "id": "78a559d43ee5f07d",
         "type": "tcp in",
-        "z": "53dc1ab1.133274",
+        "z": "9299072795857ce3",
         "name": "",
         "server": "client",
-        "host": "192.168.0.111",
+        "host": "192.168.0.112",
         "port": "4003",
         "datamode": "stream",
         "datatype": "utf8",
@@ -579,16 +579,16 @@
         "y": 260,
         "wires": [
             [
-                "14863807.b89c08",
-                "4f177a9.eed9d84"
+                "f0b8776fc2cd0468",
+                "71fec7e6db64e2cf"
             ]
         ]
     },
     {
-        "id": "d210e97042da23b0",
+        "id": "1dc7772eec3291cb",
         "type": "tcp out",
-        "z": "53dc1ab1.133274",
-        "host": "192.168.0.111",
+        "z": "9299072795857ce3",
+        "host": "192.168.0.112",
         "port": "4002",
         "beserver": "client",
         "base64": false,
