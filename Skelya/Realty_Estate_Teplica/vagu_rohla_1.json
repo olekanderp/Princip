@@ -20,7 +20,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "1.5",
+        "repeat": "0.5",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -58,7 +58,7 @@
         "type": "debug",
         "z": "fc0637b703c449c7",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -82,7 +82,8 @@
         "y": 220,
         "wires": [
             [
-                "878974a1f31d9a9b"
+                "878974a1f31d9a9b",
+                "6c048fdf7120284a"
             ]
         ]
     },
@@ -101,7 +102,8 @@
         "y": 220,
         "wires": [
             [
-                "2de66b09e268be22"
+                "2de66b09e268be22",
+                "73c47d461312566a"
             ]
         ]
     },
@@ -262,7 +264,7 @@
         "type": "debug",
         "z": "fc0637b703c449c7",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -393,7 +395,7 @@
         "type": "function",
         "z": "fc0637b703c449c7",
         "name": "",
-        "func": "var date = msg.req.query.date;\nmsg.date = new Date(date);\nreturn msg;",
+        "func": "var date = msg.req.query.date + `.000Z`;\nmsg.date = new Date(date);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -403,7 +405,8 @@
         "y": 740,
         "wires": [
             [
-                "7a2f4b3f17f176dc"
+                "7a2f4b3f17f176dc",
+                "eb4dff7b325383ab"
             ]
         ]
     },
@@ -420,7 +423,8 @@
         "y": 740,
         "wires": [
             [
-                "89bc066565200fcd"
+                "89bc066565200fcd",
+                "1c749d8e9790edc0"
             ]
         ]
     },
@@ -448,7 +452,7 @@
         "type": "function",
         "z": "fc0637b703c449c7",
         "name": "",
-        "func": "var array = msg.payload;\nvar allJson = []\nvar ArrayJsonString = array.split(\"\\n\");\nArrayJsonString.splice(ArrayJsonString.length-1, 1); // начиная с позиции 1, удалить 1 элемент\n\nfor (var i in ArrayJsonString) {\n  var obj = JSON.parse(ArrayJsonString[i]);\n  allJson.push(obj);\n}\n\n//msg.payload = allJson;\n\nvar sortArray = [];\nfor (var j = 0; j < allJson.length; j++) {\n    allJson[j].date = new Date(allJson[j].date);\n    if(allJson[j].date >= msg.date){\n       sortArray.push(allJson[j]); \n    }\n}\n\n//allJson[5].date = new Date(allJson[5].date) - flow.get(\"correct_date2\");\n//msg.payload = allJson[5].date;\nmsg.payload = sortArray;\nreturn msg;",
+        "func": "var array = msg.payload;\nvar allJson = []\nvar ArrayJsonString = array.split(\"\\n\");\nArrayJsonString.splice(ArrayJsonString.length-1, 1); // начиная с позиции 1, удалить 1 элемент\n\nfor (var i in ArrayJsonString) {\n  var obj = JSON.parse(ArrayJsonString[i]);\n  allJson.push(obj);\n}\n\n//msg.payload = allJson;\n\nvar sortArray = [];\nfor (var j = 0; j < allJson.length; j++) {\n    allJson[j].date = new Date(allJson[j].date);\n    if(allJson[j].date >= msg.date){\n       sortArray.push(allJson[j]); \n    }\n}\n\nfor (var k = 0; k < sortArray.length; k++) {\n    //sortArray[k].date = sortArray[k].date.toString().substring(0,19);\n    //sortArray[k].date = sortArray[k].date.toISOString().replace('Z', '');\n    sortArray[k].date = sortArray[k].date.toISOString().replace('Z', ' ').split(\".\")[0];\n}\n\n\nmsg.payload = sortArray;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -520,5 +524,186 @@
                 "93480d898ca0c147"
             ]
         ]
+    },
+    {
+        "id": "eb4dff7b325383ab",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "1c749d8e9790edc0",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 260,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "5d53de011b0a388a",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 920,
+        "wires": [
+            [
+                "ba5591c57f983f33"
+            ]
+        ]
+    },
+    {
+        "id": "ba5591c57f983f33",
+        "type": "exec",
+        "z": "fc0637b703c449c7",
+        "command": "sudo killall python read-*",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 480,
+        "y": 920,
+        "wires": [
+            [
+                "7a0b5f5150c13b24"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7a0b5f5150c13b24",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "25a7088965d37587",
+        "type": "comment",
+        "z": "fc0637b703c449c7",
+        "name": "Kill proces read barcode",
+        "info": " sudo killall python read-*",
+        "x": 200,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "73c47d461312566a",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "func": "var send_file = {\n    \"weight\": flow.get('current_weight'),\n    \"date\": flow.get('correct_date'),\n  }\n  \nmsg.payload = send_file;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 220,
+        "wires": [
+            [
+                "6e238b722264d1ac"
+            ]
+        ]
+    },
+    {
+        "id": "6e238b722264d1ac",
+        "type": "file",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "filename": "/home/pi/all_Data/weight_real.json",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 940,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6c048fdf7120284a",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "func": "var weight = msg.payload.toString();\n\nmsg.payload = weight;\n\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "4a661c3e15f92e90"
+            ]
+        ]
+    },
+    {
+        "id": "4a661c3e15f92e90",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 100,
+        "wires": []
     }
 ]
