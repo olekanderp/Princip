@@ -83,7 +83,8 @@
         "wires": [
             [
                 "878974a1f31d9a9b",
-                "6c048fdf7120284a"
+                "6c048fdf7120284a",
+                "ac9b1c0e.f793b"
             ]
         ]
     },
@@ -92,7 +93,7 @@
         "type": "function",
         "z": "fc0637b703c449c7",
         "name": "",
-        "func": "var weight = msg.payload.toString();\nweight = weight.replace(\"kg\", \"\")\nmsg.payload = Number(weight);\n\n\nflow.set('current_weight', msg.payload)\n\n\nreturn msg;",
+        "func": "var weight = msg.payload.toString();\nweight = weight.replace(\"kg\", \"\")\nmsg.payload = Number(weight);\nmsg.msg_connect = \"yes\"\n\n\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -180,8 +181,8 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 420,
-        "y": 540,
+        "x": 400,
+        "y": 800,
         "wires": [
             [
                 "ae2ae7fdb67fe4ea"
@@ -199,8 +200,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 180,
-        "y": 540,
+        "x": 160,
+        "y": 800,
         "wires": [
             [
                 "2472a4245e50fc3d"
@@ -227,8 +228,8 @@
         "onceDelay": "0.4",
         "topic": "",
         "payloadType": "date",
-        "x": 140,
-        "y": 420,
+        "x": 120,
+        "y": 680,
         "wires": [
             [
                 "a14fe03daca55d77"
@@ -247,8 +248,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 410,
-        "y": 420,
+        "x": 390,
+        "y": 680,
         "wires": [
             [
                 "2abed1e12bd93e1e",
@@ -271,8 +272,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 810,
-        "y": 340,
+        "x": 790,
+        "y": 600,
         "wires": []
     },
     {
@@ -281,8 +282,8 @@
         "z": "fc0637b703c449c7",
         "name": "info",
         "info": " sudo killall python read-*",
-        "x": 150,
-        "y": 360,
+        "x": 130,
+        "y": 620,
         "wires": []
     },
     {
@@ -296,8 +297,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 420,
+        "x": 700,
+        "y": 680,
         "wires": [
             [
                 "93480d898ca0c147",
@@ -321,8 +322,8 @@
         "randomUnits": "seconds",
         "drop": false,
         "allowrate": false,
-        "x": 410,
-        "y": 360,
+        "x": 390,
+        "y": 620,
         "wires": [
             [
                 "a14fe03daca55d77"
@@ -341,8 +342,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 710,
-        "y": 540,
+        "x": 690,
+        "y": 800,
         "wires": []
     },
     {
@@ -401,8 +402,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
-        "y": 740,
+        "x": 260,
+        "y": 1000,
         "wires": [
             [
                 "7a2f4b3f17f176dc",
@@ -419,8 +420,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 120,
-        "y": 740,
+        "x": 100,
+        "y": 1000,
         "wires": [
             [
                 "89bc066565200fcd",
@@ -439,8 +440,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 510,
-        "y": 740,
+        "x": 490,
+        "y": 1000,
         "wires": [
             [
                 "4776a018.75ad8"
@@ -458,8 +459,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 750,
-        "y": 740,
+        "x": 730,
+        "y": 1000,
         "wires": [
             [
                 "13d7811b.cdb0af",
@@ -474,8 +475,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 940,
-        "y": 780,
+        "x": 920,
+        "y": 1040,
         "wires": []
     },
     {
@@ -491,8 +492,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 940,
-        "y": 740,
+        "x": 920,
+        "y": 1000,
         "wires": []
     },
     {
@@ -516,8 +517,8 @@
         "topic": "",
         "payload": "12312312323\\n",
         "payloadType": "str",
-        "x": 420,
-        "y": 300,
+        "x": 400,
+        "y": 560,
         "wires": [
             [
                 "2abed1e12bd93e1e",
@@ -538,8 +539,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 440,
-        "y": 660,
+        "x": 420,
+        "y": 920,
         "wires": []
     },
     {
@@ -555,8 +556,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 260,
-        "y": 660,
+        "x": 240,
+        "y": 920,
         "wires": []
     },
     {
@@ -580,8 +581,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
-        "y": 920,
+        "x": 160,
+        "y": 1180,
         "wires": [
             [
                 "ba5591c57f983f33"
@@ -600,8 +601,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 480,
-        "y": 920,
+        "x": 460,
+        "y": 1180,
         "wires": [
             [
                 "7a0b5f5150c13b24"
@@ -622,8 +623,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 740,
-        "y": 900,
+        "x": 720,
+        "y": 1160,
         "wires": []
     },
     {
@@ -632,8 +633,8 @@
         "z": "fc0637b703c449c7",
         "name": "Kill proces read barcode",
         "info": " sudo killall python read-*",
-        "x": 200,
-        "y": 860,
+        "x": 180,
+        "y": 1120,
         "wires": []
     },
     {
@@ -641,7 +642,7 @@
         "type": "function",
         "z": "fc0637b703c449c7",
         "name": "",
-        "func": "var send_file = {\n    \"weight\": flow.get('current_weight'),\n    \"date\": flow.get('correct_date'),\n  }\n  \nmsg.payload = send_file;\n\nreturn msg;",
+        "func": "var weight = msg.payload;\nflow.set('current_weight', weight)\nvar send_file = {\n    \"weight\": weight,\n    \"date\": flow.get('correct_date'),\n    \"connect\": msg.msg_connect\n  }\n  \nmsg.payload = send_file;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -651,7 +652,8 @@
         "y": 220,
         "wires": [
             [
-                "6e238b722264d1ac"
+                "6e238b722264d1ac",
+                "b2ba8fccf5fa42da"
             ]
         ]
     },
@@ -704,6 +706,140 @@
         "statusType": "auto",
         "x": 610,
         "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1d6ab27c.42c20e",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "time_rasp",
+        "func": "var time = new Date();\nflow.set(\"time_rasp\", time);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "37cf983f.842438"
+            ]
+        ]
+    },
+    {
+        "id": "35f8c7ec.050c18",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 360,
+        "wires": [
+            [
+                "1d6ab27c.42c20e"
+            ]
+        ]
+    },
+    {
+        "id": "37cf983f.842438",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "sub time",
+        "func": "var weigth_time = flow.get(\"weigth_time\");\nvar time_rasp = flow.get(\"time_rasp\");\n\nvar sub = time_rasp - weigth_time;\n//msg.payload = {\n//    sub: time_rasp - weigth_time,\n//    weigth_time: weigth_time,\n//    time_rasp: time_rasp\n//}\n\n    if(sub > 6000){\n    msg.payload = 0;\n    msg.msg_connect = \"not\"\n    return msg;\n    }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 360,
+        "wires": [
+            [
+                "57db66ac.809568",
+                "73c47d461312566a"
+            ]
+        ]
+    },
+    {
+        "id": "57db66ac.809568",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 650,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ac9b1c0e.f793b",
+        "type": "function",
+        "z": "fc0637b703c449c7",
+        "name": "weigth_time",
+        "func": "flow.set('weigth_time',new Date());\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "76ca7b64a87e97ae",
+        "type": "inject",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "ac9b1c0e.f793b"
+            ]
+        ]
+    },
+    {
+        "id": "b2ba8fccf5fa42da",
+        "type": "debug",
+        "z": "fc0637b703c449c7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 160,
         "wires": []
     }
 ]
