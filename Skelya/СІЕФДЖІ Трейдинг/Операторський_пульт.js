@@ -24,22 +24,6 @@
         "env": []
     },
     {
-        "id": "d0625b9597a064fa",
-        "type": "tab",
-        "label": "Поток 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "e9886391ccd164d9",
-        "type": "tab",
-        "label": "Поток 2",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "72983c2150b8b211",
         "type": "ui_base",
         "theme": {
@@ -648,7 +632,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 850,
+        "x": 870,
         "y": 640,
         "wires": []
     },
@@ -746,7 +730,7 @@
         "height": 0,
         "name": "",
         "label": "Склад:",
-        "format": "{{msg.payload}}",
+        "format": "{{msg.info}}",
         "layout": "row-spread",
         "className": "",
         "x": 780,
@@ -853,7 +837,7 @@
         "type": "function",
         "z": "ba6aff56e0d973f1",
         "name": "function 5",
-        "func": "msg.payload = msg.payload.Warehouse\nflow.set(\"main_skald\", msg.payload);\nreturn msg;",
+        "func": "//msg.payload = msg.payload.Warehouse\nvar inDate = msg.payload\nmsg.info = inDate.Warehouse\nflow.set(\"main_skald\", msg.info);\nmsg.payload = inDate\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -877,7 +861,7 @@
         "links": [
             "065dc67c51c9d586"
         ],
-        "x": 945,
+        "x": 1015,
         "y": 280,
         "wires": []
     },
@@ -886,7 +870,7 @@
         "type": "function",
         "z": "ba6aff56e0d973f1",
         "name": "Запит 1",
-        "func": "msg.payload = {\n    \"metadataName\": \"seedstaskordersnew\",\n    \"count\": 1,\n    \"data\": [{\n        \"DocumentNumber\": \"000000000064\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"10000-100622-0911\",\n        \"Note\": \"Тернопіль, Схема 2\",\n        \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n        \"NomenclatureCode\": \"Ц0000056426\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"000000000020\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"20000-200222-0222\",\n        \"Note\": \"Тернопіль, Схема 3\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"ТІФУН НАСІННЄВИЙ ЗАВОД, ТОВ (Мангуш)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    }\n    ]\n}\n\n\nflow.set(\"main_orders\", msg.payload)\nreturn msg;",
+        "func": "//Куінтус, нас., 1 р, 2021\nmsg.payload = {\n    \"metadataName\": \"seedstaskordersnew\",\n    \"count\": 1,\n    \"data\": [{\n        \"DocumentNumber\": \"000000000064\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"10000-100622-0911\",\n        \"Note\": \"Тернопіль, Схема 2\",\n        \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n        \"NomenclatureCode\": \"Ц0000056426\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., 1 р, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"000000000020\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"20000-200222-0222\",\n        \"Note\": \"Тернопіль, Схема 3\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Куінтус, нас., 2 р, 2021\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"ТІФУН НАСІННЄВИЙ ЗАВОД, ТОВ (Мангуш)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"0000000000350\",\n        \"DocumentDate\": \"2022-04-06T00:00:00\",\n        \"PartyName\": \"80000-200888-0888\",\n        \"Note\": \"Суми, Схема 5\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Кактус, нас., 3 р, 2022\",\n        \"Disinfectant1\": \"Вайсберг\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Захист 10\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Кович У\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"Солін НАСІННЄВИЙ ЗАВОД, ТОВ (Солін)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    }\n    ]\n}\n\n\nflow.set(\"main_orders\", msg.payload)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1211,14 +1195,14 @@
         "type": "function",
         "z": "23e9bddd877d7d66",
         "name": "Час",
-        "func": "var d = new Date();\n\nvar utc = d.getTime() + (d.getTimezoneOffset() * 60000);\n\nvar offset = 2; // This is the offset for UTC+3, in your case (UTC+1) should be 1\n\nconst newDate = new Date(utc + (3600000*offset));\n//let text = d.toLocaleString();\n//msg.payload = newDate;\nvar dateLocal = newDate.toLocaleString(\"ru-RU\",{hour12:false});\nmsg.payload = dateLocal.replace(\",\",\"\");\n\n\nreturn msg;",
+        "func": "var d = new Date();\n\nvar utc = d.getTime() + (d.getTimezoneOffset() * 60000);\n\nvar offset = 2; // This is the offset for UTC+3, in your case (UTC+1) should be 1\n\nconst newDate = new Date(utc + (3600000*offset));\n//let text = d.toLocaleString();\n//msg.payload = newDate;\nvar dateLocal = newDate.toLocaleString(\"ru-RU\",{hour12:false});\nmsg.payload = dateLocal.replace(\",\",\"\");\n\nglobal.set(\"dateHlobal\", msg.payload.split(\" \")[0])\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 40,
+        "x": 310,
+        "y": 20,
         "wires": [
             [
                 "4d5ce05d.de0b2"
@@ -1236,8 +1220,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 40,
+        "x": 130,
+        "y": 20,
         "wires": [
             [
                 "56bcaa69.6208a4"
@@ -1257,8 +1241,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
-        "x": 530,
-        "y": 40,
+        "x": 490,
+        "y": 20,
         "wires": []
     },
     {
@@ -1282,11 +1266,12 @@
         "topic": "",
         "topicType": "str",
         "x": 140,
-        "y": 360,
+        "y": 420,
         "wires": [
             [
                 "11fd056b560a5a92",
-                "4adf41de.9a308"
+                "4adf41de.9a308",
+                "648aaf887fbbe407"
             ]
         ]
     },
@@ -1310,12 +1295,13 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 130,
-        "y": 520,
+        "x": 110,
+        "y": 640,
         "wires": [
             [
                 "0242ad9ea78a012f",
-                "64654081.618aa"
+                "64654081.618aa",
+                "648aaf887fbbe407"
             ]
         ]
     },
@@ -1339,8 +1325,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 130,
-        "y": 820,
+        "x": 170,
+        "y": 1020,
         "wires": [
             [
                 "73e10b877ca7f299"
@@ -1367,12 +1353,11 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 160,
-        "y": 700,
+        "x": 120,
+        "y": 820,
         "wires": [
             [
-                "ab3bc33ec9b2842b",
-                "037b85df5889c280"
+                "ab3bc33ec9b2842b"
             ]
         ]
     },
@@ -1387,8 +1372,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 180,
+        "x": 290,
+        "y": 240,
         "wires": [
             [
                 "abc3589b.a47608",
@@ -1407,8 +1392,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 180,
+        "x": 130,
+        "y": 240,
         "wires": [
             [
                 "52f402ec.1911fc"
@@ -1428,8 +1413,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
-        "x": 430,
-        "y": 180,
+        "x": 410,
+        "y": 240,
         "wires": []
     },
     {
@@ -1453,8 +1438,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 100,
-        "y": 320,
+        "x": 120,
+        "y": 380,
         "wires": [
             [
                 "4adf41de.9a308"
@@ -1465,15 +1450,15 @@
         "id": "4adf41de.9a308",
         "type": "function",
         "z": "23e9bddd877d7d66",
-        "name": "",
+        "name": "main_orders",
         "func": "msg.payload = flow.get(\"main_orders\")\n//WHouseName\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
-        "y": 320,
+        "x": 310,
+        "y": 380,
         "wires": [
             [
                 "23fe5ced.a2c8f4"
@@ -1491,8 +1476,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 320,
+        "x": 450,
+        "y": 380,
         "wires": [
             [
                 "7da8ac29.956254"
@@ -1524,43 +1509,15 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 570,
-        "y": 320,
+        "x": 630,
+        "y": 380,
         "wires": [
             [
                 "0ea26731383852c4",
                 "a51eb3643ab2fa94",
-                "0fff89af25e3e0a5",
-                "0f11d2dcff2b0a19"
-            ]
-        ]
-    },
-    {
-        "id": "9a92deaa.cce04",
-        "type": "inject",
-        "z": "23e9bddd877d7d66",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 100,
-        "y": 480,
-        "wires": [
-            [
-                "64654081.618aa"
+                "6990552f.65d86c",
+                "cbabe26e5d7b2a8e",
+                "b1d53a57abf4f077"
             ]
         ]
     },
@@ -1569,14 +1526,14 @@
         "type": "function",
         "z": "23e9bddd877d7d66",
         "name": "",
-        "func": "msg.payload = flow.get(\"main_orders\")\n\nreturn msg;",
+        "func": "msg.payload = flow.get(\"sklad\")\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 480,
+        "x": 240,
+        "y": 600,
         "wires": [
             [
                 "6990552f.65d86c"
@@ -1588,14 +1545,14 @@
         "type": "function",
         "z": "23e9bddd877d7d66",
         "name": "INFO",
-        "func": "// {\n// \"metadataName\": \"seedstaskordersnew\",\n// \"count\": 1,\n// \"data\": [{\n//     \"DocumentNumber\": \"000000000064\",\n//     \"DocumentDate\": \"2022-02-01T00:00:00\",\n//     \"PartyName\": \"10000-100622-0911\",\n//     \"Note\": \"Тернопіль, Схема 2\",\n//     \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n//     \"NomenclatureCode\": \"Ц0000056426\",\n//     \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n//     \"Disinfectant1\": \"Вайбранс Інтеграл\",\n//     \"DisinfectantCode1\": \"Ц0000100594\",\n//     \"Disinfectant2\": \"Цензор XL\",\n//     \"DisinfectantCode2\": \"Ц0000102126\",\n//     \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n//     \"DisinfectantCode3\": \"Ц0000100669\",\n//     \"Disinfectant4\": \"Вітазим К\",\n//     \"DisinfectantCode4\": \"Ц0000085308\",\n//     \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n//     \"WHouseCode\": \"ЦК0007135\",\n//     \"BarcodeCode\": \"430\",\n//     \"MassOfThousands\": \"0.080\"\n// }\n// ]\n// }\n\nvar metadataName = msg.payload\nvar newOption = []\n\nfor (let house of metadataName.data) {\n    let option = {}\n    house.optionVirtual = `${house.DocumentNumber} ${house.NomenclatureName}`\n    option[`${house.DocumentNumber} ${house.NomenclatureName}`] = house\n    newOption.push(option)\n}\n\nmsg.payload = newOption\nmsg.options = newOption\nreturn msg;",
+        "func": "// {\n// \"metadataName\": \"seedstaskordersnew\",\n// \"count\": 1,\n// \"data\": [{\n//     \"DocumentNumber\": \"000000000064\",\n//     \"DocumentDate\": \"2022-02-01T00:00:00\",\n//     \"PartyName\": \"10000-100622-0911\",\n//     \"Note\": \"Тернопіль, Схема 2\",\n//     \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n//     \"NomenclatureCode\": \"Ц0000056426\",\n//     \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n//     \"Disinfectant1\": \"Вайбранс Інтеграл\",\n//     \"DisinfectantCode1\": \"Ц0000100594\",\n//     \"Disinfectant2\": \"Цензор XL\",\n//     \"DisinfectantCode2\": \"Ц0000102126\",\n//     \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n//     \"DisinfectantCode3\": \"Ц0000100669\",\n//     \"Disinfectant4\": \"Вітазим К\",\n//     \"DisinfectantCode4\": \"Ц0000085308\",\n//     \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n//     \"WHouseCode\": \"ЦК0007135\",\n//     \"BarcodeCode\": \"430\",\n//     \"MassOfThousands\": \"0.080\"\n// }\n// ]\n// }\n\nvar metadataName = [msg.payload]\nvar newOption = []\n\nfor (let house of metadataName) {\n    let option = {}\n    house.optionVirtual = `${house.DocumentNumber} ${house.NomenclatureName}`\n    option[`${house.DocumentNumber} ${house.NomenclatureName}`] = house\n    newOption.push(option)\n}\n\nmsg.payload = newOption\nmsg.options = newOption\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 480,
+        "x": 410,
+        "y": 600,
         "wires": [
             [
                 "edf589c0.133f88"
@@ -1627,8 +1584,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 590,
-        "y": 480,
+        "x": 570,
+        "y": 600,
         "wires": [
             [
                 "17237860ce308556",
@@ -1643,7 +1600,7 @@
         "z": "23e9bddd877d7d66",
         "name": "ui control",
         "x": 420,
-        "y": 900,
+        "y": 1060,
         "wires": [
             [
                 "b11bde3e3659d805",
@@ -1656,11 +1613,11 @@
         "type": "debug",
         "z": "23e9bddd877d7d66",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "false",
         "x": 590,
-        "y": 900,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1675,39 +1632,10 @@
         "finalize": "",
         "libs": [],
         "x": 180,
-        "y": 900,
+        "y": 1060,
         "wires": [
             [
                 "65c2d109b2618ef0"
-            ]
-        ]
-    },
-    {
-        "id": "d364854d3ca67af3",
-        "type": "inject",
-        "z": "23e9bddd877d7d66",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 100,
-        "wires": [
-            [
-                "577e9afa7372a65f"
             ]
         ]
     },
@@ -1733,7 +1661,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 160,
-        "y": 960,
+        "y": 1120,
         "wires": [
             [
                 "d62f2692d31b880f"
@@ -1752,7 +1680,7 @@
         "finalize": "",
         "libs": [],
         "x": 360,
-        "y": 960,
+        "y": 1120,
         "wires": [
             [
                 "65c2d109b2618ef0"
@@ -1772,7 +1700,7 @@
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
-        "x": 520,
+        "x": 580,
         "y": 100,
         "wires": []
     },
@@ -1784,12 +1712,12 @@
         "links": [
             "d449fd22fb79b4cb"
         ],
-        "x": 115,
+        "x": 55,
         "y": 140,
         "wires": [
             [
-                "577e9afa7372a65f",
-                "28ab2c81e385c5b1"
+                "28ab2c81e385c5b1",
+                "a6f76ce8c5a657e4"
             ]
         ]
     },
@@ -1806,23 +1734,23 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 740,
-        "y": 280,
+        "x": 980,
+        "y": 320,
         "wires": []
     },
     {
         "id": "0ea26731383852c4",
         "type": "function",
         "z": "23e9bddd877d7d66",
-        "name": "function 7",
+        "name": "text",
         "func": "msg.payload = msg.payload.WHouseName\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 280,
+        "x": 570,
+        "y": 320,
         "wires": [
             [
                 "438733d35e85be3c"
@@ -1841,7 +1769,7 @@
         "finalize": "",
         "libs": [],
         "x": 360,
-        "y": 360,
+        "y": 420,
         "wires": [
             [
                 "65c2d109b2618ef0"
@@ -1860,7 +1788,7 @@
         "finalize": "",
         "libs": [],
         "x": 660,
-        "y": 360,
+        "y": 420,
         "wires": [
             [
                 "65c2d109b2618ef0"
@@ -1871,15 +1799,15 @@
         "id": "17237860ce308556",
         "type": "function",
         "z": "23e9bddd877d7d66",
-        "name": "function 8",
+        "name": "text",
         "func": "msg.payload = msg.payload.optionVirtual\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 440,
+        "x": 570,
+        "y": 540,
         "wires": [
             [
                 "c4e896785bab5636"
@@ -1899,8 +1827,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 740,
-        "y": 440,
+        "x": 1000,
+        "y": 540,
         "wires": []
     },
     {
@@ -1914,8 +1842,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 520,
+        "x": 320,
+        "y": 640,
         "wires": [
             [
                 "65c2d109b2618ef0"
@@ -1934,7 +1862,7 @@
         "finalize": "",
         "libs": [],
         "x": 640,
-        "y": 520,
+        "y": 660,
         "wires": [
             [
                 "65c2d109b2618ef0"
@@ -1946,14 +1874,14 @@
         "type": "function",
         "z": "23e9bddd877d7d66",
         "name": "set ",
-        "func": "flow.set(\"sklad\", msg.payload);\nreturn msg;",
+        "func": "\n\n\nflow.set(\"sklad\", msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
-        "y": 320,
+        "x": 1130,
+        "y": 400,
         "wires": [
             []
         ]
@@ -1969,8 +1897,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
-        "y": 480,
+        "x": 1090,
+        "y": 600,
         "wires": [
             []
         ]
@@ -1986,7 +1914,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
+        "x": 310,
         "y": 140,
         "wires": [
             []
@@ -2004,7 +1932,7 @@
         "finalize": "",
         "libs": [],
         "x": 350,
-        "y": 1000,
+        "y": 1160,
         "wires": [
             []
         ]
@@ -2031,7 +1959,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 160,
-        "y": 1000,
+        "y": 1160,
         "wires": [
             [
                 "7ced7bc0a4722cf0"
@@ -2060,7 +1988,7 @@
         "payload": "main_skald",
         "payloadType": "flow",
         "x": 160,
-        "y": 1080,
+        "y": 1240,
         "wires": [
             [
                 "0df57ecb8fdd88a8"
@@ -2071,7 +1999,7 @@
         "id": "c794b1b16d6420eb",
         "type": "inject",
         "z": "23e9bddd877d7d66",
-        "name": "",
+        "name": "timer",
         "props": [
             {
                 "p": "payload"
@@ -2088,8 +2016,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 620,
+        "x": 110,
+        "y": 740,
         "wires": [
             [
                 "e13622f5f63260e0"
@@ -2100,7 +2028,7 @@
         "id": "e13622f5f63260e0",
         "type": "function",
         "z": "23e9bddd877d7d66",
-        "name": "function 9",
+        "name": "enb save",
         "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\n\n\nif (main_skald && sklad && order && (weight > 50)){\n    msg.enabled = true;\n}else{\n    msg.enabled = false;\n}\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
@@ -2108,90 +2036,12 @@
         "finalize": "",
         "libs": [],
         "x": 120,
-        "y": 660,
+        "y": 780,
         "wires": [
             [
                 "6b4d80df.cdace"
             ]
         ]
-    },
-    {
-        "id": "ea3716de987093c2",
-        "type": "inject",
-        "z": "23e9bddd877d7d66",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "false",
-        "payloadType": "bool",
-        "x": 790,
-        "y": 140,
-        "wires": [
-            [
-                "28ab2c81e385c5b1",
-                "0fff89af25e3e0a5",
-                "72089e928ac04c29"
-            ]
-        ]
-    },
-    {
-        "id": "e5bc0c6a06975251",
-        "type": "inject",
-        "z": "23e9bddd877d7d66",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "Потрібно обрати",
-        "payloadType": "str",
-        "x": 790,
-        "y": 80,
-        "wires": [
-            [
-                "438733d35e85be3c",
-                "c4e896785bab5636",
-                "577e9afa7372a65f"
-            ]
-        ]
-    },
-    {
-        "id": "0f11d2dcff2b0a19",
-        "type": "debug",
-        "z": "23e9bddd877d7d66",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 860,
-        "y": 340,
-        "wires": []
     },
     {
         "id": "0df57ecb8fdd88a8",
@@ -2202,7 +2052,7 @@
         "console": "false",
         "complete": "false",
         "x": 370,
-        "y": 1080,
+        "y": 1240,
         "wires": []
     },
     {
@@ -2227,7 +2077,7 @@
         "payload": "sklad",
         "payloadType": "flow",
         "x": 140,
-        "y": 1120,
+        "y": 1280,
         "wires": [
             [
                 "0df57ecb8fdd88a8"
@@ -2256,7 +2106,7 @@
         "payload": "order",
         "payloadType": "flow",
         "x": 140,
-        "y": 1160,
+        "y": 1320,
         "wires": [
             [
                 "0df57ecb8fdd88a8"
@@ -2274,8 +2124,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 220,
+        "x": 410,
+        "y": 280,
         "wires": [
             []
         ]
@@ -2284,19 +2134,19 @@
         "id": "ab3bc33ec9b2842b",
         "type": "function",
         "z": "23e9bddd877d7d66",
-        "name": "function 10",
-        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\n\n\n\nmsg.payload = { main_skald, sklad, order, weight }\nflow.set(\"all\", msg.payload)\nmsg.payload = \"open\"\nreturn msg;",
+        "name": "get all data",
+        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\n\n\n\nmsg.payload = { main_skald, sklad, weight }\nmsg.info = { main_skald, sklad, weight }\nflow.set(\"all\", msg.payload)\nmsg.payload = \"open\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 700,
+        "x": 270,
+        "y": 820,
         "wires": [
             [
-                "037b85df5889c280",
-                "71a6897ce52af72f"
+                "dc23318d77484ba0",
+                "f0f3db20d30f54d3"
             ]
         ]
     },
@@ -2309,14 +2159,14 @@
         "order": 3,
         "width": 0,
         "height": 0,
-        "format": "<!-- <script>\n(function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if(data == \"open\") {\n            window.location.href = \"http://192.168.0.105:1880/getDate\";\n        }\n        \n    });\n})(scope);\n</script> -->\n\n\n<script>\n    (function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if (data == \"open\") {\n          //window.open(\"https://www.nodered.org\");\n          window.location.href = \"/getDate\";\n        } \n        if (data == \"GitHub\") {\n          //window.open(\"https://github.com/node-red\");\n          window.location.href = \"https://github.com/node-red\";\n        } \n    });\n})(scope);\n</script>",
+        "format": "<!-- <script>\n(function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if(data == \"open\") {\n            window.location.href = \"http://192.168.0.105:1880/getDate\";\n        }\n        \n    });\n})(scope);\n</script> -->\n\n\n<script>\n    (function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if (data == \"open\") {\n          //window.open(\"https://www.nodered.org\");\n          window.location.href = \"/getLabel\";\n        } \n        if (data == \"GitHub\") {\n          //window.open(\"https://github.com/node-red\");\n          window.location.href = \"https://github.com/node-red\";\n        } \n    });\n})(scope);\n</script>",
         "storeOutMessages": false,
         "fwdInMessages": true,
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 760,
-        "y": 820,
+        "x": 140,
+        "y": 940,
         "wires": [
             []
         ]
@@ -2330,8 +2180,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 130,
-        "y": 1280,
+        "x": 110,
+        "y": 1440,
         "wires": [
             [
                 "ff4a946f605e7b62"
@@ -2349,8 +2199,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 1280,
+        "x": 330,
+        "y": 1440,
         "wires": [
             [
                 "74efbdae98da7ba9"
@@ -2364,41 +2214,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 530,
-        "y": 1280,
-        "wires": []
-    },
-    {
-        "id": "037b85df5889c280",
-        "type": "debug",
-        "z": "23e9bddd877d7d66",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 780,
-        "y": 760,
-        "wires": []
-    },
-    {
-        "id": "e86628a6805afaab",
-        "type": "debug",
-        "z": "23e9bddd877d7d66",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 770,
-        "y": 720,
+        "x": 510,
+        "y": 1440,
         "wires": []
     },
     {
@@ -2406,7 +2223,7 @@
         "type": "function",
         "z": "23e9bddd877d7d66",
         "name": "Запит 1",
-        "func": "msg.payload = {\n    \"metadataName\": \"seedstaskordersnew\",\n    \"count\": 1,\n    \"data\": [{\n        \"DocumentNumber\": \"000000000064\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"10000-100622-0911\",\n        \"Note\": \"Тернопіль, Схема 2\",\n        \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n        \"NomenclatureCode\": \"Ц0000056426\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"000000000020\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"20000-200222-0222\",\n        \"Note\": \"Тернопіль, Схема 3\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"ТІФУН НАСІННЄВИЙ ЗАВОД, ТОВ (Мангуш)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    }\n    ]\n}\n\nflow.set(\"main_orders\", msg.payload)\nreturn msg;",
+        "func": "//Куінтус, нас., 1 р, 2021\nmsg.payload = {\n    \"metadataName\": \"seedstaskordersnew\",\n    \"count\": 1,\n    \"data\": [{\n        \"DocumentNumber\": \"000000000064\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"10000-100622-0911\",\n        \"Note\": \"Тернопіль, Схема 2\",\n        \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n        \"NomenclatureCode\": \"Ц0000056426\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., 1 р, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"000000000020\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"20000-200222-0222\",\n        \"Note\": \"Тернопіль, Схема 3\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Куінтус, нас., 2 р, 2021\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"ТІФУН НАСІННЄВИЙ ЗАВОД, ТОВ (Мангуш)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"0000000000350\",\n        \"DocumentDate\": \"2022-04-06T00:00:00\",\n        \"PartyName\": \"80000-200888-0888\",\n        \"Note\": \"Суми, Схема 5\",\n        \"NomenclatureName\": \"Нас. оз. пш. Солін\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Кактус, нас., 3 р, 2022\",\n        \"Disinfectant1\": \"Вайсберг\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Захист 10\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Кович У\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"Солін НАСІННЄВИЙ ЗАВОД, ТОВ (Солін)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    }\n    ]\n}\n\n\nflow.set(\"main_orders\", msg.payload)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2511,7 +2328,7 @@
         "repair": false,
         "outputs": 1,
         "x": 590,
-        "y": 960,
+        "y": 1120,
         "wires": [
             [
                 "d62f2692d31b880f"
@@ -2534,7 +2351,7 @@
         "templateScope": "local",
         "className": "",
         "x": 360,
-        "y": 1040,
+        "y": 1200,
         "wires": [
             []
         ]
@@ -2561,7 +2378,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 170,
-        "y": 1040,
+        "y": 1200,
         "wires": [
             [
                 "1d0958a5ac23ca85"
@@ -2569,9 +2386,28 @@
         ]
     },
     {
-        "id": "5ff1cafd22cf43a6",
+        "id": "a6f76ce8c5a657e4",
+        "type": "function",
+        "z": "23e9bddd877d7d66",
+        "name": "function 18",
+        "func": "msg.payload = msg.payload.Warehouse\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 100,
+        "wires": [
+            [
+                "577e9afa7372a65f"
+            ]
+        ]
+    },
+    {
+        "id": "9a92deaa.cce04",
         "type": "inject",
-        "z": "835ba4690849c5a7",
+        "z": "23e9bddd877d7d66",
         "name": "",
         "props": [
             {
@@ -2584,16 +2420,309 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "0.5",
         "topic": "",
-        "payload": "4072610852405",
-        "payloadType": "str",
-        "x": 140,
-        "y": 140,
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "648aaf887fbbe407",
+        "type": "function",
+        "z": "23e9bddd877d7d66",
+        "name": "enb save",
+        "func": "msg.enabled = false;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 780,
         "wires": [
             [
-                "8c7e8b568ff498a6"
+                "6b4d80df.cdace"
+            ]
+        ]
+    },
+    {
+        "id": "bb0d727843902308",
+        "type": "inject",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Потрібно обрати",
+        "payloadType": "str",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "577e9afa7372a65f"
+            ]
+        ]
+    },
+    {
+        "id": "0a86179338293786",
+        "type": "inject",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Потрібно обрати",
+        "payloadType": "str",
+        "x": 790,
+        "y": 300,
+        "wires": [
+            [
+                "438733d35e85be3c"
+            ]
+        ]
+    },
+    {
+        "id": "1ca94a1a461230ae",
+        "type": "inject",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Потрібно обрати",
+        "payloadType": "str",
+        "x": 810,
+        "y": 520,
+        "wires": [
+            [
+                "c4e896785bab5636"
+            ]
+        ]
+    },
+    {
+        "id": "2cb6f2bef8b38bed",
+        "type": "inject",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 90,
+        "y": 180,
+        "wires": [
+            [
+                "28ab2c81e385c5b1"
+            ]
+        ]
+    },
+    {
+        "id": "324a9968edc1e15e",
+        "type": "inject",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 970,
+        "y": 360,
+        "wires": [
+            [
+                "0fff89af25e3e0a5"
+            ]
+        ]
+    },
+    {
+        "id": "b6c6f21225f96d80",
+        "type": "inject",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 970,
+        "y": 580,
+        "wires": [
+            [
+                "72089e928ac04c29"
+            ]
+        ]
+    },
+    {
+        "id": "cbabe26e5d7b2a8e",
+        "type": "function",
+        "z": "23e9bddd877d7d66",
+        "name": "ser/reset order",
+        "func": "var newData = msg.payload;\nvar oldData = flow.get(\"sklad\");\nif (newData !== oldData){\n    msg.payload = \"Оновіть замовлення\"\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 480,
+        "wires": [
+            [
+                "c4e896785bab5636",
+                "31efa504a0598b9c"
+            ]
+        ]
+    },
+    {
+        "id": "b1d53a57abf4f077",
+        "type": "delay",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "300",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 400,
+        "wires": [
+            [
+                "0fff89af25e3e0a5"
+            ]
+        ]
+    },
+    {
+        "id": "31efa504a0598b9c",
+        "type": "function",
+        "z": "23e9bddd877d7d66",
+        "name": "function 19",
+        "func": "msg.payload = false\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 480,
+        "wires": [
+            [
+                "72089e928ac04c29"
+            ]
+        ]
+    },
+    {
+        "id": "dc23318d77484ba0",
+        "type": "link out",
+        "z": "23e9bddd877d7d66",
+        "name": "toBarcode",
+        "mode": "link",
+        "links": [
+            "814e614f8b152036"
+        ],
+        "x": 895,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "f0f3db20d30f54d3",
+        "type": "delay",
+        "z": "23e9bddd877d7d66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 230,
+        "y": 880,
+        "wires": [
+            [
+                "71a6897ce52af72f"
             ]
         ]
     },
@@ -2626,11 +2755,10 @@
                 "vt": "str"
             }
         ],
-        "x": 370,
-        "y": 140,
+        "x": 310,
+        "y": 260,
         "wires": [
             [
-                "ce81c919da9cda78",
                 "f2b8d28259491ba1"
             ]
         ]
@@ -2644,11 +2772,12 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 580,
-        "y": 100,
+        "x": 540,
+        "y": 300,
         "wires": []
     },
     {
@@ -2662,8 +2791,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 60,
+        "x": 320,
+        "y": 40,
         "wires": [
             [
                 "9875ed83976da13e"
@@ -2692,7 +2821,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 60,
+        "y": 40,
         "wires": [
             [
                 "32817575f5eed2b2"
@@ -2712,7 +2841,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 500,
-        "y": 20,
+        "y": 40,
         "wires": []
     },
     {
@@ -2720,197 +2849,18 @@
         "type": "function",
         "z": "835ba4690849c5a7",
         "name": "str1",
-        "func": "msg.str1 = \"Нас. оз. пш. Мулан\"\nmsg.str2 = \"Мулан, нас., ЕН, 2019\"\nmsg.str3 = \"Сорт: Мулан\"\nmsg.str4 = \"Репродукція: 1 р\"\nmsg.str5 = \"H/B::             973 кг\"\nmsg.str6 = \"Протруйники: Вайбранс Інтеграл, Цензор XL, Яра Віта Рексолін АВС Фульвогумін, Вітазим К\"\nmsg.str7 = \"Номер пломби: L99482284       Маса т.з.:\"\nmsg.str8 = \"Примітка : Тернопіль, Схема 2\"\n\nreturn msg;",
+        "func": "msg.str1 = msg.info.sklad.NomenclatureName; //\"Нас. оз. пш. Мулан\"\nmsg.str2 = msg.info.sklad.NomenclatureCharacteristics; //\"Мулан, нас., ЕН, 2019\"\nmsg.str3 = \"Сорт: \" + msg.info.sklad.NomenclatureCharacteristics.split(',')[0]//\"Сорт: Мулан\"\nmsg.str4 = \"Репродукція: \" + msg.info.sklad.NomenclatureCharacteristics.split(',')[2]//доробити\nmsg.str5 = msg.info.weight + \" кг.\"//\"973 кг\"\n\n\nmsg.str6 = \"Протруйники: \" + (msg.info.sklad.Disinfectant1 ? msg.info.sklad.Disinfectant1 + \", \" : \"\") + (msg.info.sklad.Disinfectant2 ? msg.info.sklad.Disinfectant2 + \", \" : \"\") + (msg.info.sklad.Disinfectant3 ? msg.info.sklad.Disinfectant3 + \", \" : \"\") + (msg.info.sklad.Disinfectant4 ? msg.info.sklad.Disinfectant4 + \", \"  : \"\")\nmsg.str7 = \"L99482284\" // Доробити\nmsg.str8 = \"Примітка: \" + msg.info.sklad.Note\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 150,
-        "y": 360,
+        "x": 410,
+        "y": 340,
         "wires": [
             [
                 "f1333f5fdb0babb8"
             ]
-        ]
-    },
-    {
-        "id": "e88e490acc5e9362",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "str2",
-        "func": "msg.str2 = \"Мулан, нас., ЕН, 2019\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2d68e7f1ddf70f1c",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "str3",
-        "func": "msg.str3 = \"Сорт: Мулан\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "95afb2b18b64dee9",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "str4",
-        "func": "msg.str4 = \"Репродукція: 1 р\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 420,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9c41510c87b673db",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "str5",
-        "func": "msg.str5 = \"H/B::             973 кг\"\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 460,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3302da3f47480004",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "str6",
-        "func": "msg.str6 = \"Вайбранс Інтеграл, Цензор XL, Яра Віта Рексолін АВС Фульвогумін, Вітазим К\"\nreturn msg;\n\n//msg.str5 = \"Вайбранс Інтеграл, Цензор XL, Яра Віта Рексолін АВС Фульвогумін, Вітазим К\"\n//return msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 500,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7bfcfc168deec4f6",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "str7",
-        "func": "msg.str7 = \"Номер пломби: L99482284       Маса т.з.:\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 540,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "67413aede4af3399",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "str8",
-        "func": "msg.str8 = \"Note : Ternopil, Shema 2\"\nreturn msg;\n//msg.str8 = \"Примітка : Тернопіль, Схема 2\"",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "6127ec3f195b131e",
-        "type": "converter",
-        "z": "835ba4690849c5a7",
-        "name": "",
-        "from": "win1252",
-        "x": 620,
-        "y": 200,
-        "wires": [
-            [
-                "563f68efa1221886"
-            ]
-        ]
-    },
-    {
-        "id": "b716e9656e52f545",
-        "type": "inject",
-        "z": "835ba4690849c5a7",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "Текст тут",
-        "payloadType": "str",
-        "x": 440,
-        "y": 200,
-        "wires": [
-            [
-                "6127ec3f195b131e"
-            ]
-        ]
-    },
-    {
-        "id": "563f68efa1221886",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "function 15",
-        "func": "flow.set(\"str1\", msg.payload)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 770,
-        "y": 200,
-        "wires": [
-            []
         ]
     },
     {
@@ -2922,8 +2872,8 @@
         "inputProperty": "payload",
         "options": "{}",
         "outputProperty": "payload",
-        "x": 480,
-        "y": 360,
+        "x": 600,
+        "y": 420,
         "wires": [
             [
                 "23a78ebb1858a405"
@@ -2941,7 +2891,7 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 280,
+        "x": 360,
         "y": 460,
         "wires": [
             [
@@ -2961,7 +2911,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 480,
+        "x": 540,
         "y": 460,
         "wires": []
     },
@@ -2970,14 +2920,14 @@
         "type": "function",
         "z": "835ba4690849c5a7",
         "name": "function 16",
-        "func": "var barcode = msg.barcode\nvar str1 = msg.str1\nvar str2 = msg.str2\nvar str3 = msg.str3\nvar str4 = msg.str4\nvar str5 = msg.str5\nvar str6 = msg.str6\nvar str7 = msg.str7\nvar str8 = msg.str8\n\nmsg.payload = {\n    \"content\": [\n        { text: str1, fontSize: 20, bold: true },\n        { text: str2, fontSize: 14, bold: true },\n        str3,\n        str4,\n        str5,\n        str6,\n        str7,\n        str8,\n        {\n            image: barcode\n        }\n    ],\n    pageSize: {\n        width: 400,\n        height: 380\n    }\n    \n}\nreturn msg;",
+        "func": "var barcode = msg.barcode\nvar str1 = msg.str1\nvar str2 = msg.str2\nvar str3 = msg.str3\nvar str4 = msg.str4\nvar str5 = msg.str5//вес\nvar str6 = msg.str6\nvar str7 = msg.str7\nvar str8 = msg.str8\nvar verticalText = `\n          <svg>\n            <text\n              transform=\"translate(24, 120) rotate(-90)\"\n              font-weight=\"bold\"\n              style=\"font-size: 10px;\"\n            >\n              Дата: ${global.get(\"dateHlobal\")}\n            </text>\n          </svg>\n        `\n\nmsg.payload = {\n    \"content\": [\n        { text: str1, fontSize: 20, bold: true },\n        { text: str2, fontSize: 14, bold: true },\n        str3,\n        str4,\n        {\n          columns: [\n            { text: \"H/B::\", fontSize: 14},\n            { text: str5, fontSize: 16, bold: true }\n          ]\n        },\n        str6,\n        {\n          columns: [\n            { text: \"Номер пломби: \" + str7},\n            { text: \"Маса т.з.:\", margin: [45, 0, 0, 0]}\n          ]\n        },\n        str8,\n        {\n            columns: [\n                {\n                    image: barcode,\n                    width: 240,\n                    height: 150\n                },\n                {\n                    width: 32,\n                    svg: verticalText\n                },\n            ]\n        }\n    ],\n    pageSize: {\n        width: 400,\n        height: 380\n    }\n    \n}\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 360,
+        "x": 490,
+        "y": 380,
         "wires": [
             [
                 "7898d2b1ebf16ef1"
@@ -3018,701 +2968,85 @@
             "description": "Just loads the image.",
             "parameters": []
         },
-        "x": 210,
-        "y": 260,
+        "x": 330,
+        "y": 300,
         "wires": [
             [
-                "0319f33c4391eb03"
+                "0319f33c4391eb03",
+                "ce81c919da9cda78"
             ]
         ]
     },
     {
-        "id": "fe9b4ed7647d2453",
-        "type": "Barcode Generator",
-        "z": "d0625b9597a064fa",
+        "id": "dce2f4ccd54c5780",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 17",
+        "func": "var barcode = msg.barcode\nvar str1 = msg.str1\nvar str2 = msg.str2\nvar str3 = msg.str3\nvar str4 = msg.str4\nvar str5 = msg.str5\nvar str6 = msg.str6\nvar str7 = msg.str7\nvar str8 = msg.str8\n\nmsg.payload = {\n    \"content\": [\n        { text: str1, fontSize: 20, bold: true },\n        { text: str2, fontSize: 14, bold: true },\n        str3,\n        str4,\n        str5,\n        str6,\n        str7,\n        str8,\n        {\n            image: barcode\n        }\n    ],\n    pageSize: {\n        width: 400,\n        height: 380\n    }\n    \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c7e341a0.381cc",
+        "type": "http in",
+        "z": "835ba4690849c5a7",
         "name": "",
-        "data": "partNumber",
-        "dataType": "msg",
-        "barcode": "qrcode",
-        "barcodeType": "barcode",
-        "options": "",
-        "optionsType": "ui",
-        "sendProperty": "payload",
-        "props": [
-            {
-                "p": "rotate",
-                "v": "N",
-                "vt": "str"
-            },
-            {
-                "p": "includetext",
-                "v": "false",
-                "vt": "bool"
-            },
-            {
-                "p": "backgroundcolor",
-                "v": "ffffff",
-                "vt": "str"
-            }
-        ],
-        "x": 350,
-        "y": 220,
-        "wires": [
-            [
-                "76c9df14f742d291"
-            ]
-        ]
-    },
-    {
-        "id": "4482d582a64a9f20",
-        "type": "inject",
-        "z": "d0625b9597a064fa",
-        "name": "start",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
+        "url": "/getLabel",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
         "x": 150,
-        "y": 140,
+        "y": 580,
         "wires": [
             [
-                "8c9a3d2abb774c9d"
+                "2fb1c354.d04e3c"
             ]
         ]
     },
     {
-        "id": "8c9a3d2abb774c9d",
-        "type": "template",
-        "z": "d0625b9597a064fa",
-        "name": "CSV data",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "TRX1188-WHT-LXL; Logo Hat White L / XL; 2\nTRX1252; NUT SET LOCK NUTS 3mm 11 A; 2",
-        "output": "str",
-        "x": 280,
-        "y": 140,
-        "wires": [
-            [
-                "4c27d54dde0e8ad8"
-            ]
-        ]
-    },
-    {
-        "id": "4c27d54dde0e8ad8",
-        "type": "csv",
-        "z": "d0625b9597a064fa",
+        "id": "2fb1c354.d04e3c",
+        "type": "file in",
+        "z": "835ba4690849c5a7",
         "name": "",
-        "sep": ";",
-        "hdrin": "",
-        "hdrout": "none",
-        "multi": "one",
-        "ret": "\\n",
-        "temp": "partNumber,description,printCount",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 410,
-        "y": 140,
-        "wires": [
-            [
-                "76ff06107b4d6e9d"
-            ]
-        ]
-    },
-    {
-        "id": "76ff06107b4d6e9d",
-        "type": "delay",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "2",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 560,
-        "y": 140,
-        "wires": [
-            [
-                "1229bd20fced9377",
-                "415111597bd00f93"
-            ]
-        ]
-    },
-    {
-        "id": "1229bd20fced9377",
-        "type": "change",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "printCount",
-                "pt": "msg",
-                "to": "payload.printCount",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "description",
-                "pt": "msg",
-                "to": "payload.description",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "partNumber",
-                "pt": "msg",
-                "to": "payload.partNumber",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 180,
-        "y": 220,
-        "wires": [
-            [
-                "fe9b4ed7647d2453"
-            ]
-        ]
-    },
-    {
-        "id": "43596d88a839fdd8",
-        "type": "function",
-        "z": "d0625b9597a064fa",
-        "name": "Duplicate x number of times",
-        "func": "let printCount = msg.printCount || 1;\n\nfor (let index = 0; index < printCount; index++) {\n    msg.printNumber = index+1;\n    msg.info = `${index+1} of ${printCount}`;\n    node.send(msg);\n}\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 260,
-        "y": 360,
-        "wires": [
-            [
-                "7ef48abff1964233"
-            ]
-        ]
-    },
-    {
-        "id": "7ef48abff1964233",
-        "type": "delay",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "2",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 500,
-        "y": 360,
-        "wires": [
-            [
-                "01ea5e8f9f1a298c",
-                "0523409d8ef27edc",
-                "8be44e4c0ac95a84"
-            ]
-        ]
-    },
-    {
-        "id": "01ea5e8f9f1a298c",
-        "type": "debug",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "active": false,
-        "tosidebar": false,
-        "console": false,
-        "tostatus": true,
-        "complete": "info",
-        "targetType": "msg",
-        "statusVal": "info",
-        "statusType": "auto",
-        "x": 700,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "415111597bd00f93",
-        "type": "debug",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 750,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "1d415f0a4f9650fc",
-        "type": "pdfmake",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "outputType": "Buffer",
-        "inputProperty": "payload",
-        "options": "{}",
-        "outputProperty": "payload",
-        "x": 380,
-        "y": 440,
-        "wires": [
-            [
-                "3cfb0dd56eb01b8f"
-            ]
-        ]
-    },
-    {
-        "id": "0523409d8ef27edc",
-        "type": "function",
-        "z": "d0625b9597a064fa",
-        "name": "generate pdf",
-        "func": "\nvar description = `${msg.partNumber}\\n${msg.description}`;\n\nvar dd = {\n    content: [\n        \"Штрих код\",\n        {\n            columns: [\n                {\n                    image: msg.image,\n                    width: 80\n                },\n                { \n                    width: 'auto',\n                    fontSize: 18,\n                    text: description, \n                    // margin: [left, top, right, bottom]\n                    margin: [10, 2, 10, 2]\n                },\n            ]\n        }\n    ]\n}\n\nmsg.payload = dd;\nmsg.filename = \"c:/temp/\" + msg.partNumber + \"-\" + msg.printNumber + \"-of-\" + msg.printCount + '.pdf';\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 210,
-        "y": 440,
-        "wires": [
-            [
-                "1d415f0a4f9650fc"
-            ]
-        ]
-    },
-    {
-        "id": "3cfb0dd56eb01b8f",
-        "type": "file",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "filename": "/home/pi/barvode5.pdf",
+        "filename": "/home/pi/barvode7.pdf",
         "filenameType": "str",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 570,
-        "y": 440,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "76c9df14f742d291",
-        "type": "jimp-image",
-        "z": "d0625b9597a064fa",
-        "name": "to Base64",
-        "data": "payload",
-        "dataType": "msg",
-        "ret": "b64",
-        "parameter1": "FONT_SANS_32_BLACK",
-        "parameter1Type": "jimpFont",
-        "parameter2": "115",
-        "parameter2Type": "num",
-        "parameter3": "15",
-        "parameter3Type": "num",
-        "parameter4": "partNumber",
-        "parameter4Type": "msg",
-        "parameter5": "HORIZONTAL_ALIGN_LEFT",
-        "parameter5Type": "AlignX",
-        "parameter6": "VERTICAL_ALIGN_TOP",
-        "parameter6Type": "AlignY",
-        "parameter7": "",
-        "parameter7Type": "auto",
-        "parameter8": "",
-        "parameter8Type": "auto",
-        "sendProperty": "image",
-        "sendPropertyType": "msg",
-        "parameterCount": 0,
-        "jimpFunction": "none",
-        "selectedJimpFunction": {
-            "name": "none",
-            "fn": "none",
-            "description": "Just loads the image.",
-            "parameters": []
-        },
-        "x": 500,
-        "y": 220,
+        "format": "",
+        "allProps": false,
+        "x": 340,
+        "y": 580,
         "wires": [
             [
-                "43596d88a839fdd8",
-                "af4dde64ef453862",
-                "458fa274c9c574f1"
+                "c9e28681.361d78"
             ]
         ]
     },
     {
-        "id": "af4dde64ef453862",
-        "type": "image viewer",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "width": "80",
-        "data": "image",
-        "dataType": "msg",
-        "active": true,
-        "x": 690,
-        "y": 220,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "458fa274c9c574f1",
-        "type": "debug",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 790,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "8be44e4c0ac95a84",
-        "type": "debug",
-        "z": "d0625b9597a064fa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 750,
-        "y": 480,
-        "wires": []
-    },
-    {
-        "id": "d3403df4f4d9a920",
-        "type": "Barcode Generator",
-        "z": "e9886391ccd164d9",
-        "name": "",
-        "data": "partNumber",
-        "dataType": "msg",
-        "barcode": "qrcode",
-        "barcodeType": "barcode",
-        "options": "",
-        "optionsType": "ui",
-        "sendProperty": "payload",
-        "props": [
-            {
-                "p": "rotate",
-                "v": "N",
-                "vt": "str"
-            },
-            {
-                "p": "includetext",
-                "v": "true",
-                "vt": "bool"
-            },
-            {
-                "p": "alttext",
-                "v": "description",
-                "vt": "msg"
-            },
-            {
-                "p": "textxalign",
-                "v": "left",
-                "vt": "str"
-            },
-            {
-                "p": "textxoffset",
-                "v": "22",
-                "vt": "num"
-            },
-            {
-                "p": "textyoffset",
-                "v": "-12",
-                "vt": "num"
-            },
-            {
-                "p": "textsize",
-                "v": "6",
-                "vt": "num"
-            },
-            {
-                "p": "backgroundcolor",
-                "v": "ffffff",
-                "vt": "str"
-            },
-            {
-                "p": "padding",
-                "v": "8",
-                "vt": "str"
-            }
-        ],
-        "x": 410,
-        "y": 200,
-        "wires": [
-            [
-                "0a60dd8902f004f3",
-                "585bf95437a40dee"
-            ]
-        ]
-    },
-    {
-        "id": "507a70017dae045e",
-        "type": "inject",
-        "z": "e9886391ccd164d9",
-        "name": "start",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 130,
-        "y": 140,
-        "wires": [
-            [
-                "eb478bd39bec07ca"
-            ]
-        ]
-    },
-    {
-        "id": "0a60dd8902f004f3",
-        "type": "jimp-image",
-        "z": "e9886391ccd164d9",
-        "name": "",
-        "data": "payload",
-        "dataType": "msg",
-        "ret": "buf",
-        "parameter1": "FONT_SANS_32_BLACK",
-        "parameter1Type": "jimpFont",
-        "parameter2": "115",
-        "parameter2Type": "num",
-        "parameter3": "15",
-        "parameter3Type": "num",
-        "parameter4": "partNumber",
-        "parameter4Type": "msg",
-        "parameter5": "HORIZONTAL_ALIGN_LEFT",
-        "parameter5Type": "AlignX",
-        "parameter6": "VERTICAL_ALIGN_TOP",
-        "parameter6Type": "AlignY",
-        "parameter7": "",
-        "parameter7Type": "auto",
-        "parameter8": "",
-        "parameter8Type": "auto",
-        "sendProperty": "payload",
-        "sendPropertyType": "msg",
-        "parameterCount": 8,
-        "jimpFunction": "print2",
-        "selectedJimpFunction": {
-            "name": "print aligned",
-            "fn": "print",
-            "description": "Print text to the image",
-            "parameters": [
-                {
-                    "name": "font|str",
-                    "type": "jimpFont",
-                    "required": true,
-                    "hint": "font to print. NOTE: This can be one of the presets or the path to a fnt file"
-                },
-                {
-                    "name": "x",
-                    "type": "num",
-                    "required": true,
-                    "hint": "x coordinate to print text"
-                },
-                {
-                    "name": "y",
-                    "type": "num",
-                    "required": true,
-                    "hint": "y coordinate to print text"
-                },
-                {
-                    "name": "text",
-                    "group": "options",
-                    "type": "str",
-                    "required": true,
-                    "hint": "text to print"
-                },
-                {
-                    "name": "alignmentX",
-                    "group": "options",
-                    "type": "AlignX",
-                    "required": false,
-                    "hint": "X Alignment"
-                },
-                {
-                    "name": "alignmentY",
-                    "group": "options",
-                    "type": "AlignY",
-                    "required": false,
-                    "hint": "Y Alignment"
-                },
-                {
-                    "name": "maxWidth",
-                    "type": "auto|num",
-                    "required": false,
-                    "hint": "wrap text at maxWidth"
-                },
-                {
-                    "name": "maxHeight",
-                    "type": "auto|num",
-                    "required": false,
-                    "hint": "max height"
-                }
-            ]
-        },
-        "x": 570,
-        "y": 200,
-        "wires": [
-            [
-                "c2853652404d1514",
-                "487986571e52fc9d"
-            ]
-        ]
-    },
-    {
-        "id": "eb478bd39bec07ca",
-        "type": "template",
-        "z": "e9886391ccd164d9",
-        "name": "CSV data",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "TRX1188-WHT-LXL; Logo Hat White L / XL; 2\nTRX1252; NUT SET LOCK NUTS 3mm 11 A; 2",
-        "output": "str",
-        "x": 280,
-        "y": 140,
-        "wires": [
-            [
-                "e0c774326e0dff93"
-            ]
-        ]
-    },
-    {
-        "id": "e0c774326e0dff93",
-        "type": "csv",
-        "z": "e9886391ccd164d9",
-        "name": "",
-        "sep": ";",
-        "hdrin": "",
-        "hdrout": "none",
-        "multi": "one",
-        "ret": "\\n",
-        "temp": "partNumber,description,printCount",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 410,
-        "y": 140,
-        "wires": [
-            [
-                "7a5b83a250d57398"
-            ]
-        ]
-    },
-    {
-        "id": "7a5b83a250d57398",
-        "type": "delay",
-        "z": "e9886391ccd164d9",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "2",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 620,
-        "y": 120,
-        "wires": [
-            [
-                "0791fbf68bfed43b",
-                "0d4c58b404ae5c97"
-            ]
-        ]
-    },
-    {
-        "id": "0791fbf68bfed43b",
+        "id": "c9e28681.361d78",
         "type": "change",
-        "z": "e9886391ccd164d9",
-        "name": "",
+        "z": "835ba4690849c5a7",
+        "name": "Set Headers",
         "rules": [
             {
                 "t": "set",
-                "p": "printCount",
+                "p": "headers",
                 "pt": "msg",
-                "to": "payload.printCount",
-                "tot": "msg"
+                "to": "{}",
+                "tot": "json"
             },
             {
                 "t": "set",
-                "p": "description",
+                "p": "headers.content-type",
                 "pt": "msg",
-                "to": "payload.description",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "partNumber",
-                "pt": "msg",
-                "to": "payload.partNumber",
-                "tot": "msg"
+                "to": "application/pdf",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -3720,154 +3054,83 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 240,
-        "y": 200,
+        "x": 530,
+        "y": 580,
         "wires": [
             [
-                "d3403df4f4d9a920",
-                "bde562ceb28dbbbe"
+                "88974243.7768c"
             ]
         ]
     },
     {
-        "id": "c2853652404d1514",
+        "id": "88974243.7768c",
+        "type": "http response",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "x": 730,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "814e614f8b152036",
+        "type": "link in",
+        "z": "835ba4690849c5a7",
+        "name": "link in 1",
+        "links": [
+            "dc23318d77484ba0"
+        ],
+        "x": 55,
+        "y": 160,
+        "wires": [
+            [
+                "ee91cce6f541a0ed"
+            ]
+        ]
+    },
+    {
+        "id": "ee91cce6f541a0ed",
         "type": "function",
-        "z": "e9886391ccd164d9",
-        "name": "print x number of times",
-        "func": "let printCount = msg.printCount || 1;\n\nfor (let index = 0; index < printCount; index++) {\n    msg.printNumber = index+1;\n    msg.info = `Printing ${index+1} of ${printCount}`;\n    node.send(msg);\n}\n\n",
+        "z": "835ba4690849c5a7",
+        "name": "function 20",
+        "func": "// 1\t«4» - префікс типу штрихкода\n// 2 - 3\tРік виробництва, наприклад «21», «22»\n// 4 - 7\tНомер завдання на виробництво, наприклад «0025»\n// 8 - 12\tПорядковий номер у завданні.Початковий номер(0, якщо початок виробництва по завданню) + виготовлені мішки.\nvar inData = msg.info\n\nconst year = new Date().getFullYear().toString().substring(2,4);\nvar orderNumber = Number(inData.sklad.DocumentNumber);\nif (orderNumber < 100){\n    orderNumber = \"00\" + orderNumber\n} else if (orderNumber > 100 && orderNumber < 1000){\n    orderNumber = \"0\" + orderNumber\n}\nvar firstNumber = \"00001\"\n\n\n\n\n\nvar barcode = 4 + year + orderNumber + firstNumber\nmsg.payload = barcode\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 280,
+        "x": 170,
+        "y": 160,
         "wires": [
             [
-                "2a35635d6e46c4b4"
+                "24819c7a281d6637",
+                "8c7e8b568ff498a6"
             ]
         ]
     },
     {
-        "id": "2a35635d6e46c4b4",
-        "type": "delay",
-        "z": "e9886391ccd164d9",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "2",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 570,
-        "y": 280,
-        "wires": [
-            [
-                "d3edceda04b86c09",
-                "e8124f048c720acc"
-            ]
-        ]
-    },
-    {
-        "id": "d3edceda04b86c09",
-        "type": "image viewer",
-        "z": "e9886391ccd164d9",
-        "name": "image to send directly to printer",
-        "width": "360",
-        "data": "payload",
-        "dataType": "msg",
-        "active": true,
-        "x": 190,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e8124f048c720acc",
+        "id": "24819c7a281d6637",
         "type": "debug",
-        "z": "e9886391ccd164d9",
-        "name": "",
-        "active": false,
-        "tosidebar": false,
-        "console": false,
-        "tostatus": true,
-        "complete": "info",
-        "targetType": "msg",
-        "statusVal": "info",
-        "statusType": "auto",
-        "x": 820,
-        "y": 252,
-        "wires": []
-    },
-    {
-        "id": "0d4c58b404ae5c97",
-        "type": "debug",
-        "z": "e9886391ccd164d9",
-        "name": "",
+        "z": "835ba4690849c5a7",
+        "name": "debug 8",
         "active": true,
         "tosidebar": true,
         "console": false,
-        "tostatus": true,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "payload",
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
         "statusType": "auto",
-        "x": 810,
-        "y": 120,
+        "x": 420,
+        "y": 160,
         "wires": []
     },
     {
-        "id": "bde562ceb28dbbbe",
-        "type": "debug",
-        "z": "e9886391ccd164d9",
+        "id": "6de24f6203a20cfe",
+        "type": "comment",
+        "z": "835ba4690849c5a7",
         "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 790,
-        "y": 180,
+        "info": "402002000001\n422002000001\n4072610852405",
+        "x": 150,
+        "y": 200,
         "wires": []
-    },
-    {
-        "id": "585bf95437a40dee",
-        "type": "image viewer",
-        "z": "e9886391ccd164d9",
-        "name": "image to send directly to printer",
-        "width": "360",
-        "data": "payload",
-        "dataType": "msg",
-        "active": true,
-        "x": 570,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "487986571e52fc9d",
-        "type": "image viewer",
-        "z": "e9886391ccd164d9",
-        "name": "image to send directly to printer",
-        "width": "360",
-        "data": "payload",
-        "dataType": "msg",
-        "active": true,
-        "x": 890,
-        "y": 380,
-        "wires": [
-            []
-        ]
     }
 ]
