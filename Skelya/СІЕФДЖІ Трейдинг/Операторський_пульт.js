@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "da2fcd75b90b9ad8",
+        "type": "tab",
+        "label": "1C",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "72983c2150b8b211",
         "type": "ui_base",
         "theme": {
@@ -877,7 +885,7 @@
         "finalize": "",
         "libs": [],
         "x": 300,
-        "y": 1020,
+        "y": 1220,
         "wires": [
             []
         ]
@@ -894,7 +902,7 @@
         "finalize": "",
         "libs": [],
         "x": 300,
-        "y": 1060,
+        "y": 1260,
         "wires": [
             []
         ]
@@ -921,7 +929,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 1020,
+        "y": 1220,
         "wires": [
             [
                 "7bd97aaf8ecf3d2c"
@@ -950,7 +958,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 1060,
+        "y": 1260,
         "wires": [
             [
                 "1b88963bb7c46b8d"
@@ -1191,11 +1199,21 @@
         "wires": []
     },
     {
+        "id": "0ce68d60af0b910d",
+        "type": "comment",
+        "z": "ba6aff56e0d973f1",
+        "name": "Отримання даних зовні",
+        "info": "",
+        "x": 150,
+        "y": 1180,
+        "wires": []
+    },
+    {
         "id": "56bcaa69.6208a4",
         "type": "function",
         "z": "23e9bddd877d7d66",
         "name": "Час",
-        "func": "var d = new Date();\n\nvar utc = d.getTime() + (d.getTimezoneOffset() * 60000);\n\nvar offset = 2; // This is the offset for UTC+3, in your case (UTC+1) should be 1\n\nconst newDate = new Date(utc + (3600000*offset));\n//let text = d.toLocaleString();\n//msg.payload = newDate;\nvar dateLocal = newDate.toLocaleString(\"ru-RU\",{hour12:false});\nmsg.payload = dateLocal.replace(\",\",\"\");\n\nglobal.set(\"dateHlobal\", msg.payload.split(\" \")[0])\nreturn msg;",
+        "func": "var d = new Date();\n\nvar utc = d.getTime() + (d.getTimezoneOffset() * 60000);\n\nvar offset = 2; // This is the offset for UTC+3, in your case (UTC+1) should be 1\n\nconst newDate = new Date(utc + (3600000*offset));\n//let text = d.toLocaleString();\n//msg.payload = newDate;\nvar dateLocal = newDate.toLocaleString(\"ru-RU\",{hour12:false});\nmsg.payload = dateLocal.replace(\",\",\"\");\n\nglobal.set(\"dateHlobal\", msg.payload.split(\" \")[0])\nglobal.set(\"dateGlobalForPDF\", msg.payload.replace(\" \", \"_\"))\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2230,7 +2248,7 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 1480,
+        "y": 1580,
         "wires": [
             []
         ]
@@ -2247,7 +2265,7 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 1520,
+        "y": 1620,
         "wires": [
             []
         ]
@@ -2274,7 +2292,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 1480,
+        "y": 1580,
         "wires": [
             [
                 "0f2a556e04fc5a7c"
@@ -2303,7 +2321,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 1520,
+        "y": 1620,
         "wires": [
             [
                 "5b6401e288d92ce3"
@@ -2727,6 +2745,16 @@
         ]
     },
     {
+        "id": "0de5ec0d7a579e7a",
+        "type": "comment",
+        "z": "23e9bddd877d7d66",
+        "name": "Отримання даних зовні",
+        "info": "",
+        "x": 150,
+        "y": 1540,
+        "wires": []
+    },
+    {
         "id": "8c7e8b568ff498a6",
         "type": "Barcode Generator",
         "z": "835ba4690849c5a7",
@@ -2764,87 +2792,6 @@
         ]
     },
     {
-        "id": "ce81c919da9cda78",
-        "type": "debug",
-        "z": "835ba4690849c5a7",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 540,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "32817575f5eed2b2",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "Запит 1",
-        "func": "msg.payload = {\n    \"DocumentNumber\": \"000000000064\",\n    \"DocumentDate\": \"2022-02-01T00:00:00\",\n    \"PartyName\": \"10000-100622-0911\",\n    \"Note\": \"Тернопіль, Схема 2\",//8\n    \"NomenclatureName\": \"Нас. оз. пш. Мулан\",//1\n    \"NomenclatureCode\": \"Ц0000056426\",\n    \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",//2\n    \"Disinfectant1\": \"Вайбранс Інтеграл\",//6\n    \"DisinfectantCode1\": \"Ц0000100594\",\n    \"Disinfectant2\": \"Цензор XL\",//6\n    \"DisinfectantCode2\": \"Ц0000102126\",\n    \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",//6\n    \"DisinfectantCode3\": \"Ц0000100669\",\n    \"Disinfectant4\": \"Вітазим К\",//6\n    \"DisinfectantCode4\": \"Ц0000085308\",\n    \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n    \"WHouseCode\": \"ЦК0007135\",\n    \"BarcodeCode\": \"430\",\n    \"MassOfThousands\": \"0.080\"\n}\n\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 320,
-        "y": 40,
-        "wires": [
-            [
-                "9875ed83976da13e"
-            ]
-        ]
-    },
-    {
-        "id": "f7c992cf6ffcddbb",
-        "type": "inject",
-        "z": "835ba4690849c5a7",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 40,
-        "wires": [
-            [
-                "32817575f5eed2b2"
-            ]
-        ]
-    },
-    {
-        "id": "9875ed83976da13e",
-        "type": "debug",
-        "z": "835ba4690849c5a7",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 500,
-        "y": 40,
-        "wires": []
-    },
-    {
         "id": "0319f33c4391eb03",
         "type": "function",
         "z": "835ba4690849c5a7",
@@ -2876,7 +2823,7 @@
         "y": 420,
         "wires": [
             [
-                "23a78ebb1858a405"
+                "50d70cb80778d9b5"
             ]
         ]
     },
@@ -2885,13 +2832,13 @@
         "type": "file",
         "z": "835ba4690849c5a7",
         "name": "",
-        "filename": "/home/pi/barvode7.pdf",
-        "filenameType": "str",
+        "filename": "filename",
+        "filenameType": "msg",
         "appendNewline": false,
-        "createDir": false,
+        "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 360,
+        "x": 320,
         "y": 460,
         "wires": [
             [
@@ -2908,7 +2855,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
         "x": 540,
@@ -2972,26 +2920,8 @@
         "y": 300,
         "wires": [
             [
-                "0319f33c4391eb03",
-                "ce81c919da9cda78"
+                "0319f33c4391eb03"
             ]
-        ]
-    },
-    {
-        "id": "dce2f4ccd54c5780",
-        "type": "function",
-        "z": "835ba4690849c5a7",
-        "name": "function 17",
-        "func": "var barcode = msg.barcode\nvar str1 = msg.str1\nvar str2 = msg.str2\nvar str3 = msg.str3\nvar str4 = msg.str4\nvar str5 = msg.str5\nvar str6 = msg.str6\nvar str7 = msg.str7\nvar str8 = msg.str8\n\nmsg.payload = {\n    \"content\": [\n        { text: str1, fontSize: 20, bold: true },\n        { text: str2, fontSize: 14, bold: true },\n        str3,\n        str4,\n        str5,\n        str6,\n        str7,\n        str8,\n        {\n            image: barcode\n        }\n    ],\n    pageSize: {\n        width: 400,\n        height: 380\n    }\n    \n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 790,
-        "y": 40,
-        "wires": [
-            []
         ]
     },
     {
@@ -3003,8 +2933,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 150,
-        "y": 580,
+        "x": 90,
+        "y": 560,
         "wires": [
             [
                 "2fb1c354.d04e3c"
@@ -3020,8 +2950,8 @@
         "filenameType": "str",
         "format": "",
         "allProps": false,
-        "x": 340,
-        "y": 580,
+        "x": 280,
+        "y": 560,
         "wires": [
             [
                 "c9e28681.361d78"
@@ -3054,8 +2984,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
-        "y": 580,
+        "x": 470,
+        "y": 560,
         "wires": [
             [
                 "88974243.7768c"
@@ -3067,8 +2997,8 @@
         "type": "http response",
         "z": "835ba4690849c5a7",
         "name": "",
-        "x": 730,
-        "y": 580,
+        "x": 670,
+        "y": 560,
         "wires": []
     },
     {
@@ -3092,7 +3022,7 @@
         "type": "function",
         "z": "835ba4690849c5a7",
         "name": "function 20",
-        "func": "// 1\t«4» - префікс типу штрихкода\n// 2 - 3\tРік виробництва, наприклад «21», «22»\n// 4 - 7\tНомер завдання на виробництво, наприклад «0025»\n// 8 - 12\tПорядковий номер у завданні.Початковий номер(0, якщо початок виробництва по завданню) + виготовлені мішки.\nvar inData = msg.info\n\nconst year = new Date().getFullYear().toString().substring(2,4);\nvar orderNumber = Number(inData.sklad.DocumentNumber);\nif (orderNumber < 100){\n    orderNumber = \"00\" + orderNumber\n} else if (orderNumber > 100 && orderNumber < 1000){\n    orderNumber = \"0\" + orderNumber\n}\nvar firstNumber = \"00001\"\n\n\n\n\n\nvar barcode = 4 + year + orderNumber + firstNumber\nmsg.payload = barcode\nreturn msg;",
+        "func": "// 1\t«4» - префікс типу штрихкода\n// 2 - 3\tРік виробництва, наприклад «21», «22»\n// 4 - 7\tНомер завдання на виробництво, наприклад «0025»\n// 8 - 12\tПорядковий номер у завданні.Початковий номер(0, якщо початок виробництва по завданню) + виготовлені мішки.\nvar inData = msg.info\n\nconst year = new Date().getFullYear().toString().substring(2,4);\nvar orderNumber = Number(inData.sklad.DocumentNumber);\nif (orderNumber < 100){\n    orderNumber = \"00\" + orderNumber\n} else if (orderNumber > 100 && orderNumber < 1000){\n    orderNumber = \"0\" + orderNumber\n}\nvar firstNumber = \"00001\"\n\n\n\n\n\nvar barcode = 4 + year + orderNumber + firstNumber\nmsg.payload = barcode\nmsg.info.barcode = barcode\nmsg.info.sealNumber = \"L99482284\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3102,26 +3032,10 @@
         "y": 160,
         "wires": [
             [
-                "24819c7a281d6637",
-                "8c7e8b568ff498a6"
+                "8c7e8b568ff498a6",
+                "3e23b813514cfee0"
             ]
         ]
-    },
-    {
-        "id": "24819c7a281d6637",
-        "type": "debug",
-        "z": "835ba4690849c5a7",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 420,
-        "y": 160,
-        "wires": []
     },
     {
         "id": "6de24f6203a20cfe",
@@ -3131,6 +3045,645 @@
         "info": "402002000001\n422002000001\n4072610852405",
         "x": 150,
         "y": 200,
+        "wires": []
+    },
+    {
+        "id": "3e23b813514cfee0",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 21",
+        "func": "var mainData = msg.info\nmainData.id = Date.now();\nvar file = \"/home/pi/db_date/db_log.txt\"\nmsg.filename = file;\nmsg.payload = mainData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "73027c22f37fb36b",
+                "80d80305a20d4fa9"
+            ]
+        ]
+    },
+    {
+        "id": "73027c22f37fb36b",
+        "type": "file",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 680,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "50d70cb80778d9b5",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 22",
+        "func": "var mainData = msg.info\n//global.set(\"dateGlobalForPDF\", msg.payload.replace(\" \", \"_\"))\nvar file = \"/home/pi/barcodeLib/\" + mainData.barcode + \"_\" + global.get(\"dateGlobalForPDF\") + \".pdf\"\nmsg.filename = file;\n//msg.payload = mainData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "23a78ebb1858a405"
+            ]
+        ]
+    },
+    {
+        "id": "c78b8d4a8a362d72",
+        "type": "inject",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 700,
+        "wires": [
+            [
+                "512bb817e87a3f0d"
+            ]
+        ]
+    },
+    {
+        "id": "512bb817e87a3f0d",
+        "type": "exec",
+        "z": "835ba4690849c5a7",
+        "command": "cat /home/pi/db_date/db_log.txt",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "read DB",
+        "x": 120,
+        "y": 760,
+        "wires": [
+            [
+                "b6a684b3b9810f14"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5fb745df4ef5a03b",
+        "type": "debug",
+        "z": "835ba4690849c5a7",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "b6a684b3b9810f14",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 23",
+        "func": "var arrayDb = msg.payload.split(\"\\n\");\narrayDb.pop()\n\nfor (let i = 0; i < arrayDb.length; i++) {\n    arrayDb[i] = JSON.parse(arrayDb[i])\n}\n\n\narrayDb.sort(function (a, b) {\n    return a.id - b.id;\n});\n\nflow.set(\"DB_log\", arrayDb);\nmsg.payload = arrayDb;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 740,
+        "wires": [
+            [
+                "5fb745df4ef5a03b"
+            ]
+        ]
+    },
+    {
+        "id": "80d80305a20d4fa9",
+        "type": "http request",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.101:1880/send",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 80,
+        "wires": [
+            [
+                "d5f3b4bc53f02048",
+                "ac2597eb11787e7a"
+            ]
+        ]
+    },
+    {
+        "id": "d5f3b4bc53f02048",
+        "type": "debug",
+        "z": "835ba4690849c5a7",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ac2597eb11787e7a",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 25",
+        "func": "var mainData = msg.info\nvar statusCode = msg.statusCode\nif (mainData && statusCode == 200){\n    var file = \"/home/pi/db_date/db_log_send_1C.txt\"\n    msg.filename = file;\n    msg.payload = mainData.id;\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 80,
+        "wires": [
+            [
+                "c7da681f2009a1bf"
+            ]
+        ]
+    },
+    {
+        "id": "c7da681f2009a1bf",
+        "type": "file",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 980,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b75d675abf7072bf",
+        "type": "inject",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 860,
+        "wires": [
+            [
+                "8cb14a35668458ff"
+            ]
+        ]
+    },
+    {
+        "id": "8cb14a35668458ff",
+        "type": "exec",
+        "z": "835ba4690849c5a7",
+        "command": "cat /home/pi/db_date/db_log_send_1C.txt",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "read DB 1C",
+        "x": 130,
+        "y": 920,
+        "wires": [
+            [
+                "4d2066e0eccad748"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "69cccd1047118ea3",
+        "type": "debug",
+        "z": "835ba4690849c5a7",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "4d2066e0eccad748",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 26",
+        "func": "var arrayDb = msg.payload.split(\"\\n\");\narrayDb.pop()\n\nfor (let i = 0; i < arrayDb.length; i++) {\n    arrayDb[i] = Number(arrayDb[i])\n}\n\n\n\nflow.set(\"DB_log_1C\", arrayDb);\nmsg.payload = arrayDb;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 900,
+        "wires": [
+            [
+                "69cccd1047118ea3"
+            ]
+        ]
+    },
+    {
+        "id": "149a5ae40fa0a6fd",
+        "type": "inject",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 1080,
+        "wires": [
+            [
+                "d8c7e5bfbf8cc7b3"
+            ]
+        ]
+    },
+    {
+        "id": "d8c7e5bfbf8cc7b3",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 27",
+        "func": "var dateLog = flow.get(\"DB_log\");\nvar dateLog1C = flow.get(\"DB_log_1C\");\nvar mustSend = []\n\nfor (let i = 0; i < dateLog.length; i++) {\n    //const array1 = [1, 2, 3];\n    //console.log(array1.includes(2));\n    // expected output: true\n    if (dateLog1C.includes(dateLog[i].id)){\n        \n    }else{\n        mustSend.push(dateLog[i])\n    }\n    \n    \n}\n\n//msg.payload = mustSend;\nif (mustSend.length){\n    msg.info = mustSend[0];\n    msg.payload = mustSend[0];\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1080,
+        "wires": [
+            [
+                "51e0bc61f4589689",
+                "2e2b48222ee8b2c9"
+            ]
+        ]
+    },
+    {
+        "id": "51e0bc61f4589689",
+        "type": "debug",
+        "z": "835ba4690849c5a7",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "36fd26a4d66aa58a",
+        "type": "inject",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "DB_log",
+        "payloadType": "flow",
+        "x": 110,
+        "y": 1140,
+        "wires": [
+            [
+                "0999384918cd7d59"
+            ]
+        ]
+    },
+    {
+        "id": "5faef9ae7cbae1ab",
+        "type": "inject",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "DB_log_1C",
+        "payloadType": "flow",
+        "x": 120,
+        "y": 1180,
+        "wires": [
+            [
+                "0999384918cd7d59"
+            ]
+        ]
+    },
+    {
+        "id": "0999384918cd7d59",
+        "type": "debug",
+        "z": "835ba4690849c5a7",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "2e2b48222ee8b2c9",
+        "type": "http request",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.101:1880/send",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 530,
+        "y": 1080,
+        "wires": [
+            [
+                "2e043a86bed747a1",
+                "7e9708b10a5e1ba8"
+            ]
+        ]
+    },
+    {
+        "id": "2e043a86bed747a1",
+        "type": "debug",
+        "z": "835ba4690849c5a7",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "7e9708b10a5e1ba8",
+        "type": "function",
+        "z": "835ba4690849c5a7",
+        "name": "function 28",
+        "func": "var mainData = msg.info\nvar statusCode = msg.statusCode\nif (mainData && statusCode == 200){\n    var file = \"/home/pi/db_date/db_log_send_1C.txt\"\n    msg.filename = file;\n    msg.payload = mainData.id;\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 1080,
+        "wires": [
+            [
+                "e4f8f3e77ec1cf18"
+            ]
+        ]
+    },
+    {
+        "id": "e4f8f3e77ec1cf18",
+        "type": "file",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 900,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6dcd34ac5e121350",
+        "type": "http request",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.102:1880/send",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 1400,
+        "wires": [
+            [
+                "b35584c0b306f8b8"
+            ]
+        ]
+    },
+    {
+        "id": "a875a8bbed3e70b3",
+        "type": "inject",
+        "z": "835ba4690849c5a7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 1400,
+        "wires": [
+            [
+                "6dcd34ac5e121350"
+            ]
+        ]
+    },
+    {
+        "id": "b35584c0b306f8b8",
+        "type": "debug",
+        "z": "835ba4690849c5a7",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "6480c95571fca356",
+        "type": "http in",
+        "z": "da2fcd75b90b9ad8",
+        "name": "",
+        "url": "/send",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "b3e4fd452455c259"
+            ]
+        ]
+    },
+    {
+        "id": "b3e4fd452455c259",
+        "type": "function",
+        "z": "da2fcd75b90b9ad8",
+        "name": "function 24",
+        "func": "msg.payload = \"\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "892c2bb729816fe4"
+            ]
+        ]
+    },
+    {
+        "id": "892c2bb729816fe4",
+        "type": "http response",
+        "z": "da2fcd75b90b9ad8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 470,
+        "y": 160,
         "wires": []
     }
 ]
