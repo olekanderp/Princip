@@ -1457,7 +1457,7 @@
         "topic": "",
         "payload": "main_skald",
         "payloadType": "flow",
-        "x": 220,
+        "x": 120,
         "y": 940,
         "wires": [
             [
@@ -1477,7 +1477,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 440,
+        "x": 340,
         "y": 940,
         "wires": []
     },
@@ -1516,13 +1516,49 @@
         "links": [
             "0da06f3cb6c58d8c"
         ],
-        "x": 145,
+        "x": 65,
+        "y": 600,
+        "wires": [
+            [
+                "811efefa87d3e7d6",
+                "a9349b08eb545516"
+            ]
+        ]
+    },
+    {
+        "id": "811efefa87d3e7d6",
+        "type": "function",
+        "z": "471a6e91c9155e06",
+        "name": "triger",
+        "func": "var sklad = flow.get(\"main_skald\");\nif (!sklad) {\n    \n} else {\n    msg.linkEvent = null\n    return msg;\n}\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
         "y": 600,
         "wires": [
             [
                 "461410de7677dc4b"
             ]
         ]
+    },
+    {
+        "id": "a9349b08eb545516",
+        "type": "debug",
+        "z": "471a6e91c9155e06",
+        "name": "debug 46",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 280,
+        "y": 540,
+        "wires": []
     },
     {
         "id": "5dc4902beb1fbddd",
@@ -3278,7 +3314,7 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "Check var",
-        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\n\n\nif (main_skald && sklad && order && (weight > 50)){\n    return msg;\n}\n\n\n",
+        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\nvar plomba = flow.get(\"plomba\")\n\nif (plomba && main_skald && sklad && order && (weight > 50)){\n    return msg;\n}\n\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3742,7 +3778,7 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "function 20",
-        "func": "// 1\t«4» - префікс типу штрихкода\n// 2 - 3\tРік виробництва, наприклад «21», «22»\n// 4 - 7\tНомер завдання на виробництво, наприклад «0025»\n// 8 - 12\tПорядковий номер у завданні.Початковий номер(0, якщо початок виробництва по завданню) + виготовлені мішки.\nvar inData = msg.info\n\nconst year = new Date().getFullYear().toString().substring(2,4);\nvar orderNumber = Number(inData.sklad.DocumentNumber);\nif (orderNumber < 100){\n    orderNumber = \"00\" + orderNumber\n} else if (orderNumber > 100 && orderNumber < 1000){\n    orderNumber = \"0\" + orderNumber\n}\n\n//Формуєм номер мішка\nvar dbLog = flow.get(\"DB_log\");\nvar number = 0;\n\n//\n//msg.info.box\n\nfor (let i = 0; i < dbLog.length; i++) {\n    if (inData.sklad.DocumentNumber == dbLog[i].sklad.DocumentNumber){\n        number++;\n    }\n}\n\nvar firstNumber = \"00001\" // номер мішка\nif (!msg.info.box){\n    if (number > 0) {\n        if (number < 10) {\n            firstNumber = \"0000\" + number\n        } else if (number == 10) {\n            firstNumber = \"000\" + number\n        } else if (number > 10 && number < 100) {\n            firstNumber = \"000\" + number\n        } else if (number > 100 && number < 1000) {\n            firstNumber = \"00\" + number\n        } else if (number > 1000 && number < 10000) {\n            firstNumber = \"0\" + number\n        } else if (number > 10000 && number < 100000) {\n            firstNumber = \"\" + number\n        }\n    }\n}else{\n    if (msg.info.box > 0) {\n        if (msg.info.box < 10) {\n            firstNumber = \"0000\" + msg.info.box\n        } else if (msg.info.box == 10) {\n            firstNumber = \"000\" + msg.info.box\n        } else if (msg.info.box > 10 && msg.info.box < 100) {\n            firstNumber = \"000\" + msg.info.box\n        } else if (msg.info.box > 100 && msg.info.box < 1000) {\n            firstNumber = \"00\" + msg.info.box\n        } else if (msg.info.box > 1000 && msg.info.box < 10000) {\n            firstNumber = \"0\" + msg.info.box\n        } else if (msg.info.box > 10000 && msg.info.box < 100000) {\n            firstNumber = \"\" + msg.info.box\n        }\n    }\n}\n\n\n\nvar barcode = 4 + year + orderNumber + firstNumber\nmsg.payload = barcode\nmsg.info.barcode = barcode\nmsg.info.sealNumber = \"L99482284\"\n\nmsg.info.barcodePDF = \"/home/pi/barcodeLib/\" + barcode + \"_\" + global.get(\"dateGlobalForPDF\") + \".pdf\"\n\nreturn msg;",
+        "func": "// 1\t«4» - префікс типу штрихкода\n// 2 - 3\tРік виробництва, наприклад «21», «22»\n// 4 - 7\tНомер завдання на виробництво, наприклад «0025»\n// 8 - 12\tПорядковий номер у завданні.Початковий номер(0, якщо початок виробництва по завданню) + виготовлені мішки.\nvar inData = msg.info\n\nconst year = new Date().getFullYear().toString().substring(2,4);\nvar orderNumber = Number(inData.sklad.DocumentNumber);\nif (orderNumber < 100){\n    orderNumber = \"00\" + orderNumber\n} else if (orderNumber > 100 && orderNumber < 1000){\n    orderNumber = \"0\" + orderNumber\n}\n\n//Формуєм номер мішка\nvar dbLog = flow.get(\"DB_log\");\nvar number = 0;\n\n//\n//msg.info.box\n\nfor (let i = 0; i < dbLog.length; i++) {\n    if (inData.sklad.DocumentNumber == dbLog[i].sklad.DocumentNumber){\n        number++;\n    }\n}\n\nvar firstNumber = \"00001\" // номер мішка\nif (!msg.info.box){\n    if (number > 0) {\n        if (number < 10) {\n            firstNumber = \"0000\" + number\n        } else if (number == 10) {\n            firstNumber = \"000\" + number\n        } else if (number > 10 && number < 100) {\n            firstNumber = \"000\" + number\n        } else if (number > 100 && number < 1000) {\n            firstNumber = \"00\" + number\n        } else if (number > 1000 && number < 10000) {\n            firstNumber = \"0\" + number\n        } else if (number > 10000 && number < 100000) {\n            firstNumber = \"\" + number\n        }\n    }\n}else{\n    if (msg.info.box > 0) {\n        if (msg.info.box < 10) {\n            firstNumber = \"0000\" + msg.info.box\n        } else if (msg.info.box == 10) {\n            firstNumber = \"000\" + msg.info.box\n        } else if (msg.info.box > 10 && msg.info.box < 100) {\n            firstNumber = \"000\" + msg.info.box\n        } else if (msg.info.box > 100 && msg.info.box < 1000) {\n            firstNumber = \"00\" + msg.info.box\n        } else if (msg.info.box > 1000 && msg.info.box < 10000) {\n            firstNumber = \"0\" + msg.info.box\n        } else if (msg.info.box > 10000 && msg.info.box < 100000) {\n            firstNumber = \"\" + msg.info.box\n        }\n    }\n}\n\n\n\nvar barcode = 4 + year + orderNumber + firstNumber\nmsg.payload = barcode\nmsg.info.barcode = barcode\n\nmsg.info.barcodePDF = \"/home/pi/barcodeLib/\" + barcode + \"_\" + global.get(\"dateGlobalForPDF\") + \".pdf\"\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3784,7 +3820,8 @@
         "wires": [
             [
                 "1cc6e5cead3162b2",
-                "5f8653ae3e4b9a74"
+                "5f8653ae3e4b9a74",
+                "a3db1dcd57c4df11"
             ]
         ]
     },
@@ -4109,7 +4146,7 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "function 27",
-        "func": "var dateLog = flow.get(\"DB_log\");\nvar dateLog1C = flow.get(\"DB_log_1C\");\nvar mustSend = []\n\nfor (let i = 0; i < dateLog.length; i++) {\n    //const array1 = [1, 2, 3];\n    //console.log(array1.includes(2));\n    // expected output: true\n    if (dateLog1C.includes(dateLog[i].id)){\n        \n    }else{\n        mustSend.push(dateLog[i])\n    }\n    \n    \n}\n\n//msg.payload = mustSend;\nif (mustSend.length){\n    msg.info = mustSend[0];\n    msg.payload = mustSend[0];\n    return msg;\n}\n\n",
+        "func": "var dateLog = flow.get(\"DB_log\");\nvar dateLog1C = flow.get(\"DB_log_1C\");\nvar mustSend = []\n\nfor (let i = 0; i < dateLog.length; i++) {\n    //const array1 = [1, 2, 3];\n    //console.log(array1.includes(2));\n    // expected output: true\n    if (dateLog1C.includes(dateLog[i].id)){\n        \n    }else{\n        mustSend.push(dateLog[i])\n    }\n    \n    \n}\n\n//msg.payload = mustSend;\nif (mustSend.length){\n    msg.info = mustSend[0];\n    msg.payload = mustSend[0];\n    msg.requestTimeout = 15 * 1000;\n    return msg;\n}\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4222,7 +4259,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://192.168.0.101:1880/send",
+        "url": "http://192.168.0.105:1880/send",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -4271,7 +4308,8 @@
         "y": 1220,
         "wires": [
             [
-                "5eb7e05b75c8dcbe"
+                "5eb7e05b75c8dcbe",
+                "ce78b6073342523c"
             ]
         ]
     },
@@ -4366,14 +4404,15 @@
         "type": "debug",
         "z": "656dc0405eaa1150",
         "name": "debug 16",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 700,
+        "x": 760,
         "y": 200,
         "wires": []
     },
@@ -4409,23 +4448,6 @@
         "x": 160,
         "y": 120,
         "wires": []
-    },
-    {
-        "id": "4b6e9b6b1653dc6c",
-        "type": "function",
-        "z": "656dc0405eaa1150",
-        "name": "function 29",
-        "func": "// main_skald: object\n//     Warehouse: \"Склад виробництва насіння (м.Хоростків)\"\n//     WarehouseCode: \"000000000064\"\n// sklad: object\n//     DocumentNumber: \"000000000020\"\n//     DocumentDate: \"2022-02-01T00:00:00\"\n//     PartyName: \"20000-200222-0222\"\n//     Note: \"Тернопіль, Схема 3\"\n//     NomenclatureName: \"Нас. оз. пш. Тіфун\"\n//     NomenclatureCode: \"Ц0000056439\"\n//     NomenclatureCharacteristics: \"Куінтус, нас., 2 р, 2021\"\n//     Disinfectant1: \"Вайбранс Інтеграл\"\n//     DisinfectantCode1: \"Ц0000100594\"\n//     Disinfectant2: \"Цензор XL\"\n//     DisinfectantCode2: \"Ц0000102126\"\n//     Disinfectant3: \"Яра Віта Рексолін АВС Фульвогумін\"\n//     DisinfectantCode3: \"Ц0000100669\"\n//     Disinfectant4: \"Вітазим К\"\n//     DisinfectantCode4: \"Ц0000085308\"\n//     WHouseName: \"ТІФУН НАСІННЄВИЙ ЗАВОД, ТОВ (Мангуш)\"\n//     WHouseCode: \"ЦК0007135\"\n//     BarcodeCode: \"430\"\n//     MassOfThousands: \"0.080\"\n//     optionVirtual: \"000000000020 Нас. оз. пш. Тіфун\"\n// weight: 288.4\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 630,
-        "y": 20,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "7a8bd9b4bb0ce08c",
@@ -4677,7 +4699,7 @@
         "type": "debug",
         "z": "656dc0405eaa1150",
         "name": "debug 25",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -4731,6 +4753,121 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 280,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "6466d7301ae1cad0",
+        "type": "http in",
+        "z": "656dc0405eaa1150",
+        "name": "",
+        "url": "/send",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 1520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "49c9a5be14dd3d13",
+        "type": "debug",
+        "z": "656dc0405eaa1150",
+        "name": "debug 44",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "167c643f9b77b7a2",
+        "type": "function",
+        "z": "656dc0405eaa1150",
+        "name": "function 46",
+        "func": "msg.payload = \"\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1520,
+        "wires": [
+            [
+                "49c9a5be14dd3d13",
+                "2cefe3b7a0e8cb23"
+            ]
+        ]
+    },
+    {
+        "id": "2cefe3b7a0e8cb23",
+        "type": "http response",
+        "z": "656dc0405eaa1150",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 510,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "ce78b6073342523c",
+        "type": "debug",
+        "z": "656dc0405eaa1150",
+        "name": "debug 45",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "a3db1dcd57c4df11",
+        "type": "json",
+        "z": "656dc0405eaa1150",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 610,
+        "y": 260,
+        "wires": [
+            [
+                "5f8653ae3e4b9a74"
+            ]
+        ]
+    },
+    {
+        "id": "7126fa235e51d4b7",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Відправка у випадку відсутності зв'язку",
+        "info": "",
+        "x": 220,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "d92dcde774c47702",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "в 1С",
+        "info": "",
+        "x": 570,
         "y": 40,
         "wires": []
     }
