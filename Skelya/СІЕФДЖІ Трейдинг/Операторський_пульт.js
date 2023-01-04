@@ -253,7 +253,7 @@
         "tab": "5d5961574f63fd32",
         "order": 9,
         "disp": true,
-        "width": "4",
+        "width": "5",
         "collapse": false,
         "className": ""
     },
@@ -262,9 +262,9 @@
         "type": "ui_group",
         "name": "Зберегти",
         "tab": "5d5961574f63fd32",
-        "order": 13,
+        "order": 11,
         "disp": true,
-        "width": "3",
+        "width": "6",
         "collapse": false,
         "className": ""
     },
@@ -275,7 +275,7 @@
         "tab": "5d5961574f63fd32",
         "order": 10,
         "disp": true,
-        "width": "3",
+        "width": "4",
         "collapse": false,
         "className": ""
     },
@@ -376,13 +376,22 @@
     {
         "id": "2927b1677483d4a7",
         "type": "ui_group",
-        "name": "Пломба",
-        "tab": "5d5961574f63fd32",
+        "name": "Проскануйте або введіть номер пломби",
+        "tab": "0572032f1b40fb10",
         "order": 12,
         "disp": true,
-        "width": "5",
+        "width": "8",
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "0572032f1b40fb10",
+        "type": "ui_tab",
+        "name": "Пломба",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": true
     },
     {
         "id": "81093c9dbc487b42",
@@ -412,7 +421,7 @@
         "type": "function",
         "z": "99366da2301717ce",
         "name": "function 42",
-        "func": "var currentWindow = flow.get(\"CurrentWindow\")\nvar key = msg.payload;\n\nif (msg.topic == \"keydown\" && key == \"Enter\"){\n    if (currentWindow.name == \"Зважування\"){\n        var newMsg = { payload: \"Enter\"};\n        return [null, newMsg];\n    } else if (currentWindow.name == \"CFG-Main\"){\n        var newMsg = { payload: \"Enter\" };\n        return [newMsg, null];\n    }else{\n        \n    }\n}\n\n//return msg;\n\n// payload: \"change\"\n// tab: \"1\"\n// name: \"Зважування\"\n// socketid: \"xizACaUb1nbqCm-XAAAB\"\n// socketip: \"192.168.0.102\"\n// params: object\n// _msgid: \"b2a3c3b754f1c832\"\n\n\n// payload: \"change\"\n// tab: \"0\"\n// name: \"CFG-Main\"\n// socketid: \"xizACaUb1nbqCm-XAAAB\"\n// socketip: \"192.168.0.102\"\n// params: object\n// _msgid: \"7ea7dc5c182e2fc6\"",
+        "func": "var currentWindow = flow.get(\"CurrentWindow\")\nvar key = msg.payload;\n\nif (msg.topic == \"keydown\" && key == \"Enter\"){\n    if (currentWindow.name == \"Зважування\"){\n        // var newMsg = { payload: \"Enter\"};\n        // return [null, newMsg];\n    } else if (currentWindow.name == \"CFG-Main\"){\n        var newMsg = { payload: \"Enter\" };\n        return [newMsg, null];\n    } else if (currentWindow.name == \"Пломба\") {\n        var newMsg = { payload: \"Enter\" };\n        return [null, newMsg];\n    }else{\n        \n    }\n}\n\n//return msg;\n\n// payload: \"change\"\n// tab: \"1\"\n// name: \"Зважування\"\n// socketid: \"xizACaUb1nbqCm-XAAAB\"\n// socketip: \"192.168.0.102\"\n// params: object\n// _msgid: \"b2a3c3b754f1c832\"\n\n\n// payload: \"change\"\n// tab: \"0\"\n// name: \"CFG-Main\"\n// socketid: \"xizACaUb1nbqCm-XAAAB\"\n// socketip: \"192.168.0.102\"\n// params: object\n// _msgid: \"7ea7dc5c182e2fc6\"",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -452,7 +461,7 @@
         "id": "fb0d3e70a7a6a2d8",
         "type": "debug",
         "z": "99366da2301717ce",
-        "name": "Зважування",
+        "name": "Пломба",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -461,7 +470,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 830,
+        "x": 820,
         "y": 320,
         "wires": []
     },
@@ -533,7 +542,7 @@
         "type": "debug",
         "z": "99366da2301717ce",
         "name": "",
-        "active": false,
+        "active": true,
         "console": "false",
         "complete": "false",
         "x": 370,
@@ -545,7 +554,7 @@
         "type": "debug",
         "z": "99366da2301717ce",
         "name": "debug 42",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -567,7 +576,7 @@
             "6a7c9e9f74b69479"
         ],
         "x": 775,
-        "y": 240,
+        "y": 220,
         "wires": []
     },
     {
@@ -587,7 +596,7 @@
         "id": "b76a24b7d7ee06ee",
         "type": "ui_template",
         "z": "99366da2301717ce",
-        "group": "7396c88169167354",
+        "group": "2927b1677483d4a7",
         "name": "",
         "order": 1,
         "width": 0,
@@ -1930,7 +1939,7 @@
         "type": "debug",
         "z": "7a204b0920df63ed",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -2351,7 +2360,7 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "enb save",
-        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\nvar plomba = flow.get(\"plomba\")\n\nif (main_skald && sklad && order && (weight > 50) && plomba){\n    msg.enabled = true;\n}else{\n    msg.enabled = false;\n}\n\nmsg.linkEvent = \"true\"\nreturn msg;",
+        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\n\nif (main_skald && sklad && order && (weight > 50)){\n    msg.enabled = true;\n}else{\n    msg.enabled = false;\n}\n\nmsg.linkEvent = \"true\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2373,8 +2382,8 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 370,
-        "y": 1240,
+        "x": 390,
+        "y": 1260,
         "wires": []
     },
     {
@@ -2440,7 +2449,7 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "get all data",
-        "func": "//msg.linkEvent = \"true\"\nif (msg.linkEvent == null){\n    var main_skald = flow.get(\"main_skald\");\n    var sklad = flow.get(\"sklad\");\n    var order = flow.get(\"order\");\n    var weight = flow.get(\"weight\");\n    var box = flow.get(\"NumberBox\");\n    var plomba = flow.get(\"plomba\")\n\n    msg.payload = { main_skald, sklad, weight, box, plomba }\n    msg.info = { main_skald, sklad, weight, box, plomba }\n    flow.set(\"all\", msg.payload)\n    msg.payload = \"open\"\n\n\n    return msg;\n}\n",
+        "func": "//msg.linkEvent = \"true\"\nif (msg.linkEvent == null){\n    var main_skald = flow.get(\"main_skald\");\n    var sklad = flow.get(\"sklad\");\n    var order = flow.get(\"order\");\n    var weight = flow.get(\"weight\");\n    //var plomba = flow.get(\"plomba\")\n\n    msg.payload = { main_skald, sklad, weight }\n    msg.info = { main_skald, sklad, weight }\n    flow.set(\"all\", msg.payload)\n    msg.payload = \"open\"\n\n\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2451,10 +2460,8 @@
         "wires": [
             [
                 "0872feaccb095392",
-                "22b9b6028030f54c",
-                "1514936ceabbe176",
                 "2e4b600dee25932b",
-                "cddb747c946f377a"
+                "bd8e7927b244a788"
             ]
         ]
     },
@@ -3102,7 +3109,7 @@
         "type": "debug",
         "z": "7a204b0920df63ed",
         "name": "debug 24",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3155,8 +3162,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 1320,
+        "x": 1380,
+        "y": 1340,
         "wires": []
     },
     {
@@ -3165,8 +3172,8 @@
         "z": "7a204b0920df63ed",
         "name": "Пломба",
         "info": "",
-        "x": 720,
-        "y": 1260,
+        "x": 1100,
+        "y": 1280,
         "wires": []
     },
     {
@@ -3210,9 +3217,7 @@
         "x": 1110,
         "y": 1100,
         "wires": [
-            [
-                "aa48f08e5eea417b"
-            ]
+            []
         ]
     },
     {
@@ -3301,11 +3306,12 @@
         "links": [
             "e99b64e16475459d"
         ],
-        "x": 65,
-        "y": 880,
+        "x": 555,
+        "y": 1500,
         "wires": [
             [
-                "bd25b97292a31e85"
+                "bd25b97292a31e85",
+                "970528c4b769e58b"
             ]
         ]
     },
@@ -3314,17 +3320,23 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "Check var",
-        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\nvar plomba = flow.get(\"plomba\")\n\nif (plomba && main_skald && sklad && order && (weight > 50)){\n    return msg;\n}\n\n\n",
-        "outputs": 1,
+        "func": "var all = flow.get(\"all\")\n\nvar main_skald = all.main_skald;\nvar sklad = all.sklad;\nvar order = all.sklad.optionVirtual//flow.get(\"order\");//optionVirtual\nvar weight = all.weight;\nvar plomba = flow.get(\"plomba\")\n\nif (plomba && main_skald && sklad && order && (weight > 50)){\n\n    msg.payload = { main_skald, sklad, weight, plomba}\n    msg.info = { main_skald, sklad, weight, plomba}\n    return [msg, null];\n} else if (!plomba && main_skald && sklad && order && (weight > 50)){\n    msg.payload = \"Пломба не заповнена\"\n    return [null, msg];\n}\n\n\nreturn [msg, null];",
+        "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 180,
-        "y": 880,
+        "x": 800,
+        "y": 1500,
         "wires": [
             [
-                "11bb8ed3c99a7ad2"
+                "cddb747c946f377a",
+                "22b9b6028030f54c",
+                "1514936ceabbe176",
+                "ae99f60652efa374"
+            ],
+            [
+                "2a90d14480d45458"
             ]
         ]
     },
@@ -3333,7 +3345,7 @@
         "type": "ui_text_input",
         "z": "7a204b0920df63ed",
         "name": "Пломба",
-        "label": "Проскануйте або введіть номер пломби:",
+        "label": "Пломба",
         "tooltip": "",
         "group": "2927b1677483d4a7",
         "order": 0,
@@ -3346,8 +3358,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "msg",
-        "x": 660,
-        "y": 1320,
+        "x": 1040,
+        "y": 1340,
         "wires": [
             [
                 "086692f38fe3819e"
@@ -3362,8 +3374,8 @@
         "links": [
             "40d164af678b88b6"
         ],
-        "x": 535,
-        "y": 1340,
+        "x": 895,
+        "y": 1400,
         "wires": [
             [
                 "87025187263a1295",
@@ -3382,8 +3394,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 830,
-        "y": 1320,
+        "x": 1210,
+        "y": 1340,
         "wires": [
             [
                 "1db3a61bc8a29606"
@@ -3402,8 +3414,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 660,
-        "y": 1380,
+        "x": 1120,
+        "y": 1420,
         "wires": []
     },
     {
@@ -3413,10 +3425,11 @@
         "name": "Друк",
         "mode": "link",
         "links": [
-            "ee1c61f6c3929a85"
+            "ee1c61f6c3929a85",
+            "1282afc20df153fe"
         ],
-        "x": 945,
-        "y": 960,
+        "x": 1025,
+        "y": 1500,
         "wires": []
     },
     {
@@ -3428,8 +3441,8 @@
         "links": [
             "1282afc20df153fe"
         ],
-        "x": 945,
-        "y": 920,
+        "x": 955,
+        "y": 960,
         "wires": []
     },
     {
@@ -3438,10 +3451,11 @@
         "z": "7a204b0920df63ed",
         "name": "link in 5",
         "links": [
-            "2e4b600dee25932b"
+            "2e4b600dee25932b",
+            "22b9b6028030f54c"
         ],
-        "x": 395,
-        "y": 1300,
+        "x": 625,
+        "y": 1340,
         "wires": [
             [
                 "0e5ae93a8e415269"
@@ -3459,8 +3473,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 490,
-        "y": 1300,
+        "x": 790,
+        "y": 1340,
         "wires": [
             [
                 "87025187263a1295"
@@ -3482,8 +3496,8 @@
         "className": "",
         "topic": "Відправка на друк",
         "name": "",
-        "x": 1150,
-        "y": 1020,
+        "x": 1290,
+        "y": 1540,
         "wires": []
     },
     {
@@ -3497,11 +3511,180 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 970,
-        "y": 1020,
+        "x": 1090,
+        "y": 1540,
         "wires": [
             [
                 "a975dfac3f3cb716"
+            ]
+        ]
+    },
+    {
+        "id": "ed28ca07658bbbd5",
+        "type": "inject",
+        "z": "7a204b0920df63ed",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "all",
+        "payloadType": "flow",
+        "x": 130,
+        "y": 1480,
+        "wires": [
+            [
+                "a5cba42270c6fc94"
+            ]
+        ]
+    },
+    {
+        "id": "9025b45a5645caf4",
+        "type": "ui_ui_control",
+        "z": "7a204b0920df63ed",
+        "name": "ui control",
+        "x": 1180,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bd8e7927b244a788",
+        "type": "function",
+        "z": "7a204b0920df63ed",
+        "name": "",
+        "func": "msg.payload = { tab:\"Пломба\"}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 920,
+        "wires": [
+            [
+                "9025b45a5645caf4"
+            ]
+        ]
+    },
+    {
+        "id": "9a6e869cf410e717",
+        "type": "ui_toast",
+        "z": "7a204b0920df63ed",
+        "position": "top left",
+        "displayTime": "3",
+        "highlight": "red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Помилка",
+        "name": "",
+        "x": 1290,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "2a90d14480d45458",
+        "type": "function",
+        "z": "7a204b0920df63ed",
+        "name": "function 47",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 1580,
+        "wires": [
+            [
+                "9a6e869cf410e717"
+            ]
+        ]
+    },
+    {
+        "id": "970528c4b769e58b",
+        "type": "debug",
+        "z": "7a204b0920df63ed",
+        "name": "debug 47",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "20fb455814bb8740",
+        "type": "function",
+        "z": "7a204b0920df63ed",
+        "name": "",
+        "func": "\nmsg.payload = { tab: \"Зважування\" }\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 1460,
+        "wires": [
+            [
+                "564d158d64bf69bf"
+            ]
+        ]
+    },
+    {
+        "id": "564d158d64bf69bf",
+        "type": "ui_ui_control",
+        "z": "7a204b0920df63ed",
+        "name": "ui control",
+        "x": 1320,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae99f60652efa374",
+        "type": "delay",
+        "z": "7a204b0920df63ed",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1030,
+        "y": 1460,
+        "wires": [
+            [
+                "20fb455814bb8740"
             ]
         ]
     },
