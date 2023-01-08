@@ -1,5 +1,13 @@
 [
     {
+        "id": "d14017f84deacb57",
+        "type": "tab",
+        "label": "Налаштування",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "99366da2301717ce",
         "type": "tab",
         "label": "Ловим кнопку",
@@ -313,7 +321,7 @@
     {
         "id": "f67cab9887ac5e76",
         "type": "ui_group",
-        "name": "qwerty",
+        "name": "Головний-Склад",
         "tab": "977954cde5f1ca1c",
         "order": 1,
         "disp": true,
@@ -378,9 +386,9 @@
         "type": "ui_group",
         "name": "Проскануйте або введіть номер пломби",
         "tab": "0572032f1b40fb10",
-        "order": 12,
+        "order": 1,
         "disp": true,
-        "width": "8",
+        "width": "10",
         "collapse": false,
         "className": ""
     },
@@ -392,6 +400,63 @@
         "order": 3,
         "disabled": false,
         "hidden": true
+    },
+    {
+        "id": "1903964e747c6a1c",
+        "type": "ui_group",
+        "name": "Збережена інформація",
+        "tab": "0572032f1b40fb10",
+        "order": 2,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "63ac5825bcf64c6f",
+        "type": "inject",
+        "z": "d14017f84deacb57",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "4fbd73c6cd92a207"
+            ]
+        ]
+    },
+    {
+        "id": "4fbd73c6cd92a207",
+        "type": "function",
+        "z": "d14017f84deacb57",
+        "name": "function 49",
+        "func": "global.set(\"printerName\", \"\");\nglobal.set(\"sendTo1C\", \"\");\nglobal.set(\"getWith1C\", \"\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 120,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "81093c9dbc487b42",
@@ -660,11 +725,10 @@
         "topic": "",
         "topicType": "str",
         "className": "widgetbr",
-        "x": 490,
-        "y": 180,
+        "x": 650,
+        "y": 160,
         "wires": [
             [
-                "90d40922bd80dfe2",
                 "0cda26629cbee96d",
                 "a5e69696878bcfe4"
             ]
@@ -687,12 +751,12 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "0.5",
+        "onceDelay": "0.7",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 240,
+        "x": 100,
+        "y": 160,
         "wires": [
             [
                 "02f99db808d9ea45",
@@ -711,26 +775,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 180,
+        "x": 430,
+        "y": 160,
         "wires": [
             [
-                "44576446608a48b0",
-                "ba65b8e9c050dd28"
+                "44576446608a48b0"
             ]
         ]
-    },
-    {
-        "id": "90d40922bd80dfe2",
-        "type": "debug",
-        "z": "471a6e91c9155e06",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 730,
-        "y": 180,
-        "wires": []
     },
     {
         "id": "66d04674ac2c1b03",
@@ -743,7 +794,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
+        "x": 350,
         "y": 60,
         "wires": [
             [
@@ -762,7 +813,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
+        "x": 170,
         "y": 60,
         "wires": [
             [
@@ -783,7 +834,7 @@
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
-        "x": 510,
+        "x": 550,
         "y": 60,
         "wires": []
     },
@@ -807,15 +858,14 @@
         "payloadType": "date",
         "topic": "",
         "topicType": "str",
-        "x": 310,
+        "x": 90,
         "y": 300,
         "wires": [
             [
-                "bcf5ae75b751ad75",
-                "02f99db808d9ea45",
                 "2ed356f756f769f7",
                 "1c4fc271bdc0c8e3",
-                "b6d322a2982cab47"
+                "b6d322a2982cab47",
+                "045124bf8e87feef"
             ]
         ]
     },
@@ -827,8 +877,8 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 490,
-        "y": 240,
+        "x": 450,
+        "y": 200,
         "wires": []
     },
     {
@@ -852,11 +902,10 @@
         "topic": "",
         "topicType": "str",
         "x": 490,
-        "y": 600,
+        "y": 640,
         "wires": [
             [
-                "b053b813a475b584",
-                "f7bc39d1887562ac"
+                "b053b813a475b584"
             ]
         ]
     },
@@ -881,7 +930,7 @@
         "topic": "",
         "topicType": "str",
         "x": 140,
-        "y": 440,
+        "y": 460,
         "wires": [
             [
                 "7344e1919e0388fa",
@@ -900,8 +949,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 240,
+        "x": 290,
+        "y": 160,
         "wires": [
             [
                 "bcf5ae75b751ad75",
@@ -910,24 +959,12 @@
         ]
     },
     {
-        "id": "ba65b8e9c050dd28",
-        "type": "debug",
-        "z": "471a6e91c9155e06",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 730,
-        "y": 140,
-        "wires": []
-    },
-    {
         "id": "1495fcdc1e753f82",
         "type": "ui_ui_control",
         "z": "471a6e91c9155e06",
         "name": "",
         "x": 800,
-        "y": 640,
+        "y": 740,
         "wires": [
             [
                 "0179d3d32eeeba7c",
@@ -948,23 +985,23 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 970,
-        "y": 640,
+        "x": 1050,
+        "y": 740,
         "wires": []
     },
     {
         "id": "b053b813a475b584",
         "type": "function",
         "z": "471a6e91c9155e06",
-        "name": "",
+        "name": "перехід на Зважування",
         "func": "//msg.linkEvent = \"true\"\nif (msg.linkEvent == null){\n    msg.payload = { tab: \"Зважування\" }\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 200,
-        "y": 660,
+        "x": 230,
+        "y": 740,
         "wires": [
             [
                 "1495fcdc1e753f82"
@@ -992,8 +1029,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 820,
+        "x": 140,
+        "y": 920,
         "wires": [
             [
                 "2418ef8ebd49ef29"
@@ -1004,19 +1041,18 @@
         "id": "2418ef8ebd49ef29",
         "type": "function",
         "z": "471a6e91c9155e06",
-        "name": "function 1",
-        "func": "msg.payload = { \n    group: { \n        hide: [\"CFG-Main_Склад-виробництва-насіння\"],\n        show: [\"CFG-Main_qwerty\", \"CFG-Main_Час\", \"CFG-Main_Оновлення\", \"CFG-Main_Зважування\", \"CFG-Main_Зона-встановлення\"]\n    } \n}\n\nlet qwerty = { \n    \"group\": { \n        \"hide\": [\"tab_name_group_name_with_underscores\"], \n        \"show\": [\"reveal_another_group\"], \n        \"focus\": true \n    } \n}\n//        hide: [\"CFG-Main_qwerty\", \"CFG-Main_Час\", \"CFG-Main_Оновлення\", \"CFG-Main_Зважування\", \"CFG-Main_Зона-встановлення\", \"CFG-Main_Склад-виробництва-насіння\"]\nreturn msg;\n\n",
+        "name": "hide/show",
+        "func": "msg.payload = { \n    group: { \n        hide: [\"CFG-Main_Склад-виробництва-насіння\"],\n        show: [\"CFG-Main_Головний-Склад\", \"CFG-Main_Час\", \"CFG-Main_Оновлення\", \"CFG-Main_Зважування\", \"CFG-Main_Зона-встановлення\"]\n    } \n}\n\nlet qwerty = { \n    \"group\": { \n        \"hide\": [\"tab_name_group_name_with_underscores\"], \n        \"show\": [\"reveal_another_group\"], \n        \"focus\": true \n    } \n}\n//        hide: [\"CFG-Main_qwerty\", \"CFG-Main_Час\", \"CFG-Main_Оновлення\", \"CFG-Main_Зважування\", \"CFG-Main_Зона-встановлення\", \"CFG-Main_Склад-виробництва-насіння\"]\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 820,
+        "x": 340,
+        "y": 920,
         "wires": [
             [
-                "1495fcdc1e753f82",
-                "022ef6b94844877a"
+                "1495fcdc1e753f82"
             ]
         ]
     },
@@ -1025,14 +1061,14 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "hide/show DropDown",
-        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_qwerty\"], \n        \"show\": [\"CFG-Main_Склад-виробництва-насіння\"] \n    } \n}\nreturn msg;",
+        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_Головний-Склад\"], \n        \"show\": [\"CFG-Main_Склад-виробництва-насіння\"] \n    } \n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 160,
-        "y": 500,
+        "x": 240,
+        "y": 540,
         "wires": [
             [
                 "1495fcdc1e753f82"
@@ -1052,25 +1088,8 @@
         "format": "{{msg.info}}",
         "layout": "row-spread",
         "className": "",
-        "x": 780,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "022ef6b94844877a",
-        "type": "debug",
-        "z": "471a6e91c9155e06",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 490,
-        "y": 820,
+        "x": 1040,
+        "y": 420,
         "wires": []
     },
     {
@@ -1078,17 +1097,18 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "clear",
-        "func": "msg.info = \"Потрібно обрати\"\nflow.set(\"main_skald\", null);\nreturn msg;",
+        "func": "msg.info = \"Потрібно обрати\"\nflow.set(\"main_sklad\", null);\nflow.set(\"main_sklad_triger\", null);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 360,
+        "x": 530,
+        "y": 420,
         "wires": [
             [
-                "ab2aafaa9d2bf410"
+                "ab2aafaa9d2bf410",
+                "d739f430671ba965"
             ]
         ]
     },
@@ -1097,14 +1117,14 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "hide/show DropDown",
-        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_Склад-виробництва-насіння\"], \n        \"show\": [\"CFG-Main_qwerty\" ] \n    } \n}\nreturn msg;",
+        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_Склад-виробництва-насіння\"], \n        \"show\": [\"CFG-Main_Головний-Склад\" ] \n    } \n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 460,
+        "x": 1060,
+        "y": 540,
         "wires": [
             [
                 "1495fcdc1e753f82",
@@ -1117,18 +1137,17 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "function 3",
-        "func": "var sklad = flow.get(\"main_skald\");\nif (!sklad){\n    msg.enabled = false;\n}else{\n    msg.enabled = true;\n}\nmsg.linkEvent = \"true\"\nreturn msg;\n\n//flow.set(\"main_skald\", msg.payload.Warehouse);",
+        "func": "var sklad = flow.get(\"main_sklad_triger\");\nif (!sklad){\n    msg.enabled = false;\n}else{\n    msg.enabled = true;\n}\nmsg.linkEvent = \"true\"\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 760,
+        "x": 340,
+        "y": 840,
         "wires": [
             [
-                "461410de7677dc4b",
-                "022ef6b94844877a"
+                "461410de7677dc4b"
             ]
         ]
     },
@@ -1136,14 +1155,14 @@
         "id": "a5e69696878bcfe4",
         "type": "function",
         "z": "471a6e91c9155e06",
-        "name": "function 5",
-        "func": "//msg.payload = msg.payload.Warehouse\nvar inDate = msg.payload\nmsg.info = inDate.Warehouse\nflow.set(\"main_skald\", msg.info);\nmsg.payload = inDate\nreturn msg;",
+        "name": "Відправка Головного складу",
+        "func": "//msg.payload = msg.payload.Warehouse\nvar inDate = msg.payload\nmsg.info = inDate.Warehouse\nflow.set(\"main_sklad_triger\", msg.info);\nmsg.payload = inDate\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 780,
+        "x": 840,
         "y": 320,
         "wires": [
             [
@@ -1161,7 +1180,7 @@
         "links": [
             "c4e5a8dcaf84f20a"
         ],
-        "x": 1015,
+        "x": 1115,
         "y": 280,
         "wires": []
     },
@@ -1176,8 +1195,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 1220,
+        "x": 820,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -1193,10 +1212,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 1260,
+        "x": 820,
+        "y": 1080,
         "wires": [
-            []
+            [
+                "62372d3cca0bbd0c"
+            ]
         ]
     },
     {
@@ -1216,12 +1237,12 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": 0.1,
+        "onceDelay": "0.5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 1220,
+        "x": 640,
+        "y": 1040,
         "wires": [
             [
                 "fc2f873eec03e144"
@@ -1245,12 +1266,12 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": 0.1,
+        "onceDelay": "0.5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 1260,
+        "x": 640,
+        "y": 1080,
         "wires": [
             [
                 "50dd18e4d417d15e"
@@ -1261,14 +1282,14 @@
         "id": "2ed356f756f769f7",
         "type": "function",
         "z": "471a6e91c9155e06",
-        "name": "clear",
-        "func": "clearmsg.payload = \"\"\nreturn msg;",
+        "name": "очистка",
+        "func": "msg.payload = \"\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 770,
+        "x": 780,
         "y": 280,
         "wires": [
             [
@@ -1287,8 +1308,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 460,
+        "x": 610,
+        "y": 540,
         "wires": [
             [
                 "461410de7677dc4b"
@@ -1312,8 +1333,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 730,
-        "y": 720,
+        "x": 770,
+        "y": 880,
         "wires": [
             [
                 "2418ef8ebd49ef29"
@@ -1335,8 +1356,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 320,
-        "y": 860,
+        "x": 340,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -1362,8 +1383,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 860,
+        "x": 150,
+        "y": 1040,
         "wires": [
             [
                 "9c8ac1eda37f8c7d"
@@ -1391,8 +1412,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 760,
+        "x": 150,
+        "y": 840,
         "wires": [
             [
                 "655359257b988043"
@@ -1420,8 +1441,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 900,
+        "x": 140,
+        "y": 1120,
         "wires": [
             [
                 "755e34536259deb3"
@@ -1433,14 +1454,14 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "init var",
-        "func": "flow.set(\"main_skald\", null);\nreturn msg;",
+        "func": "flow.set(\"main_sklad\", null);\nflow.set(\"main_sklad_triger\", null);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 900,
+        "x": 330,
+        "y": 1120,
         "wires": [
             []
         ]
@@ -1464,10 +1485,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "main_skald",
+        "payload": "main_sklad",
         "payloadType": "flow",
-        "x": 120,
-        "y": 940,
+        "x": 140,
+        "y": 1200,
         "wires": [
             [
                 "95253c621cab1d07"
@@ -1486,8 +1507,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 340,
-        "y": 940,
+        "x": 320,
+        "y": 1200,
         "wires": []
     },
     {
@@ -1496,25 +1517,8 @@
         "z": "471a6e91c9155e06",
         "name": "Отримання даних зовні",
         "info": "",
-        "x": 150,
-        "y": 1180,
-        "wires": []
-    },
-    {
-        "id": "f7bc39d1887562ac",
-        "type": "debug",
-        "z": "471a6e91c9155e06",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 450,
-        "y": 680,
+        "x": 670,
+        "y": 1000,
         "wires": []
     },
     {
@@ -1525,8 +1529,8 @@
         "links": [
             "0da06f3cb6c58d8c"
         ],
-        "x": 65,
-        "y": 600,
+        "x": 95,
+        "y": 640,
         "wires": [
             [
                 "811efefa87d3e7d6",
@@ -1539,14 +1543,14 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "triger",
-        "func": "var sklad = flow.get(\"main_skald\");\nif (!sklad) {\n    \n} else {\n    msg.linkEvent = null\n    return msg;\n}\n\n\n",
+        "func": "var sklad = flow.get(\"main_sklad\");\nif (!sklad) {\n    \n} else {\n    msg.linkEvent = null\n    return msg;\n}\n\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 190,
-        "y": 600,
+        "x": 270,
+        "y": 640,
         "wires": [
             [
                 "461410de7677dc4b"
@@ -1566,8 +1570,218 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 280,
-        "y": 540,
+        "y": 600,
         "wires": []
+    },
+    {
+        "id": "0b3ed14b875ac2b2",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Час",
+        "info": "",
+        "x": 330,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "2e21507e89b94f4e",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Відправка даних на строрінку 2",
+        "info": "",
+        "x": 970,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b7e2fc4503171d52",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Отримані дані з 1с",
+        "info": "",
+        "x": 150,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "4044b857d621352f",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Очистка даних з 1С",
+        "info": "",
+        "x": 150,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "2aea7419fc5aae17",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Стилі для сторінки",
+        "info": "",
+        "x": 150,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "d5cb63aa3f0bf2a0",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Сховати/Показати групи на сторінці",
+        "info": "",
+        "x": 230,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "204423c7db8f032c",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Активувати/Деактивувати кнопку переходу на строінку 2",
+        "info": "",
+        "x": 230,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "dd12a71d5ebcb699",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Перейти на сторінку 2",
+        "info": "",
+        "x": 240,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "20fa47a42c86e470",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Сховати/Показати групи на сторінці",
+        "info": "",
+        "x": 210,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3d35165be4f48e30",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Сховати/Показати групи на сторінці",
+        "info": "",
+        "x": 1090,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "cf22961afd9cd0f5",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Декативація кнопки Зважування",
+        "info": "",
+        "x": 610,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "180992d05b42cf0d",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Очищення після натискання Оновлення",
+        "info": "",
+        "x": 540,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1d9160d0b8792b67",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Вивести інформацію",
+        "info": "",
+        "x": 1040,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "045124bf8e87feef",
+        "type": "debug",
+        "z": "471a6e91c9155e06",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 450,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "d739f430671ba965",
+        "type": "link out",
+        "z": "471a6e91c9155e06",
+        "name": "Оновити склади",
+        "mode": "link",
+        "links": [
+            "3aa870eb316b2d19"
+        ],
+        "x": 655,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3aa870eb316b2d19",
+        "type": "link in",
+        "z": "471a6e91c9155e06",
+        "name": "link in 6",
+        "links": [
+            "d739f430671ba965"
+        ],
+        "x": 625,
+        "y": 1180,
+        "wires": [
+            [
+                "50dd18e4d417d15e"
+            ]
+        ]
+    },
+    {
+        "id": "5f782a13ad962e45",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Оновлення складів",
+        "info": "",
+        "x": 610,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "62372d3cca0bbd0c",
+        "type": "link out",
+        "z": "471a6e91c9155e06",
+        "name": "Запис після обновлення",
+        "mode": "link",
+        "links": [
+            "a35bda0784d12b4a"
+        ],
+        "x": 955,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "a35bda0784d12b4a",
+        "type": "link in",
+        "z": "471a6e91c9155e06",
+        "name": "Після оновлення",
+        "links": [
+            "62372d3cca0bbd0c"
+        ],
+        "x": 95,
+        "y": 200,
+        "wires": [
+            [
+                "02f99db808d9ea45"
+            ]
+        ]
     },
     {
         "id": "5dc4902beb1fbddd",
@@ -1644,8 +1858,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 140,
-        "y": 420,
+        "x": 120,
+        "y": 440,
         "wires": [
             [
                 "f8324010af8f5742",
@@ -1675,7 +1889,7 @@
         "topic": "",
         "topicType": "str",
         "x": 110,
-        "y": 640,
+        "y": 660,
         "wires": [
             [
                 "1c9decf618bc886c",
@@ -1763,7 +1977,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 380,
+        "y": 320,
         "wires": [
             [
                 "2181a6187ef3a01b"
@@ -1782,7 +1996,7 @@
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 380,
+        "y": 320,
         "wires": [
             [
                 "7b608debab5e3294"
@@ -1801,7 +2015,7 @@
         "finalize": "",
         "libs": [],
         "x": 450,
-        "y": 380,
+        "y": 320,
         "wires": [
             [
                 "e2ab1fb90c4f0b1f"
@@ -1833,8 +2047,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 630,
-        "y": 380,
+        "x": 610,
+        "y": 320,
         "wires": [
             [
                 "e6db1c8de15ef401",
@@ -1856,8 +2070,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 240,
-        "y": 600,
+        "x": 380,
+        "y": 660,
         "wires": [
             [
                 "95a1173c01486c4b"
@@ -1875,8 +2089,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 600,
+        "x": 550,
+        "y": 660,
         "wires": [
             [
                 "b2b13453c2ee7886"
@@ -1908,8 +2122,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 570,
-        "y": 600,
+        "x": 770,
+        "y": 660,
         "wires": [
             [
                 "c7348b3934deb4c1",
@@ -1991,8 +2205,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 1120,
+        "x": 140,
+        "y": 1320,
         "wires": [
             [
                 "a8c8266b58cb87d8"
@@ -2010,8 +2224,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 1120,
+        "x": 340,
+        "y": 1320,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2032,7 +2246,7 @@
         "layout": "row-left",
         "className": "",
         "x": 580,
-        "y": 100,
+        "y": 140,
         "wires": []
     },
     {
@@ -2044,7 +2258,7 @@
             "e92879fadfd7a038"
         ],
         "x": 55,
-        "y": 140,
+        "y": 180,
         "wires": [
             [
                 "26bce8db5618fa7e",
@@ -2065,7 +2279,7 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 980,
+        "x": 1060,
         "y": 320,
         "wires": []
     },
@@ -2080,7 +2294,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 570,
+        "x": 830,
         "y": 320,
         "wires": [
             [
@@ -2099,8 +2313,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 420,
+        "x": 380,
+        "y": 440,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2137,8 +2351,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 570,
-        "y": 540,
+        "x": 550,
+        "y": 560,
         "wires": [
             [
                 "40e0abc6fcc25324"
@@ -2159,7 +2373,7 @@
         "layout": "row-spread",
         "className": "",
         "x": 1000,
-        "y": 540,
+        "y": 560,
         "wires": []
     },
     {
@@ -2173,8 +2387,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 640,
+        "x": 420,
+        "y": 700,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2192,8 +2406,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 660,
+        "x": 780,
+        "y": 700,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2228,8 +2442,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1090,
-        "y": 600,
+        "x": 1210,
+        "y": 660,
         "wires": [
             []
         ]
@@ -2239,14 +2453,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "set ",
-        "func": "if (msg.payload == \"\"){\n    flow.set(\"main_skald\",null);\n}else{\n    flow.set(\"main_skald\", msg.payload);\n}\n\n\nreturn msg;",
+        "func": "if (msg.payload == \"\"){\n    flow.set(\"main_sklad\",null);\n}else{\n    flow.set(\"main_sklad\", msg.payload);\n}\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 140,
+        "y": 180,
         "wires": [
             []
         ]
@@ -2256,14 +2470,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "init var",
-        "func": "flow.set(\"main_skald\", null);\nflow.set(\"sklad\", null);\nflow.set(\"order\", null);\nflow.set(\"plomba\", null);\nreturn msg;",
+        "func": "flow.set(\"main_sklad\", null);\nflow.set(\"sklad\", null);\nflow.set(\"order\", null);\nflow.set(\"plomba\", null);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 1160,
+        "x": 330,
+        "y": 1400,
         "wires": [
             []
         ]
@@ -2289,8 +2503,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 1160,
+        "x": 140,
+        "y": 1400,
         "wires": [
             [
                 "2bfd915a4cbeedf9"
@@ -2316,10 +2530,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "main_skald",
+        "payload": "main_sklad",
         "payloadType": "flow",
-        "x": 160,
-        "y": 1240,
+        "x": 140,
+        "y": 1560,
         "wires": [
             [
                 "a5cba42270c6fc94"
@@ -2348,7 +2562,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 110,
-        "y": 740,
+        "y": 840,
         "wires": [
             [
                 "27130c545e0ff7f7"
@@ -2360,14 +2574,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "enb save",
-        "func": "var main_skald = flow.get(\"main_skald\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\n\nif (main_skald && sklad && order && (weight > 50)){\n    msg.enabled = true;\n}else{\n    msg.enabled = false;\n}\n\nmsg.linkEvent = \"true\"\nreturn msg;",
+        "func": "var main_sklad = flow.get(\"main_sklad\");\nvar sklad = flow.get(\"sklad\");\nvar order = flow.get(\"order\");\nvar weight = flow.get(\"weight\");\n\nif (main_sklad && sklad && order && (weight > 50)){\n    msg.enabled = true;\n}else{\n    msg.enabled = false;\n}\n\nmsg.linkEvent = \"true\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 120,
-        "y": 780,
+        "y": 880,
         "wires": [
             [
                 "11bb8ed3c99a7ad2"
@@ -2382,8 +2596,8 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 390,
-        "y": 1260,
+        "x": 370,
+        "y": 1580,
         "wires": []
     },
     {
@@ -2407,8 +2621,8 @@
         "topic": "",
         "payload": "sklad",
         "payloadType": "flow",
-        "x": 140,
-        "y": 1280,
+        "x": 120,
+        "y": 1600,
         "wires": [
             [
                 "a5cba42270c6fc94"
@@ -2436,8 +2650,8 @@
         "topic": "",
         "payload": "order",
         "payloadType": "flow",
-        "x": 140,
-        "y": 1320,
+        "x": 120,
+        "y": 1640,
         "wires": [
             [
                 "a5cba42270c6fc94"
@@ -2449,7 +2663,7 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "get all data",
-        "func": "//msg.linkEvent = \"true\"\nif (msg.linkEvent == null){\n    var main_skald = flow.get(\"main_skald\");\n    var sklad = flow.get(\"sklad\");\n    var order = flow.get(\"order\");\n    var weight = flow.get(\"weight\");\n    //var plomba = flow.get(\"plomba\")\n\n    msg.payload = { main_skald, sklad, weight }\n    msg.info = { main_skald, sklad, weight }\n    flow.set(\"all\", msg.payload)\n    msg.payload = \"open\"\n\n\n    return msg;\n}\n",
+        "func": "//msg.linkEvent = \"true\"\nif (msg.linkEvent == null){\n    var main_sklad = flow.get(\"main_sklad\");\n    var sklad = flow.get(\"sklad\");\n    var order = flow.get(\"order\");\n    var weight = flow.get(\"weight\");\n    //var plomba = flow.get(\"plomba\")\n\n    msg.payload = { main_sklad, sklad, weight }\n    msg.info = { main_sklad, sklad, weight }\n    flow.set(\"all\", msg.payload)\n    msg.payload = \"open\"\n\n\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2466,53 +2680,6 @@
         ]
     },
     {
-        "id": "f899cf29c49406e1",
-        "type": "http in",
-        "z": "7a204b0920df63ed",
-        "name": "",
-        "url": "/getDate",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 110,
-        "y": 1720,
-        "wires": [
-            [
-                "c4e6995c5cca141c"
-            ]
-        ]
-    },
-    {
-        "id": "c4e6995c5cca141c",
-        "type": "function",
-        "z": "7a204b0920df63ed",
-        "name": "function 11",
-        "func": "msg.payload = flow.get(\"all\");\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 330,
-        "y": 1720,
-        "wires": [
-            [
-                "e6882bc23729391c"
-            ]
-        ]
-    },
-    {
-        "id": "e6882bc23729391c",
-        "type": "http response",
-        "z": "7a204b0920df63ed",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 510,
-        "y": 1720,
-        "wires": []
-    },
-    {
         "id": "a5060de1a0fb8592",
         "type": "function",
         "z": "7a204b0920df63ed",
@@ -2524,7 +2691,7 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 1860,
+        "y": 2060,
         "wires": [
             []
         ]
@@ -2541,7 +2708,7 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 1900,
+        "y": 2100,
         "wires": [
             []
         ]
@@ -2568,7 +2735,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 1860,
+        "y": 2060,
         "wires": [
             [
                 "a5060de1a0fb8592"
@@ -2597,7 +2764,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 1900,
+        "y": 2100,
         "wires": [
             [
                 "220ff70d6dfd12d2"
@@ -2644,8 +2811,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 360,
-        "y": 1200,
+        "x": 340,
+        "y": 1480,
         "wires": [
             []
         ]
@@ -2671,8 +2838,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 1200,
+        "x": 150,
+        "y": 1480,
         "wires": [
             [
                 "531a56770354c078"
@@ -2691,7 +2858,7 @@
         "finalize": "",
         "libs": [],
         "x": 330,
-        "y": 100,
+        "y": 140,
         "wires": [
             [
                 "b51e284e6c8e37ea"
@@ -2736,8 +2903,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 780,
+        "x": 380,
+        "y": 740,
         "wires": [
             [
                 "11bb8ed3c99a7ad2"
@@ -2765,8 +2932,8 @@
         "topic": "",
         "payload": "Потрібно обрати",
         "payloadType": "str",
-        "x": 130,
-        "y": 60,
+        "x": 350,
+        "y": 100,
         "wires": [
             [
                 "b51e284e6c8e37ea"
@@ -2794,8 +2961,8 @@
         "topic": "",
         "payload": "Потрібно обрати",
         "payloadType": "str",
-        "x": 790,
-        "y": 300,
+        "x": 850,
+        "y": 280,
         "wires": [
             [
                 "194a6a5f850ac3e3"
@@ -2823,8 +2990,8 @@
         "topic": "",
         "payload": "Потрібно обрати",
         "payloadType": "str",
-        "x": 810,
-        "y": 520,
+        "x": 790,
+        "y": 540,
         "wires": [
             [
                 "40e0abc6fcc25324"
@@ -2853,7 +3020,7 @@
         "payload": "false",
         "payloadType": "bool",
         "x": 90,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "26bce8db5618fa7e"
@@ -2910,8 +3077,8 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 970,
-        "y": 580,
+        "x": 1030,
+        "y": 640,
         "wires": [
             [
                 "501d97169fc0ce97"
@@ -2929,8 +3096,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 920,
-        "y": 480,
+        "x": 940,
+        "y": 440,
         "wires": [
             [
                 "40e0abc6fcc25324",
@@ -2974,8 +3141,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 480,
+        "x": 1150,
+        "y": 440,
         "wires": [
             [
                 "501d97169fc0ce97"
@@ -2989,7 +3156,7 @@
         "name": "Отримання даних зовні",
         "info": "",
         "x": 150,
-        "y": 1820,
+        "y": 2020,
         "wires": []
     },
     {
@@ -3004,7 +3171,7 @@
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 1580,
+        "y": 1920,
         "wires": [
             [
                 "cdf0297fd51ca919",
@@ -3034,7 +3201,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 150,
-        "y": 1580,
+        "y": 1920,
         "wires": [
             [
                 "51b3a2eb811e2902"
@@ -3055,7 +3222,7 @@
         "layout": "row-left",
         "className": "",
         "x": 430,
-        "y": 1580,
+        "y": 1920,
         "wires": []
     },
     {
@@ -3070,7 +3237,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 1620,
+        "y": 1960,
         "wires": [
             []
         ]
@@ -3096,8 +3263,8 @@
         "topic": "",
         "payload": "plomba",
         "payloadType": "flow",
-        "x": 150,
-        "y": 1360,
+        "x": 130,
+        "y": 1680,
         "wires": [
             [
                 "a5cba42270c6fc94"
@@ -3141,8 +3308,8 @@
         "topic": "",
         "payload": "NumberBox",
         "payloadType": "flow",
-        "x": 160,
-        "y": 1400,
+        "x": 140,
+        "y": 1720,
         "wires": [
             [
                 "a5cba42270c6fc94"
@@ -3154,7 +3321,7 @@
         "type": "debug",
         "z": "7a204b0920df63ed",
         "name": "debug 29",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3162,18 +3329,18 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1380,
-        "y": 1340,
+        "x": 1520,
+        "y": 1500,
         "wires": []
     },
     {
         "id": "9aa910a67b429989",
         "type": "comment",
         "z": "7a204b0920df63ed",
-        "name": "Пломба",
+        "name": "Сторінка пломби",
         "info": "",
-        "x": 1100,
-        "y": 1280,
+        "x": 1120,
+        "y": 1420,
         "wires": []
     },
     {
@@ -3191,8 +3358,8 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1220,
-        "y": 1160,
+        "x": 1280,
+        "y": 1300,
         "wires": [
             []
         ]
@@ -3214,8 +3381,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1110,
-        "y": 1100,
+        "x": 1170,
+        "y": 1240,
         "wires": [
             []
         ]
@@ -3231,8 +3398,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1290,
-        "y": 1100,
+        "x": 1350,
+        "y": 1240,
         "wires": [
             [
                 "edef263b1a8ce74e"
@@ -3277,8 +3444,8 @@
         "topic": "",
         "payload": "CurrentWindow",
         "payloadType": "flow",
-        "x": 160,
-        "y": 1440,
+        "x": 140,
+        "y": 1760,
         "wires": [
             [
                 "a5cba42270c6fc94"
@@ -3306,12 +3473,11 @@
         "links": [
             "e99b64e16475459d"
         ],
-        "x": 555,
-        "y": 1500,
+        "x": 765,
+        "y": 1660,
         "wires": [
             [
-                "bd25b97292a31e85",
-                "970528c4b769e58b"
+                "bd25b97292a31e85"
             ]
         ]
     },
@@ -3320,14 +3486,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "Check var",
-        "func": "var all = flow.get(\"all\")\n\nvar main_skald = all.main_skald;\nvar sklad = all.sklad;\nvar order = all.sklad.optionVirtual//flow.get(\"order\");//optionVirtual\nvar weight = all.weight;\nvar plomba = flow.get(\"plomba\")\n\nif (plomba && main_skald && sklad && order && (weight > 50)){\n\n    msg.payload = { main_skald, sklad, weight, plomba}\n    msg.info = { main_skald, sklad, weight, plomba}\n    return [msg, null];\n} else if (!plomba && main_skald && sklad && order && (weight > 50)){\n    msg.payload = \"Пломба не заповнена\"\n    return [null, msg];\n}\n\n\nreturn [msg, null];",
+        "func": "var all = flow.get(\"all\")\n\nvar main_sklad = all.main_sklad;\nvar sklad = all.sklad;\nvar order = all.sklad.optionVirtual//flow.get(\"order\");//optionVirtual\nvar weight = all.weight;\nvar plomba = flow.get(\"plomba\")\n\nif (plomba && main_sklad && sklad && order && (weight > 50)){\n\n    msg.payload = { main_sklad, sklad, weight, plomba}\n    msg.info = { main_sklad, sklad, weight, plomba}\n    return [msg, null];\n} else if (!plomba && main_sklad && sklad && order && (weight > 50)){\n    msg.payload = \"Пломба не заповнена\"\n    return [null, msg];\n}\n\n\nreturn [msg, null];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 1500,
+        "x": 940,
+        "y": 1660,
         "wires": [
             [
                 "cddb747c946f377a",
@@ -3358,8 +3524,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "msg",
-        "x": 1040,
-        "y": 1340,
+        "x": 1180,
+        "y": 1500,
         "wires": [
             [
                 "086692f38fe3819e"
@@ -3374,8 +3540,8 @@
         "links": [
             "40d164af678b88b6"
         ],
-        "x": 895,
-        "y": 1400,
+        "x": 965,
+        "y": 1540,
         "wires": [
             [
                 "87025187263a1295",
@@ -3394,8 +3560,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1210,
-        "y": 1340,
+        "x": 1350,
+        "y": 1500,
         "wires": [
             [
                 "1db3a61bc8a29606"
@@ -3407,15 +3573,15 @@
         "type": "debug",
         "z": "7a204b0920df63ed",
         "name": "debug 43",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1120,
-        "y": 1420,
+        "x": 1260,
+        "y": 1580,
         "wires": []
     },
     {
@@ -3428,8 +3594,8 @@
             "ee1c61f6c3929a85",
             "1282afc20df153fe"
         ],
-        "x": 1025,
-        "y": 1500,
+        "x": 1165,
+        "y": 1660,
         "wires": []
     },
     {
@@ -3454,11 +3620,16 @@
             "2e4b600dee25932b",
             "22b9b6028030f54c"
         ],
-        "x": 625,
-        "y": 1340,
+        "x": 765,
+        "y": 1500,
         "wires": [
             [
-                "0e5ae93a8e415269"
+                "0e5ae93a8e415269",
+                "62cdf0c52850b379",
+                "bada28a9fd8be2df",
+                "05897679937ec25a",
+                "4ad66a9e40fcabc3",
+                "9e2315d850e822f7"
             ]
         ]
     },
@@ -3473,8 +3644,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 790,
-        "y": 1340,
+        "x": 930,
+        "y": 1500,
         "wires": [
             [
                 "87025187263a1295"
@@ -3496,8 +3667,8 @@
         "className": "",
         "topic": "Відправка на друк",
         "name": "",
-        "x": 1290,
-        "y": 1540,
+        "x": 1430,
+        "y": 1700,
         "wires": []
     },
     {
@@ -3511,8 +3682,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1090,
-        "y": 1540,
+        "x": 1230,
+        "y": 1700,
         "wires": [
             [
                 "a975dfac3f3cb716"
@@ -3540,8 +3711,8 @@
         "topic": "",
         "payload": "all",
         "payloadType": "flow",
-        "x": 130,
-        "y": 1480,
+        "x": 110,
+        "y": 1800,
         "wires": [
             [
                 "a5cba42270c6fc94"
@@ -3593,8 +3764,8 @@
         "className": "",
         "topic": "Помилка",
         "name": "",
-        "x": 1290,
-        "y": 1580,
+        "x": 1430,
+        "y": 1740,
         "wires": []
     },
     {
@@ -3608,30 +3779,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1090,
-        "y": 1580,
+        "x": 1230,
+        "y": 1740,
         "wires": [
             [
                 "9a6e869cf410e717"
             ]
         ]
-    },
-    {
-        "id": "970528c4b769e58b",
-        "type": "debug",
-        "z": "7a204b0920df63ed",
-        "name": "debug 47",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 900,
-        "y": 1580,
-        "wires": []
     },
     {
         "id": "20fb455814bb8740",
@@ -3644,8 +3798,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1180,
-        "y": 1460,
+        "x": 1320,
+        "y": 1620,
         "wires": [
             [
                 "564d158d64bf69bf"
@@ -3657,8 +3811,8 @@
         "type": "ui_ui_control",
         "z": "7a204b0920df63ed",
         "name": "ui control",
-        "x": 1320,
-        "y": 1460,
+        "x": 1460,
+        "y": 1620,
         "wires": [
             []
         ]
@@ -3680,11 +3834,205 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1030,
-        "y": 1460,
+        "x": 1170,
+        "y": 1620,
         "wires": [
             [
                 "20fb455814bb8740"
+            ]
+        ]
+    },
+    {
+        "id": "951fe5a6845130a2",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Отримання ваги",
+        "info": "",
+        "x": 120,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "9c1392c1bd7f4337",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Для відладки",
+        "info": "",
+        "x": 110,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "6340d1464ac02653",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Для перевірки ",
+        "info": "",
+        "x": 1220,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "393510fdd590d9d7",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Стилі для сторінки",
+        "info": "",
+        "x": 130,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "e0b003d37b3c07af",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Ініціалізація",
+        "info": "",
+        "x": 110,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "b070f25f4e907435",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Сховати/Показати групи на сторінці",
+        "info": "",
+        "x": 190,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "66a1a48f35c40419",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Перехід на сторінку 1",
+        "info": "",
+        "x": 160,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "aab36f99dfd8d873",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Дозвіл на перехід сторінку 3",
+        "info": "",
+        "x": 120,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "ea6933d77c864aa3",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Дані з 1 сторінки",
+        "info": "",
+        "x": 100,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "62cdf0c52850b379",
+        "type": "debug",
+        "z": "7a204b0920df63ed",
+        "name": "debug 47",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "bada28a9fd8be2df",
+        "type": "ui_text",
+        "z": "7a204b0920df63ed",
+        "group": "1903964e747c6a1c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Головний склад: ",
+        "format": "{{msg.info.main_sklad.Warehouse}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1250,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "05897679937ec25a",
+        "type": "ui_text",
+        "z": "7a204b0920df63ed",
+        "group": "1903964e747c6a1c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Склад насіння: ",
+        "format": "{{msg.info.sklad.WHouseName}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1240,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "4ad66a9e40fcabc3",
+        "type": "ui_text",
+        "z": "7a204b0920df63ed",
+        "group": "1903964e747c6a1c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Вага(кг): ",
+        "format": "{{msg.info.weight}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1220,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "c8cc892f4e1b77ab",
+        "type": "ui_text",
+        "z": "7a204b0920df63ed",
+        "group": "1903964e747c6a1c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Замовлення:  ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1240,
+        "y": 1860,
+        "wires": []
+    },
+    {
+        "id": "9e2315d850e822f7",
+        "type": "function",
+        "z": "7a204b0920df63ed",
+        "name": "function 48",
+        "func": "msg.payload = msg.info.sklad.DocumentNumber + \", \" + msg.info.sklad.NomenclatureName \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 1860,
+        "wires": [
+            [
+                "c8cc892f4e1b77ab"
             ]
         ]
     },
@@ -3718,7 +4066,7 @@
             }
         ],
         "x": 310,
-        "y": 260,
+        "y": 380,
         "wires": [
             [
                 "83404e61983c6d8a",
@@ -3738,7 +4086,7 @@
         "finalize": "",
         "libs": [],
         "x": 410,
-        "y": 340,
+        "y": 460,
         "wires": [
             [
                 "f662d67669b39494",
@@ -3756,7 +4104,7 @@
         "options": "{}",
         "outputProperty": "payload",
         "x": 600,
-        "y": 420,
+        "y": 540,
         "wires": [
             [
                 "7637f5bcd3103c8e"
@@ -3774,8 +4122,8 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 320,
-        "y": 460,
+        "x": 380,
+        "y": 580,
         "wires": [
             [
                 "d11eea285ffa28a8",
@@ -3796,8 +4144,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 540,
-        "y": 460,
+        "x": 560,
+        "y": 580,
         "wires": []
     },
     {
@@ -3812,7 +4160,7 @@
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 380,
+        "y": 500,
         "wires": [
             [
                 "ac89ee6bd54bedf2",
@@ -3855,7 +4203,7 @@
             "parameters": []
         },
         "x": 330,
-        "y": 300,
+        "y": 420,
         "wires": [
             [
                 "20bb22beac3e73c4"
@@ -3871,8 +4219,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 90,
-        "y": 640,
+        "x": 130,
+        "y": 860,
         "wires": [
             [
                 "7a8bd9b4bb0ce08c"
@@ -3888,8 +4236,8 @@
         "filenameType": "msg",
         "format": "",
         "allProps": false,
-        "x": 460,
-        "y": 640,
+        "x": 500,
+        "y": 860,
         "wires": [
             [
                 "8931f594d7fc6d99"
@@ -3922,8 +4270,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 690,
-        "y": 640,
+        "x": 730,
+        "y": 860,
         "wires": [
             [
                 "eb0fb474aac35d5c"
@@ -3935,8 +4283,8 @@
         "type": "http response",
         "z": "656dc0405eaa1150",
         "name": "",
-        "x": 830,
-        "y": 640,
+        "x": 870,
+        "y": 860,
         "wires": []
     },
     {
@@ -3948,7 +4296,7 @@
             "22b9b6028030f54c"
         ],
         "x": 55,
-        "y": 160,
+        "y": 280,
         "wires": [
             [
                 "3dcf719fb3b412ac",
@@ -3968,7 +4316,7 @@
         "finalize": "",
         "libs": [],
         "x": 230,
-        "y": 160,
+        "y": 280,
         "wires": [
             [
                 "fd880cdb89252940",
@@ -3981,10 +4329,10 @@
         "id": "d5efaf3dd368b9ce",
         "type": "comment",
         "z": "656dc0405eaa1150",
-        "name": "",
-        "info": "402002000001\n422002000001\n4072610852405\nlp -d ZT410_2 getLabel_40.pdf",
-        "x": 150,
-        "y": 200,
+        "name": "Отримання даних для формування ПДФ",
+        "info": "",
+        "x": 220,
+        "y": 240,
         "wires": []
     },
     {
@@ -3992,19 +4340,17 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "function 21",
-        "func": "var mainData = msg.info\nmainData.id = Date.now();\nvar file = \"/home/pi/db_date/db_log.txt\"\nmsg.filename = file;\nmsg.payload = mainData;\nreturn msg;",
+        "func": "var mainData = msg.info\nmainData.id = Date.now();\nvar file = \"/home/pi/db_date/db_log.txt\"\nmsg.filename = file;\nmsg.payload = mainData;\n\n//msg.url = global.get(\"sendTo1C\");\nreturn msg;\n\n// global.set(\"printerName\", \"\");\n// global.set(\"sendTo1C\", \"\");\n// global.set(\"getWith1C\", \"\");",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 160,
+        "y": 280,
         "wires": [
             [
-                "1cc6e5cead3162b2",
-                "5f8653ae3e4b9a74",
-                "a3db1dcd57c4df11"
+                "1cc6e5cead3162b2"
             ]
         ]
     },
@@ -4020,7 +4366,7 @@
         "overwriteFile": "false",
         "encoding": "utf8",
         "x": 680,
-        "y": 160,
+        "y": 320,
         "wires": [
             []
         ]
@@ -4029,15 +4375,15 @@
         "id": "7637f5bcd3103c8e",
         "type": "function",
         "z": "656dc0405eaa1150",
-        "name": "function 22",
+        "name": "збереження файла ПДФ",
         "func": "var mainData = msg.info\n//global.set(\"dateGlobalForPDF\", msg.payload.replace(\" \", \"_\"))\nvar file = \"/home/pi/barcodeLib/\" + mainData.barcode + \"_\" + global.get(\"dateGlobalForPDF\") + \".pdf\"\n//msg.filename = file;\nmsg.filename = msg.info.barcodePDF;\n\n//msg.payload = mainData;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 150,
-        "y": 460,
+        "x": 170,
+        "y": 580,
         "wires": [
             [
                 "4a067c46b0278beb"
@@ -4065,8 +4411,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 700,
+        "x": 170,
+        "y": 1040,
         "wires": [
             [
                 "27e8a31fcf6ccb66"
@@ -4085,8 +4431,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "read DB",
-        "x": 120,
-        "y": 760,
+        "x": 160,
+        "y": 1100,
         "wires": [
             [
                 "1de8577715ed2403"
@@ -4107,8 +4453,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 460,
-        "y": 740,
+        "x": 500,
+        "y": 1080,
         "wires": []
     },
     {
@@ -4122,8 +4468,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 740,
+        "x": 330,
+        "y": 1080,
         "wires": [
             [
                 "8967cc949f648ac1"
@@ -4146,8 +4492,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 650,
-        "y": 80,
+        "x": 850,
+        "y": 200,
         "wires": [
             [
                 "081697672d185002",
@@ -4168,8 +4514,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 800,
-        "y": 40,
+        "x": 1000,
+        "y": 160,
         "wires": []
     },
     {
@@ -4183,8 +4529,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 810,
-        "y": 80,
+        "x": 1010,
+        "y": 200,
         "wires": [
             [
                 "ded634bec11e4114",
@@ -4203,8 +4549,8 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "utf8",
-        "x": 980,
-        "y": 80,
+        "x": 1180,
+        "y": 200,
         "wires": [
             []
         ]
@@ -4230,8 +4576,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 860,
+        "x": 750,
+        "y": 1040,
         "wires": [
             [
                 "12d06da0d6a193ac"
@@ -4250,8 +4596,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "read DB 1C",
-        "x": 130,
-        "y": 920,
+        "x": 730,
+        "y": 1100,
         "wires": [
             [
                 "93dea6db7aa2c009"
@@ -4272,8 +4618,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 460,
-        "y": 900,
+        "x": 1080,
+        "y": 1080,
         "wires": []
     },
     {
@@ -4287,8 +4633,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 900,
+        "x": 890,
+        "y": 1100,
         "wires": [
             [
                 "d83935310c6a785d"
@@ -4317,7 +4663,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 1220,
+        "y": 1460,
         "wires": [
             [
                 "c189a10942439f23"
@@ -4336,7 +4682,7 @@
         "finalize": "",
         "libs": [],
         "x": 330,
-        "y": 1220,
+        "y": 1460,
         "wires": [
             [
                 "a28f751a9e1189b9",
@@ -4357,7 +4703,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 500,
-        "y": 1180,
+        "y": 1420,
         "wires": []
     },
     {
@@ -4382,7 +4728,7 @@
         "payload": "DB_log",
         "payloadType": "flow",
         "x": 110,
-        "y": 1260,
+        "y": 1500,
         "wires": [
             [
                 "4343bee4251bf336"
@@ -4411,7 +4757,7 @@
         "payload": "DB_log_1C",
         "payloadType": "flow",
         "x": 120,
-        "y": 1300,
+        "y": 1540,
         "wires": [
             [
                 "4343bee4251bf336"
@@ -4431,7 +4777,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 300,
-        "y": 1260,
+        "y": 1500,
         "wires": []
     },
     {
@@ -4451,7 +4797,7 @@
         "senderr": false,
         "headers": [],
         "x": 530,
-        "y": 1220,
+        "y": 1460,
         "wires": [
             [
                 "0aed4543478ce1c6",
@@ -4473,7 +4819,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 720,
-        "y": 1180,
+        "y": 1420,
         "wires": []
     },
     {
@@ -4488,7 +4834,7 @@
         "finalize": "",
         "libs": [],
         "x": 730,
-        "y": 1220,
+        "y": 1460,
         "wires": [
             [
                 "5eb7e05b75c8dcbe",
@@ -4508,7 +4854,7 @@
         "overwriteFile": "false",
         "encoding": "utf8",
         "x": 900,
-        "y": 1220,
+        "y": 1460,
         "wires": [
             []
         ]
@@ -4529,8 +4875,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 310,
-        "y": 1400,
+        "x": 330,
+        "y": 1640,
         "wires": [
             [
                 "ae584c790cd93b92"
@@ -4558,8 +4904,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 1400,
+        "x": 140,
+        "y": 1640,
         "wires": [
             [
                 "1ed20efcbfc0fa5f"
@@ -4578,25 +4924,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 480,
-        "y": 1400,
-        "wires": []
-    },
-    {
-        "id": "5f8653ae3e4b9a74",
-        "type": "debug",
-        "z": "656dc0405eaa1150",
-        "name": "debug 16",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 760,
-        "y": 200,
+        "x": 500,
+        "y": 1640,
         "wires": []
     },
     {
@@ -4611,8 +4940,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 120,
+        "x": 1200,
+        "y": 240,
         "wires": []
     },
     {
@@ -4628,8 +4957,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 160,
-        "y": 120,
+        "x": 140,
+        "y": 320,
         "wires": []
     },
     {
@@ -4643,8 +4972,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 640,
+        "x": 330,
+        "y": 860,
         "wires": [
             [
                 "ccb4ed78483dae9c"
@@ -4672,8 +5001,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 1000,
+        "x": 170,
+        "y": 1220,
         "wires": [
             [
                 "676718f5e3b171d9"
@@ -4692,8 +5021,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "last file",
-        "x": 120,
-        "y": 1060,
+        "x": 160,
+        "y": 1280,
         "wires": [
             [
                 "ab3656b2e79e9e72"
@@ -4714,8 +5043,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 560,
-        "y": 1040,
+        "x": 600,
+        "y": 1260,
         "wires": []
     },
     {
@@ -4729,8 +5058,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 1040,
+        "x": 390,
+        "y": 1260,
         "wires": [
             [
                 "74dad85f3d42bc7e"
@@ -4743,8 +5072,8 @@
         "z": "656dc0405eaa1150",
         "name": "",
         "serial": "77a5462ed379721c",
-        "x": 110,
-        "y": 80,
+        "x": 130,
+        "y": 140,
         "wires": [
             [
                 "a4acf03eca23d4b7",
@@ -4763,8 +5092,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 270,
-        "y": 80,
+        "x": 290,
+        "y": 140,
         "wires": [
             [
                 "40d164af678b88b6"
@@ -4775,19 +5104,18 @@
         "id": "51a0787c1571cc04",
         "type": "function",
         "z": "656dc0405eaa1150",
-        "name": "function 33",
-        "func": "var file = msg.filename\nmsg.payload = \"lp -d ZT410_2 \" + file;\nreturn msg;",
+        "name": "друк файла",
+        "func": "var file = msg.filename\n//var printerName = global.get(\"printerName\");\n//msg.payload = `lp -d ${printerName} ` + file; \nmsg.payload = \"lp -d ZT410_2 \" + file; \nreturn msg;\n\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 560,
+        "x": 250,
+        "y": 700,
         "wires": [
             [
-                "40726d8380e2bb21",
-                "43e2e1f54b451c88"
+                "40726d8380e2bb21"
             ]
         ]
     },
@@ -4803,8 +5131,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "print",
-        "x": 430,
-        "y": 560,
+        "x": 470,
+        "y": 700,
         "wires": [
             [
                 "8d8833e2a9f46398"
@@ -4826,25 +5154,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
-        "y": 540,
-        "wires": []
-    },
-    {
-        "id": "43e2e1f54b451c88",
-        "type": "debug",
-        "z": "656dc0405eaa1150",
-        "name": "debug 21",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 480,
-        "y": 500,
+        "x": 620,
+        "y": 700,
         "wires": []
     },
     {
@@ -4861,7 +5172,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 440,
-        "y": 220,
+        "y": 340,
         "wires": []
     },
     {
@@ -4873,8 +5184,8 @@
         "links": [
             "0d8a1135941efde8"
         ],
-        "x": 375,
-        "y": 80,
+        "x": 395,
+        "y": 140,
         "wires": []
     },
     {
@@ -4891,7 +5202,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 720,
-        "y": 340,
+        "y": 460,
         "wires": []
     },
     {
@@ -4915,8 +5226,8 @@
         "topic": "",
         "payload": "LD123LD123",
         "payloadType": "str",
-        "x": 110,
-        "y": 40,
+        "x": 130,
+        "y": 100,
         "wires": [
             [
                 "a4acf03eca23d4b7"
@@ -4935,70 +5246,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 280,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "6466d7301ae1cad0",
-        "type": "http in",
-        "z": "656dc0405eaa1150",
-        "name": "",
-        "url": "/send",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 130,
-        "y": 1520,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "49c9a5be14dd3d13",
-        "type": "debug",
-        "z": "656dc0405eaa1150",
-        "name": "debug 44",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 500,
-        "y": 1520,
-        "wires": []
-    },
-    {
-        "id": "167c643f9b77b7a2",
-        "type": "function",
-        "z": "656dc0405eaa1150",
-        "name": "function 46",
-        "func": "msg.payload = \"\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 330,
-        "y": 1520,
-        "wires": [
-            [
-                "49c9a5be14dd3d13",
-                "2cefe3b7a0e8cb23"
-            ]
-        ]
-    },
-    {
-        "id": "2cefe3b7a0e8cb23",
-        "type": "http response",
-        "z": "656dc0405eaa1150",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 510,
-        "y": 1480,
+        "x": 300,
+        "y": 100,
         "wires": []
     },
     {
@@ -5015,24 +5264,8 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 920,
-        "y": 1180,
+        "y": 1420,
         "wires": []
-    },
-    {
-        "id": "a3db1dcd57c4df11",
-        "type": "json",
-        "z": "656dc0405eaa1150",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 610,
-        "y": 260,
-        "wires": [
-            [
-                "5f8653ae3e4b9a74"
-            ]
-        ]
     },
     {
         "id": "7126fa235e51d4b7",
@@ -5040,18 +5273,108 @@
         "z": "656dc0405eaa1150",
         "name": "Відправка у випадку відсутності зв'язку",
         "info": "",
-        "x": 220,
-        "y": 1160,
+        "x": 180,
+        "y": 1420,
         "wires": []
     },
     {
         "id": "d92dcde774c47702",
         "type": "comment",
         "z": "656dc0405eaa1150",
-        "name": "в 1С",
+        "name": "відправка в 1С",
         "info": "",
-        "x": 570,
-        "y": 40,
+        "x": 820,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "95b8f28ebaa81551",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Останній збережений файл",
+        "info": "",
+        "x": 160,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "3bfecc064079ece1",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Список етикеток відправлених в 1С ",
+        "info": "",
+        "x": 780,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "525413b23f5d0a83",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Список локльно збережених етикеток ",
+        "info": "",
+        "x": 190,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "b549621e3b94b268",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Отримати ПДФ останньої етикетки",
+        "info": "",
+        "x": 200,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "c5384e795835e5a7",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Команда на друк ПДФ",
+        "info": "",
+        "x": 440,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "332a4e184d1f3f39",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Збереження файла",
+        "info": "",
+        "x": 150,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e7a9c92f782fac1e",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Збереження етикетки в локальну базу",
+        "info": "",
+        "x": 770,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c57f3291651e1142",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Отримання даних від сканера",
+        "info": "",
+        "x": 170,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "322f8e4c44faf382",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Збереження результату відправки",
+        "info": "",
+        "x": 1280,
+        "y": 160,
         "wires": []
     }
 ]
