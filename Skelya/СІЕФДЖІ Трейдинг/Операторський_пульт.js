@@ -413,6 +413,20 @@
         "className": ""
     },
     {
+        "id": "b536eddeb5baef79",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
         "id": "63ac5825bcf64c6f",
         "type": "inject",
         "z": "d14017f84deacb57",
