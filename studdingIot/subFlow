@@ -1,0 +1,152 @@
+[
+    {
+        "id": "83cfadb7696ee822",
+        "type": "inject",
+        "z": "b2047d62bdcf2c34",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "87a7c627f9d0307a"
+            ]
+        ]
+    },
+    {
+        "id": "491a6064fc2bd9a6",
+        "type": "tcp out",
+        "z": "b2047d62bdcf2c34",
+        "host": "",
+        "port": "1702",
+        "beserver": "server",
+        "base64": false,
+        "end": false,
+        "name": "",
+        "x": 540,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "99d772de4ab03884",
+        "type": "function",
+        "z": "b2047d62bdcf2c34",
+        "name": "",
+        "func": "msg.payload = \"SSD3 \" + msg.payload + \" kg\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "491a6064fc2bd9a6"
+            ]
+        ]
+    },
+    {
+        "id": "3afb2dce409948e9",
+        "type": "tcp in",
+        "z": "b2047d62bdcf2c34",
+        "name": "",
+        "server": "server",
+        "host": "",
+        "port": "1703",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "x": 120,
+        "y": 440,
+        "wires": [
+            [
+                "0c7aadd64ef9aa78",
+                "37db893d8aa8f655"
+            ]
+        ]
+    },
+    {
+        "id": "0c7aadd64ef9aa78",
+        "type": "function",
+        "z": "b2047d62bdcf2c34",
+        "name": "",
+        "func": "\nif(msg.payload == \"w1\"){\n    msg.payload = \"w,/ 45,300\"\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "31cc381a75482b9c"
+            ]
+        ]
+    },
+    {
+        "id": "31cc381a75482b9c",
+        "type": "tcp out",
+        "z": "b2047d62bdcf2c34",
+        "host": "",
+        "port": "",
+        "beserver": "reply",
+        "base64": false,
+        "end": false,
+        "name": "",
+        "x": 500,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "37db893d8aa8f655",
+        "type": "debug",
+        "z": "b2047d62bdcf2c34",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "87a7c627f9d0307a",
+        "type": "random",
+        "z": "b2047d62bdcf2c34",
+        "name": "",
+        "low": "1000",
+        "high": "45200",
+        "inte": "true",
+        "property": "payload",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "99d772de4ab03884"
+            ]
+        ]
+    }
+]
