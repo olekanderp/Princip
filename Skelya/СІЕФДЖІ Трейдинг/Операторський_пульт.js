@@ -10,7 +10,7 @@
     {
         "id": "99366da2301717ce",
         "type": "tab",
-        "label": "Ловим кнопку",
+        "label": "Перехоплення подій",
         "disabled": false,
         "info": "",
         "env": []
@@ -139,28 +139,9 @@
         }
     },
     {
-        "id": "78ceeb719193c72a",
-        "type": "serial-port",
-        "serialport": "/dev/ttyACM0",
-        "serialbaud": "115200",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "50",
-        "bin": "false",
-        "out": "time",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
         "id": "4353e747c8d4b524",
         "type": "ui_group",
-        "name": "Склад-виробництва-насіння",
+        "name": "Головні_склади_список",
         "tab": "977954cde5f1ca1c",
         "order": 2,
         "disp": true,
@@ -442,7 +423,7 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
@@ -459,18 +440,28 @@
         "id": "4fbd73c6cd92a207",
         "type": "function",
         "z": "d14017f84deacb57",
-        "name": "function 49",
-        "func": "global.set(\"printerName\", \"\");\nglobal.set(\"sendTo1C\", \"\");\nglobal.set(\"getWith1C\", \"\");\nreturn msg;",
+        "name": "MAIN INFO",
+        "func": "var printerName = \"ZT410_2\" //<-- назва принтера який друкує\nvar sendTo1C = \"https://1c-web.cfg.com.ua/elevators_0/hs/GranaryPulse/Save\" //<-- куди відправляти дані про етикетку\nvar getWith1C = \"https://1c-web.cfg.com.ua/elevators_0/hs/GranaryPulse\" //<-- звідки брати дані для полів\n\n\n\nglobal.set(\"printerName\", printerName);\nglobal.set(\"sendTo1C\", sendTo1C);\nglobal.set(\"getWith1C\", getWith1C);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 370,
+        "x": 510,
         "y": 120,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "ef2db47a668f0f28",
+        "type": "comment",
+        "z": "d14017f84deacb57",
+        "name": "Вказати головну інформацію",
+        "info": "",
+        "x": 500,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "81093c9dbc487b42",
@@ -773,8 +764,8 @@
         "y": 160,
         "wires": [
             [
-                "02f99db808d9ea45",
-                "b6d322a2982cab47"
+                "b6d322a2982cab47",
+                "45e365eaa0b2a0b9"
             ]
         ]
     },
@@ -783,7 +774,7 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "parse",
-        "func": "msg.options = [ \n    {\"Склад виробництва насіння (м.Хоростків)\":\"1\"}, \n    {\"Склад виробництва насіння (с.Батятичі)\":\"2\"}, \n    {\"Тест\":\"3\"} ]\n\nvar metadataName = msg.payload\nvar newOption = []\n\nfor(let house of metadataName.data){\n    let option = {}\n    option[house.Warehouse] = { Warehouse: house.Warehouse, WarehouseCode: house.WarehouseCode}\n    newOption.push(option)\n}\n\nmsg.payload = newOption\nmsg.options = newOption\nreturn msg;",
+        "func": "msg.payload = flow.get(\"main_sklad\");\nvar metadataName = msg.payload\nvar newOption = []\n\nfor(let house of metadataName.data){\n    let option = {}\n    option[house.Warehouse] = { Warehouse: house.Warehouse, WarehouseCode: house.WarehouseCode}\n    newOption.push(option)\n}\n\nmsg.payload = newOption\nmsg.options = newOption\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -808,7 +799,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
+        "x": 330,
         "y": 60,
         "wires": [
             [
@@ -827,7 +818,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
+        "x": 130,
         "y": 60,
         "wires": [
             [
@@ -848,7 +839,7 @@
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
-        "x": 550,
+        "x": 1370,
         "y": 60,
         "wires": []
     },
@@ -872,7 +863,7 @@
         "payloadType": "date",
         "topic": "",
         "topicType": "str",
-        "x": 90,
+        "x": 110,
         "y": 300,
         "wires": [
             [
@@ -882,18 +873,6 @@
                 "045124bf8e87feef"
             ]
         ]
-    },
-    {
-        "id": "bcf5ae75b751ad75",
-        "type": "debug",
-        "z": "471a6e91c9155e06",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 450,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "461410de7677dc4b",
@@ -915,8 +894,8 @@
         "payloadType": "date",
         "topic": "",
         "topicType": "str",
-        "x": 490,
-        "y": 640,
+        "x": 430,
+        "y": 660,
         "wires": [
             [
                 "b053b813a475b584"
@@ -943,32 +922,11 @@
         "payloadType": "date",
         "topic": "",
         "topicType": "str",
-        "x": 140,
-        "y": 460,
+        "x": 120,
+        "y": 400,
         "wires": [
             [
-                "7344e1919e0388fa",
-                "02f99db808d9ea45"
-            ]
-        ]
-    },
-    {
-        "id": "02f99db808d9ea45",
-        "type": "function",
-        "z": "471a6e91c9155e06",
-        "name": "Date",
-        "func": "// msg.payload = {\n//     \"metadataName\": \"seedswarehouses\",\n//     \"count\": 2,\n//     \"data\": [{\n//             \"Warehouse\": \"Склад виробництва насіння (м.Хоростків)\",\n//             \"WarehouseCode\": \"000000000064\"\n//         }, {\n//             \"Warehouse\": \"Склад виробництва насіння (с.Батятичі)\",\n//             \"WarehouseCode\": \"000000000065\"\n//         }\n//     ]\n// }\n\nmsg.payload = flow.get(\"main_sklad\");\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 290,
-        "y": 160,
-        "wires": [
-            [
-                "bcf5ae75b751ad75",
-                "45e365eaa0b2a0b9"
+                "7344e1919e0388fa"
             ]
         ]
     },
@@ -977,7 +935,7 @@
         "type": "ui_ui_control",
         "z": "471a6e91c9155e06",
         "name": "",
-        "x": 800,
+        "x": 1100,
         "y": 740,
         "wires": [
             [
@@ -999,7 +957,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
+        "x": 1310,
         "y": 740,
         "wires": []
     },
@@ -1014,7 +972,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 230,
+        "x": 630,
         "y": 740,
         "wires": [
             [
@@ -1056,7 +1014,7 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "hide/show",
-        "func": "msg.payload = { \n    group: { \n        hide: [\"CFG-Main_Склад-виробництва-насіння\"],\n        show: [\"CFG-Main_Головний-Склад\", \"CFG-Main_Час\", \"CFG-Main_Оновлення\", \"CFG-Main_Зважування\", \"CFG-Main_Зона-встановлення\"]\n    } \n}\n\nlet qwerty = { \n    \"group\": { \n        \"hide\": [\"tab_name_group_name_with_underscores\"], \n        \"show\": [\"reveal_another_group\"], \n        \"focus\": true \n    } \n}\n//        hide: [\"CFG-Main_qwerty\", \"CFG-Main_Час\", \"CFG-Main_Оновлення\", \"CFG-Main_Зважування\", \"CFG-Main_Зона-встановлення\", \"CFG-Main_Склад-виробництва-насіння\"]\nreturn msg;\n\n",
+        "func": "msg.payload = { \n    group: { \n        hide: [\"CFG-Main_Головні_склади_список\"],\n        show: [\"CFG-Main_Головний-Склад\", \"CFG-Main_Час\", \"CFG-Main_Оновлення\", \"CFG-Main_Зважування\", \"CFG-Main_Зона-встановлення\"]\n    } \n}\n\nlet qwerty = { \n    \"group\": { \n        \"hide\": [\"tab_name_group_name_with_underscores\"], \n        \"show\": [\"reveal_another_group\"], \n        \"focus\": true \n    } \n}\n\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1075,13 +1033,13 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "hide/show DropDown",
-        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_Головний-Склад\"], \n        \"show\": [\"CFG-Main_Склад-виробництва-насіння\"] \n    } \n}\nreturn msg;",
+        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_Головний-Склад\"], \n        \"show\": [\"CFG-Main_Головні_склади_список\"] \n    } \n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 240,
+        "x": 200,
         "y": 540,
         "wires": [
             [
@@ -1102,7 +1060,7 @@
         "format": "{{msg.info}}",
         "layout": "row-spread",
         "className": "",
-        "x": 1040,
+        "x": 1380,
         "y": 420,
         "wires": []
     },
@@ -1117,7 +1075,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 530,
+        "x": 570,
         "y": 420,
         "wires": [
             [
@@ -1131,7 +1089,7 @@
         "type": "function",
         "z": "471a6e91c9155e06",
         "name": "hide/show DropDown",
-        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_Склад-виробництва-насіння\"], \n        \"show\": [\"CFG-Main_Головний-Склад\" ] \n    } \n}\nreturn msg;",
+        "func": "msg.payload = { \n    \"group\": { \n        \"hide\": [\"CFG-Main_Головні_склади_список\"], \n        \"show\": [\"CFG-Main_Головний-Склад\" ] \n    } \n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1176,8 +1134,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 840,
-        "y": 320,
+        "x": 920,
+        "y": 160,
         "wires": [
             [
                 "ab2aafaa9d2bf410",
@@ -1194,43 +1152,27 @@
         "links": [
             "c4e5a8dcaf84f20a"
         ],
-        "x": 1115,
+        "x": 1505,
         "y": 280,
         "wires": []
-    },
-    {
-        "id": "fc2f873eec03e144",
-        "type": "function",
-        "z": "471a6e91c9155e06",
-        "name": "Запит 1",
-        "func": "//Куінтус, нас., 1 р, 2021\nmsg.payload = {\n    \"metadataName\": \"seedstaskordersnew\",\n    \"count\": 1,\n    \"data\": [{\n        \"DocumentNumber\": \"000000000064\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"10000-100622-0911\",\n        \"Note\": \"Тернопіль, Схема 2\",\n        \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n        \"NomenclatureCode\": \"Ц0000056426\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., 1 р, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"000000000020\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"20000-200222-0222\",\n        \"Note\": \"Тернопіль, Схема 3\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Куінтус, нас., 2 р, 2021\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"ТІФУН НАСІННЄВИЙ ЗАВОД, ТОВ (Мангуш)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"0000000000350\",\n        \"DocumentDate\": \"2022-04-06T00:00:00\",\n        \"PartyName\": \"80000-200888-0888\",\n        \"Note\": \"Суми, Схема 5\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Кактус, нас., 3 р, 2022\",\n        \"Disinfectant1\": \"Вайсберг\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Захист 10\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Кович У\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"Солін НАСІННЄВИЙ ЗАВОД, ТОВ (Солін)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    }\n    ]\n}\n\n\nflow.set(\"main_orders\", msg.payload)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 820,
-        "y": 1040,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "50dd18e4d417d15e",
         "type": "function",
         "z": "471a6e91c9155e06",
-        "name": "Запит 2",
+        "name": "main_sklad",
         "func": "msg.payload = {\n    \"metadataName\": \"seedswarehouses\",\n    \"count\": 2,\n    \"data\": [{\n        \"Warehouse\": \"Склад виробництва насіння (м.Хоростків)\",\n        \"WarehouseCode\": \"000000000064\"\n    }, {\n        \"Warehouse\": \"Склад виробництва насіння (с.Батятичі)\",\n        \"WarehouseCode\": \"000000000065\"\n    }\n    ]\n}\nflow.set(\"main_sklad\", msg.payload)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 1080,
+        "x": 550,
+        "y": 1520,
         "wires": [
             [
-                "62372d3cca0bbd0c"
+                "62372d3cca0bbd0c",
+                "931cd1115348bdc2"
             ]
         ]
     },
@@ -1255,11 +1197,11 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 640,
-        "y": 1040,
+        "x": 160,
+        "y": 1320,
         "wires": [
             [
-                "fc2f873eec03e144"
+                "96b17d54d1a4f9b3"
             ]
         ]
     },
@@ -1284,8 +1226,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 640,
-        "y": 1080,
+        "x": 160,
+        "y": 1520,
         "wires": [
             [
                 "50dd18e4d417d15e"
@@ -1303,8 +1245,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 780,
-        "y": 280,
+        "x": 600,
+        "y": 340,
         "wires": [
             [
                 "e92879fadfd7a038"
@@ -1531,8 +1473,8 @@
         "z": "471a6e91c9155e06",
         "name": "Отримання даних зовні",
         "info": "",
-        "x": 670,
-        "y": 1000,
+        "x": 530,
+        "y": 1240,
         "wires": []
     },
     {
@@ -1543,8 +1485,8 @@
         "links": [
             "0da06f3cb6c58d8c"
         ],
-        "x": 95,
-        "y": 640,
+        "x": 55,
+        "y": 660,
         "wires": [
             [
                 "811efefa87d3e7d6",
@@ -1563,8 +1505,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 270,
-        "y": 640,
+        "x": 210,
+        "y": 660,
         "wires": [
             [
                 "461410de7677dc4b"
@@ -1583,8 +1525,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 280,
-        "y": 600,
+        "x": 220,
+        "y": 620,
         "wires": []
     },
     {
@@ -1603,7 +1545,7 @@
         "z": "471a6e91c9155e06",
         "name": "Відправка даних на строрінку 2",
         "info": "",
-        "x": 970,
+        "x": 1290,
         "y": 240,
         "wires": []
     },
@@ -1703,8 +1645,8 @@
         "z": "471a6e91c9155e06",
         "name": "Очищення після натискання Оновлення",
         "info": "",
-        "x": 540,
-        "y": 380,
+        "x": 600,
+        "y": 300,
         "wires": []
     },
     {
@@ -1713,7 +1655,7 @@
         "z": "471a6e91c9155e06",
         "name": "Вивести інформацію",
         "info": "",
-        "x": 1040,
+        "x": 1340,
         "y": 380,
         "wires": []
     },
@@ -1738,8 +1680,8 @@
         "links": [
             "3aa870eb316b2d19"
         ],
-        "x": 655,
-        "y": 440,
+        "x": 695,
+        "y": 460,
         "wires": []
     },
     {
@@ -1750,10 +1692,11 @@
         "links": [
             "d739f430671ba965"
         ],
-        "x": 625,
-        "y": 1180,
+        "x": 245,
+        "y": 1440,
         "wires": [
             [
+                "96b17d54d1a4f9b3",
                 "50dd18e4d417d15e"
             ]
         ]
@@ -1764,8 +1707,8 @@
         "z": "471a6e91c9155e06",
         "name": "Оновлення складів",
         "info": "",
-        "x": 610,
-        "y": 1140,
+        "x": 110,
+        "y": 1440,
         "wires": []
     },
     {
@@ -1777,8 +1720,8 @@
         "links": [
             "a35bda0784d12b4a"
         ],
-        "x": 955,
-        "y": 1080,
+        "x": 895,
+        "y": 1540,
         "wires": []
     },
     {
@@ -1793,9 +1736,127 @@
         "y": 200,
         "wires": [
             [
-                "02f99db808d9ea45"
+                "45e365eaa0b2a0b9"
             ]
         ]
+    },
+    {
+        "id": "7670ab813c954567",
+        "type": "function",
+        "z": "471a6e91c9155e06",
+        "name": "1c get Documents",
+        "func": "msg.payload = \n{\n\"metadataName\": \"seedstaskordersnew\",\n    \"count\": 25,\n        \"data\": [\n            {\n                \"DocumentNumber\": \"000000000238\",\n                \"DocumentDate\": \"2021-11-11T11:59:33Z\",\n                \"PartyName\": \"100000-111121-0831\",\n                \"Note\": \"партія 1\",\n                \"NomenclatureName\": \"Ячмінь 3 кл. нас.\",\n                \"NomenclatureCode\": \"04439      \",\n                \"NomenclatureCharacteristics\": \"Сєбастьян, нас., 1 р, 2021\",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000239\",\n                \"DocumentDate\": \"2021-11-11T08:33:00Z\",\n                \"PartyName\": \"100000-111121-0832\",\n                \"Note\": \".\",\n                \"NomenclatureName\": \"Ячмінь 3 кл. нас.\",\n                \"NomenclatureCode\": \"04439      \",\n                \"NomenclatureCharacteristics\": \"Францин, нас., 1 р, 2021\",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000240\",\n                \"DocumentDate\": \"2021-11-11T12:01:41Z\",\n                \"PartyName\": \"100000-111121-0833\",\n                \"Note\": \"партія 2\",\n                \"NomenclatureName\": \"Ячмінь 3 кл. нас.\",\n                \"NomenclatureCode\": \"04439      \",\n                \"NomenclatureCharacteristics\": \"Сєбастьян, нас., 1 р, 2021\",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000241\",\n                \"DocumentDate\": \"2021-11-15T16:42:18Z\",\n                \"PartyName\": \"100000-161121-0834\",\n                \"Note\": \"партія 1\",\n                \"NomenclatureName\": \"Пшениця м'яка 2 кл. нас.\",\n                \"NomenclatureCode\": \"04426      \",\n                \"NomenclatureCharacteristics\": \"Куінтус, нас., 1 р, 2021\",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000242\",\n                \"DocumentDate\": \"2021-11-15T16:45:09Z\",\n                \"PartyName\": \"100000-161121-0835\",\n                \"Note\": \"партія 1\",\n                \"NomenclatureName\": \"Пшениця м'яка 3 кл. нас.\",\n                \"NomenclatureCode\": \"04427      \",\n                \"NomenclatureCharacteristics\": \"Токата, нас., 1 р, 2021\",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000243\",\n                \"DocumentDate\": \"2021-11-16T06:42:50Z\",\n                \"PartyName\": \"100000-161121-0836\",\n                \"Note\": \"партія 2\",\n                \"NomenclatureName\": \"Пшениця м'яка 2 кл. нас.\",\n                \"NomenclatureCode\": \"04426      \",\n                \"NomenclatureCharacteristics\": \"Куінтус, нас., 1 р, 2021\",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000244\",\n                \"DocumentDate\": \"2021-11-16T06:43:42Z\",\n                \"PartyName\": \"100000-161121-0837\",\n                \"Note\": \"партія 2\",\n                \"NomenclatureName\": \"Пшениця м'яка 3 кл. нас.\",\n                \"NomenclatureCode\": \"04427      \",\n                \"NomenclatureCharacteristics\": \"Токата, нас., 1 р, 2021\",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000001\",\n                \"DocumentDate\": \"2022-03-08T07:07:45Z\",\n                \"PartyName\": \"100000-080322-0839\",\n                \"Note\": \".\",\n                \"NomenclatureName\": \"Ячмінь 3 кл. нас.\",\n                \"NomenclatureCode\": \"04439      \",\n                \"NomenclatureCharacteristics\": \"Сєбастьян, нас., 1 р, 2021\",\n                \"Disinfectant1\": \"Авіценна\",\n                \"DisinfectantCode1\": \"04895      \",\n                \"Disinfectant2\": \"Альберто\",\n                \"DisinfectantCode2\": \"04896      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000002\",\n                \"DocumentDate\": \"2022-03-08T07:12:55Z\",\n                \"PartyName\": \"100000-080322-0840\",\n                \"Note\": \".\",\n                \"NomenclatureName\": \"Ячмінь 3 кл. нас.\",\n                \"NomenclatureCode\": \"04439      \",\n                \"NomenclatureCharacteristics\": \"Францин, нас., 1 р, 2021\",\n                \"Disinfectant1\": \"Авіценна\",\n                \"DisinfectantCode1\": \"04895      \",\n                \"Disinfectant2\": \"Альберто\",\n                \"DisinfectantCode2\": \"04896      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000003\",\n                \"DocumentDate\": \"2022-03-09T09:05:38Z\",\n                \"PartyName\": \"999000-090322-0842\",\n                \"Note\": \"Схема 3\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Ментор, нас., 4 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode2\": \"04819      \",\n                \"Disinfectant3\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode3\": \"04818      \",\n                \"Disinfectant4\": \"Тальк ТМК-28\",\n                \"DisinfectantCode4\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000004\",\n                \"DocumentDate\": \"2022-03-10T06:38:50Z\",\n                \"PartyName\": \"999000-100322-0843\",\n                \"Note\": \"Схема 3\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Ментор, нас., 4 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode2\": \"04819      \",\n                \"Disinfectant3\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode3\": \"04818      \",\n                \"Disinfectant4\": \"Тальк ТМК-28\",\n                \"DisinfectantCode4\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000005\",\n                \"DocumentDate\": \"2022-03-10T10:36:09Z\",\n                \"PartyName\": \"999000-100322-0844\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Віндзор, нас., 1 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000007\",\n                \"DocumentDate\": \"2022-03-10T10:44:40Z\",\n                \"PartyName\": \"999000-100322-0845\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Езра, нас., 1 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000008\",\n                \"DocumentDate\": \"2022-03-10T10:46:54Z\",\n                \"PartyName\": \"999000-100322-0846\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Кофу, нас., 1 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000009\",\n                \"DocumentDate\": \"2022-03-10T10:49:10Z\",\n                \"PartyName\": \"999000-100322-0847\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Командор, нас., 1 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000010\",\n                \"DocumentDate\": \"2022-03-10T10:51:34Z\",\n                \"PartyName\": \"999000-100322-0848\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Сіверка, нас., 2 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000011\",\n                \"DocumentDate\": \"2022-03-10T10:58:19Z\",\n                \"PartyName\": \"999000-100322-0849\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Ауреліна, нас., 2 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000012\",\n                \"DocumentDate\": \"2022-03-10T11:01:30Z\",\n                \"PartyName\": \"999000-100322-0850\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Кордоба, нас., 2 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000013\",\n                \"DocumentDate\": \"2022-03-10T11:03:10Z\",\n                \"PartyName\": \"999000-100322-0851\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Сенатор, нас., 1 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000014\",\n                \"DocumentDate\": \"2022-03-10T11:04:45Z\",\n                \"PartyName\": \"999000-100322-0852\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Браун, нас., Супер еліта, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000015\",\n                \"DocumentDate\": \"2022-03-10T11:06:05Z\",\n                \"PartyName\": \"999000-100322-0853\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Граф, нас., Супер еліта, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000016\",\n                \"DocumentDate\": \"2022-03-10T11:07:22Z\",\n                \"PartyName\": \"999000-100322-0854\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Хана, нас., 2 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000017\",\n                \"DocumentDate\": \"2022-03-10T11:08:43Z\",\n                \"PartyName\": \"999000-100322-0855\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Зельда, нас., 3 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000018\",\n                \"DocumentDate\": \"2022-03-10T11:10:09Z\",\n                \"PartyName\": \"999000-100322-0856\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Аріса, нас., 3 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            },\n            {\n                \"DocumentNumber\": \"000000000019\",\n                \"DocumentDate\": \"2022-03-10T11:15:06Z\",\n                \"PartyName\": \"999000-100322-0857\",\n                \"Note\": \"Схема 2\",\n                \"NomenclatureName\": \"Соя нас.\",\n                \"NomenclatureCode\": \"04547      \",\n                \"NomenclatureCharacteristics\": \"Кофу, нас., 3 р, 2021\",\n                \"Disinfectant1\": \"Стандак Топ (Каністра 5 л)\",\n                \"DisinfectantCode1\": \"04817      \",\n                \"Disinfectant2\": \"ХайКот Супер Соя Тест (Пакет 6,4 л)\",\n                \"DisinfectantCode2\": \"04816      \",\n                \"Disinfectant3\": \"ХайКот Супер Екстендер (Пакет 6,4 л)\",\n                \"DisinfectantCode3\": \"04815      \",\n                \"Disinfectant4\": \"Новатор листок (Каністра 10 л)\",\n                \"DisinfectantCode4\": \"04819      \",\n                \"Disinfectant5\": \"Лідер Пульс (Банка 1 л)\",\n                \"DisinfectantCode5\": \"04818      \",\n                \"Disinfectant6\": \"Тальк ТМК-28\",\n                \"DisinfectantCode6\": \"04559      \",\n                \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n                \"WHouseCode\": \"ЦК0007138\",\n                \"BarcodeCode\": 0,\n                \"MassOfThousands\": 0\n            }\n        ]\n}\nflow.set(\"main_orders\", msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 1320,
+        "wires": [
+            [
+                "d5ce801b61b84f7f"
+            ]
+        ]
+    },
+    {
+        "id": "96b17d54d1a4f9b3",
+        "type": "function",
+        "z": "471a6e91c9155e06",
+        "name": "GET from 1c",
+        "func": "msg.url = global.get(\"getWith1C\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1320,
+        "wires": [
+            [
+                "8905e5f7079ac3a3"
+            ]
+        ]
+    },
+    {
+        "id": "8905e5f7079ac3a3",
+        "type": "http request",
+        "z": "471a6e91c9155e06",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 530,
+        "y": 1320,
+        "wires": [
+            [
+                "7670ab813c954567"
+            ]
+        ]
+    },
+    {
+        "id": "ad0fca6e62d418ed",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Завантаження при запуску системи",
+        "info": "",
+        "x": 200,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "d5ce801b61b84f7f",
+        "type": "link out",
+        "z": "471a6e91c9155e06",
+        "name": "1c get Documents",
+        "mode": "link",
+        "links": [
+            "b10c28678e490840"
+        ],
+        "x": 905,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "931cd1115348bdc2",
+        "type": "link out",
+        "z": "471a6e91c9155e06",
+        "name": "Main sklad",
+        "mode": "link",
+        "links": [
+            "39b8750674f88ecb"
+        ],
+        "x": 895,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "da4f1e5507e72b1d",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Поток 4",
+        "info": "",
+        "x": 1010,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "b137fe285b402c7f",
+        "type": "comment",
+        "z": "471a6e91c9155e06",
+        "name": "Поток 4",
+        "info": "",
+        "x": 1010,
+        "y": 1480,
+        "wires": []
     },
     {
         "id": "5dc4902beb1fbddd",
@@ -1808,8 +1869,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 20,
+        "x": 730,
+        "y": 40,
         "wires": [
             [
                 "93d290cd1ff71964"
@@ -1827,8 +1888,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 20,
+        "x": 190,
+        "y": 40,
         "wires": [
             [
                 "5dc4902beb1fbddd"
@@ -1848,8 +1909,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
-        "x": 490,
-        "y": 20,
+        "x": 1250,
+        "y": 40,
         "wires": []
     },
     {
@@ -1872,13 +1933,13 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 120,
-        "y": 440,
+        "x": 160,
+        "y": 400,
         "wires": [
             [
                 "f8324010af8f5742",
-                "2181a6187ef3a01b",
-                "1af8c773b1a0cecb"
+                "1af8c773b1a0cecb",
+                "7b608debab5e3294"
             ]
         ]
     },
@@ -1902,8 +1963,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 110,
-        "y": 660,
+        "x": 130,
+        "y": 680,
         "wires": [
             [
                 "1c9decf618bc886c",
@@ -1932,8 +1993,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 170,
-        "y": 1020,
+        "x": 150,
+        "y": 1060,
         "wires": [
             [
                 "c16a57a920620e51"
@@ -1960,7 +2021,7 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 325,
+        "x": 395,
         "y": 880,
         "wires": [
             [
@@ -1990,26 +2051,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 320,
-        "wires": [
-            [
-                "2181a6187ef3a01b"
-            ]
-        ]
-    },
-    {
-        "id": "2181a6187ef3a01b",
-        "type": "function",
-        "z": "7a204b0920df63ed",
-        "name": "main_orders",
-        "func": "msg.payload = flow.get(\"main_orders\")\n//WHouseName\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 310,
+        "x": 220,
         "y": 320,
         "wires": [
             [
@@ -2022,17 +2064,18 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "Склад",
-        "func": "// {\n// \"metadataName\": \"seedstaskordersnew\",\n// \"count\": 1,\n// \"data\": [{\n//     \"DocumentNumber\": \"000000000064\",\n//     \"DocumentDate\": \"2022-02-01T00:00:00\",\n//     \"PartyName\": \"10000-100622-0911\",\n//     \"Note\": \"Тернопіль, Схема 2\",\n//     \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n//     \"NomenclatureCode\": \"Ц0000056426\",\n//     \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n//     \"Disinfectant1\": \"Вайбранс Інтеграл\",\n//     \"DisinfectantCode1\": \"Ц0000100594\",\n//     \"Disinfectant2\": \"Цензор XL\",\n//     \"DisinfectantCode2\": \"Ц0000102126\",\n//     \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n//     \"DisinfectantCode3\": \"Ц0000100669\",\n//     \"Disinfectant4\": \"Вітазим К\",\n//     \"DisinfectantCode4\": \"Ц0000085308\",\n//     \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n//     \"WHouseCode\": \"ЦК0007135\",\n//     \"BarcodeCode\": \"430\",\n//     \"MassOfThousands\": \"0.080\"\n// }\n// ]\n// }\n\n\nvar metadataName = msg.payload\nvar newOption = []\n\nfor (let house of metadataName.data) {\n    let option = {}\n    option[house.WHouseName] = house\n    newOption.push(option)\n}\n\nmsg.payload = newOption\nmsg.options = newOption\nreturn msg;",
+        "func": "msg.payload = flow.get(\"main_orders\")\n// \"metadataName\": \"seedstaskordersnew\",\n//     \"count\": 25,\n//         \"data\": [\n//             {\n//                 \"DocumentNumber\": \"000000000238\",\n//                 \"DocumentDate\": \"2021-11-11T11:59:33Z\",\n//                 \"PartyName\": \"100000-111121-0831\",\n//                 \"Note\": \"партія 1\",\n//                 \"NomenclatureName\": \"Ячмінь 3 кл. нас.\",\n//                 \"NomenclatureCode\": \"04439      \",\n//                 \"NomenclatureCharacteristics\": \"Сєбастьян, нас., 1 р, 2021\",\n//                 \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n//                 \"WHouseCode\": \"ЦК0007138\",\n//                 \"BarcodeCode\": 0,\n//                 \"MassOfThousands\": 0\n//             },]\n\n\n\nvar metadataName = msg.payload\nvar newOption = []\n\n// for (let house of metadataName.data) {\n//     let option = {}\n//     option[house.WHouseName] = house\n//     newOption.push(option)\n    \n// }\n\n\nfor (let house of metadataName.data) {\n    let option = {}\n    option[house.WHouseName] = house.WHouseName\n    newOption.push(house.WHouseName)\n\n}\n//msg.payload = newOption\n//msg.options = newOption\nmsg.payload = Array.from(new Set(newOption))\nmsg.options = Array.from(new Set(newOption))\nif (msg.options.length == 1){\n    msg.options.push(\"-\")\n    msg.payload.push(\"-\")\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
+        "x": 410,
         "y": 320,
         "wires": [
             [
-                "e2ab1fb90c4f0b1f"
+                "e2ab1fb90c4f0b1f",
+                "459de62c474ff6c0"
             ]
         ]
     },
@@ -2069,7 +2112,8 @@
                 "98c7e1dff9d2eefd",
                 "95a1173c01486c4b",
                 "3e6462e04088c6d2",
-                "2a88e954bf32d1a3"
+                "2a88e954bf32d1a3",
+                "4e9c5106b8279f32"
             ]
         ]
     },
@@ -2078,14 +2122,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "",
-        "func": "msg.payload = flow.get(\"sklad\")\n\nreturn msg;",
+        "func": "msg.payload = flow.get(\"main_orders\")\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 660,
+        "x": 440,
+        "y": 680,
         "wires": [
             [
                 "95a1173c01486c4b"
@@ -2097,14 +2141,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "INFO",
-        "func": "// {\n// \"metadataName\": \"seedstaskordersnew\",\n// \"count\": 1,\n// \"data\": [{\n//     \"DocumentNumber\": \"000000000064\",\n//     \"DocumentDate\": \"2022-02-01T00:00:00\",\n//     \"PartyName\": \"10000-100622-0911\",\n//     \"Note\": \"Тернопіль, Схема 2\",\n//     \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n//     \"NomenclatureCode\": \"Ц0000056426\",\n//     \"NomenclatureCharacteristics\": \"Мулан, нас., ЕН, 2019\",\n//     \"Disinfectant1\": \"Вайбранс Інтеграл\",\n//     \"DisinfectantCode1\": \"Ц0000100594\",\n//     \"Disinfectant2\": \"Цензор XL\",\n//     \"DisinfectantCode2\": \"Ц0000102126\",\n//     \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n//     \"DisinfectantCode3\": \"Ц0000100669\",\n//     \"Disinfectant4\": \"Вітазим К\",\n//     \"DisinfectantCode4\": \"Ц0000085308\",\n//     \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n//     \"WHouseCode\": \"ЦК0007135\",\n//     \"BarcodeCode\": \"430\",\n//     \"MassOfThousands\": \"0.080\"\n// }\n// ]\n// }\n\nvar metadataName = [msg.payload]\nvar newOption = []\n\nfor (let house of metadataName) {\n    let option = {}\n    house.optionVirtual = `${house.DocumentNumber} ${house.NomenclatureName}`\n    option[`${house.DocumentNumber} ${house.NomenclatureName}`] = house\n    newOption.push(option)\n}\n\nmsg.payload = newOption\nmsg.options = newOption\nreturn msg;",
+        "func": "msg.payload = flow.get(\"main_orders\")\n// var metadataName = [msg.payload]\nvar sklads = msg.payload.data\nvar newOption = []\n// for (let house of metadataName) {\n//     let option = {}\n//     house.optionVirtual = `${house.DocumentNumber} ${house.NomenclatureName}`\n//     option[`${house.DocumentNumber} ${house.NomenclatureName}`] = house\n//     newOption.push(option)\n// }\nvar i = 1\nfor (let house of sklads) {\n    \n    let option = `${house.DocumentNumber}/${house.NomenclatureCode.trim()}/${house.NomenclatureName}`\n    newOption.push(option)\n\n}\n\n\nmsg.payload = newOption\nmsg.options = newOption\nreturn msg;\n\n// [\n// {\n//     \"DocumentNumber\": \"000000000238\",\n//     \"DocumentDate\": \"2021-11-11T11:59:33Z\",\n//     \"PartyName\": \"100000-111121-0831\",\n//     \"Note\": \"партія 1\",\n//     \"NomenclatureName\": \"Ячмінь 3 кл. нас.\",\n//     \"NomenclatureCode\": \"04439      \",\n//     \"NomenclatureCharacteristics\": \"Сєбастьян, нас., 1 р, 2021\",\n//     \"WHouseName\": \"Склад виробництва насіння (м.Хоростків)\",\n//     \"WHouseCode\": \"ЦК0007138\",\n//     \"BarcodeCode\": 0,\n//     \"MassOfThousands\": 0\n// }\n//]",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 550,
-        "y": 660,
+        "x": 610,
+        "y": 680,
         "wires": [
             [
                 "b2b13453c2ee7886"
@@ -2136,13 +2180,14 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 770,
-        "y": 660,
+        "x": 890,
+        "y": 680,
         "wires": [
             [
                 "c7348b3934deb4c1",
                 "129feb8c14eb46e4",
-                "501d97169fc0ce97"
+                "501d97169fc0ce97",
+                "d3aac7a6991337b8"
             ]
         ]
     },
@@ -2190,8 +2235,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 180,
-        "y": 1060,
+        "x": 160,
+        "y": 1100,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2259,7 +2304,7 @@
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
-        "x": 580,
+        "x": 1500,
         "y": 140,
         "wires": []
     },
@@ -2293,7 +2338,7 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 1060,
+        "x": 1560,
         "y": 320,
         "wires": []
     },
@@ -2302,13 +2347,13 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "text",
-        "func": "msg.payload = msg.payload.WHouseName\nreturn msg;",
+        "func": "//msg.payload = msg.payload.WHouseName\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 830,
+        "x": 1090,
         "y": 320,
         "wires": [
             [
@@ -2327,8 +2372,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 440,
+        "x": 260,
+        "y": 480,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2346,8 +2391,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 420,
+        "x": 620,
+        "y": 360,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2359,7 +2404,7 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "text",
-        "func": "msg.payload = msg.payload.optionVirtual\nreturn msg;",
+        "func": "//msg.payload = msg.payload.optionVirtual\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2386,7 +2431,7 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 1000,
+        "x": 1560,
         "y": 560,
         "wires": []
     },
@@ -2401,8 +2446,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 420,
-        "y": 700,
+        "x": 480,
+        "y": 720,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2420,8 +2465,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 780,
-        "y": 700,
+        "x": 900,
+        "y": 720,
         "wires": [
             [
                 "7766c02bee02101d"
@@ -2433,14 +2478,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "set ",
-        "func": "\n\n\nflow.set(\"sklad\", msg.payload);\nreturn msg;",
+        "func": "if (msg.payload !== \"-\"){\n    flow.set(\"sklad\", msg.payload);\n}\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 400,
+        "x": 1250,
+        "y": 440,
         "wires": [
             []
         ]
@@ -2456,8 +2501,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1210,
-        "y": 660,
+        "x": 1490,
+        "y": 680,
         "wires": [
             []
         ]
@@ -2473,7 +2518,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
+        "x": 470,
         "y": 180,
         "wires": [
             []
@@ -2575,7 +2620,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 110,
+        "x": 130,
         "y": 840,
         "wires": [
             [
@@ -2594,7 +2639,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 120,
+        "x": 140,
         "y": 880,
         "wires": [
             [
@@ -2677,7 +2722,7 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "get all data",
-        "func": "//msg.linkEvent = \"true\"\nif (msg.linkEvent == null){\n    var main_sklad = flow.get(\"main_sklad\");\n    var sklad = flow.get(\"sklad\");\n    var order = flow.get(\"order\");\n    var weight = flow.get(\"weight\");\n    //var plomba = flow.get(\"plomba\")\n\n    msg.payload = { main_sklad, sklad, weight }\n    msg.info = { main_sklad, sklad, weight }\n    flow.set(\"all\", msg.payload)\n    msg.payload = \"open\"\n\n\n    return msg;\n}\n",
+        "func": "//msg.linkEvent = \"true\"\nif (msg.linkEvent == null){\n    var main_orders = flow.get(\"main_orders\").data;\n\n    var main_sklad = flow.get(\"main_sklad\");\n    var sklad = flow.get(\"sklad\");\n    var order = flow.get(\"order\").split(\"/\");\n    var weight = flow.get(\"weight\");\n    //var plomba = flow.get(\"plomba\")\n    sklad = main_orders.find(el => el.DocumentNumber === order[0]);\n\n\n\n    msg.payload = { main_sklad, sklad, weight }\n    msg.info = { main_sklad, sklad, weight }\n    flow.set(\"all\", msg.payload)\n    msg.payload = \"open\"\n\n\n    return msg;\n}\n// let cities = [{ id: 121, name: 'г. Урюпинск' }, { id: 122, name: 'г. Париж' }, { id: 123, name: 'г. Москва' }, { id: 124, name: 'г. Штормград' }];\n// let searchTerm = 'г. Москва';\n// let cityId = cities.find(city => city.name === searchTerm).id",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2697,14 +2742,14 @@
         "id": "a5060de1a0fb8592",
         "type": "function",
         "z": "7a204b0920df63ed",
-        "name": "Запит 1",
-        "func": "//Куінтус, нас., 1 р, 2021\nmsg.payload = {\n    \"metadataName\": \"seedstaskordersnew\",\n    \"count\": 1,\n    \"data\": [{\n        \"DocumentNumber\": \"000000000064\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"10000-100622-0911\",\n        \"Note\": \"Тернопіль, Схема 2\",\n        \"NomenclatureName\": \"Нас. оз. пш. Мулан\",\n        \"NomenclatureCode\": \"Ц0000056426\",\n        \"NomenclatureCharacteristics\": \"Мулан, нас., 1 р, 2019\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"МРІЯ НАСІННЄВИЙ ЗАВОД, ТОВ (Хоростків)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"000000000020\",\n        \"DocumentDate\": \"2022-02-01T00:00:00\",\n        \"PartyName\": \"20000-200222-0222\",\n        \"Note\": \"Тернопіль, Схема 3\",\n        \"NomenclatureName\": \"Нас. оз. пш. Тіфун\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Куінтус, нас., 2 р, 2021\",\n        \"Disinfectant1\": \"Вайбранс Інтеграл\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Цензор XL\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Яра Віта Рексолін АВС Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Вітазим К\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"ТІФУН НАСІННЄВИЙ ЗАВОД, ТОВ (Мангуш)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n    {\n        \"DocumentNumber\": \"0000000000350\",\n        \"DocumentDate\": \"2022-04-06T00:00:00\",\n        \"PartyName\": \"80000-200888-0888\",\n        \"Note\": \"Суми, Схема 5\",\n        \"NomenclatureName\": \"Нас. оз. пш. Солін\",\n        \"NomenclatureCode\": \"Ц0000056439\",\n        \"NomenclatureCharacteristics\": \"Кактус, нас., 3 р, 2022\",\n        \"Disinfectant1\": \"Вайсберг\",\n        \"DisinfectantCode1\": \"Ц0000100594\",\n        \"Disinfectant2\": \"Захист 10\",\n        \"DisinfectantCode2\": \"Ц0000102126\",\n        \"Disinfectant3\": \"Фульвогумін\",\n        \"DisinfectantCode3\": \"Ц0000100669\",\n        \"Disinfectant4\": \"Кович У\",\n        \"DisinfectantCode4\": \"Ц0000085308\",\n        \"WHouseName\": \"Солін НАСІННЄВИЙ ЗАВОД, ТОВ (Солін)\",\n        \"WHouseCode\": \"ЦК0007135\",\n        \"BarcodeCode\": \"430\",\n        \"MassOfThousands\": \"0.080\"\n    },\n        {\n            \"DocumentNumber\": \"000000000099\",\n            \"DocumentDate\": \"2022-02-01T00:00:00\",\n            \"PartyName\": \"10000-100622-0911\",\n            \"Note\": \"Ужгород, Схема '2'\",\n            \"NomenclatureName\": \"Нас. оз. пш. Тімбер\",\n            \"NomenclatureCode\": \"Ц0000056426\",\n            \"NomenclatureCharacteristics\": \"Тімбер, нас., 2 р, 2020\",\n            \"Disinfectant1\": \"Інтеграл\",\n            \"DisinfectantCode1\": \"Ц0000100594\",\n            \"Disinfectant2\": \"Цілібур\",\n            \"DisinfectantCode2\": \"Ц0000102126\",\n            \"Disinfectant3\": \"Стронг\",\n            \"DisinfectantCode3\": \"Ц0000100669\",\n            \"Disinfectant4\": \"Мітозим\",\n            \"DisinfectantCode4\": \"Ц0000085308\",\n            \"WHouseName\": \"Капітул НАСІННЄВИЙ ЗАВОД, ТОВ (Ужгород)\",\n            \"WHouseCode\": \"ЦК0007135\",\n            \"BarcodeCode\": \"430\",\n            \"MassOfThousands\": \"0.080\"\n        }\n    ]\n}\n\n\nflow.set(\"main_orders\", msg.payload)\nreturn msg;",
+        "name": "1c get Documents",
+        "func": "flow.set(\"main_orders\", msg.payload)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
+        "x": 350,
         "y": 2060,
         "wires": [
             []
@@ -2714,75 +2759,17 @@
         "id": "220ff70d6dfd12d2",
         "type": "function",
         "z": "7a204b0920df63ed",
-        "name": "Запит 2",
+        "name": "Main sklad",
         "func": "msg.payload = {\n    \"metadataName\": \"seedswarehouses\",\n    \"count\": 2,\n    \"data\": [{\n        \"Warehouse\": \"Склад виробництва насіння (м.Хоростків)\",\n        \"WarehouseCode\": \"000000000064\"\n    }, {\n        \"Warehouse\": \"Склад виробництва насіння (с.Батятичі)\",\n        \"WarehouseCode\": \"000000000065\"\n    }\n    ]\n}\nflow.set(\"main_sklad\", msg.payload)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
+        "x": 330,
         "y": 2100,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "efad14fe538cb19f",
-        "type": "inject",
-        "z": "7a204b0920df63ed",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 2060,
-        "wires": [
-            [
-                "a5060de1a0fb8592"
-            ]
-        ]
-    },
-    {
-        "id": "296384c424a6ecbf",
-        "type": "inject",
-        "z": "7a204b0920df63ed",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 2100,
-        "wires": [
-            [
-                "220ff70d6dfd12d2"
-            ]
         ]
     },
     {
@@ -2845,7 +2832,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "1",
+        "repeat": "10",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -2864,46 +2851,19 @@
         "id": "a848161691533b24",
         "type": "function",
         "z": "7a204b0920df63ed",
-        "name": "function 18",
+        "name": "MAIN SKLAD chose",
         "func": "msg.payload = msg.payload.Warehouse\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
+        "x": 520,
         "y": 140,
         "wires": [
             [
                 "b51e284e6c8e37ea"
             ]
-        ]
-    },
-    {
-        "id": "0f7aa388c468727f",
-        "type": "inject",
-        "z": "7a204b0920df63ed",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 120,
-        "y": 480,
-        "wires": [
-            []
         ]
     },
     {
@@ -2917,8 +2877,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 740,
+        "x": 440,
+        "y": 760,
         "wires": [
             [
                 "11bb8ed3c99a7ad2"
@@ -2946,7 +2906,7 @@
         "topic": "",
         "payload": "Потрібно обрати",
         "payloadType": "str",
-        "x": 350,
+        "x": 1250,
         "y": 100,
         "wires": [
             [
@@ -2975,7 +2935,7 @@
         "topic": "",
         "payload": "Потрібно обрати",
         "payloadType": "str",
-        "x": 850,
+        "x": 1370,
         "y": 280,
         "wires": [
             [
@@ -3033,7 +2993,7 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 90,
+        "x": 270,
         "y": 220,
         "wires": [
             [
@@ -3062,8 +3022,8 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 970,
-        "y": 360,
+        "x": 1090,
+        "y": 400,
         "wires": [
             [
                 "55793104f3baf01b"
@@ -3091,7 +3051,7 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 1030,
+        "x": 1310,
         "y": 640,
         "wires": [
             [
@@ -3110,8 +3070,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 440,
+        "x": 1060,
+        "y": 480,
         "wires": [
             [
                 "40e0abc6fcc25324",
@@ -3136,8 +3096,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 950,
-        "y": 400,
+        "x": 1070,
+        "y": 440,
         "wires": [
             [
                 "55793104f3baf01b"
@@ -3149,14 +3109,14 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "function 19",
-        "func": "msg.payload = false\nreturn msg;",
+        "func": "msg.payload = false\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1150,
-        "y": 440,
+        "x": 1270,
+        "y": 480,
         "wires": [
             [
                 "501d97169fc0ce97"
@@ -3290,14 +3250,14 @@
         "type": "debug",
         "z": "7a204b0920df63ed",
         "name": "debug 24",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
+        "x": 1140,
         "y": 880,
         "wires": []
     },
@@ -3500,7 +3460,7 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "Check var",
-        "func": "var all = flow.get(\"all\")\n\nvar main_sklad = all.main_sklad;\nvar sklad = all.sklad;\nvar order = all.sklad.optionVirtual//flow.get(\"order\");//optionVirtual\nvar weight = all.weight;\nvar plomba = flow.get(\"plomba\")\n\nif (plomba && main_sklad && sklad && order && (weight > 50)){\n\n    msg.payload = { main_sklad, sklad, weight, plomba}\n    msg.info = { main_sklad, sklad, weight, plomba}\n    return [msg, null];\n} else if (!plomba && main_sklad && sklad && order && (weight > 50)){\n    msg.payload = \"Пломба не заповнена\"\n    return [null, msg];\n}\n\n\nreturn [msg, null];",
+        "func": "var all = flow.get(\"all\")\n\nvar main_sklad = all.main_sklad;\nvar sklad = all.sklad;\n//var order = all.sklad.optionVirtual//flow.get(\"order\");//optionVirtual\nvar weight = all.weight;\nvar plomba = flow.get(\"plomba\")\n\nif (plomba && main_sklad && sklad && (weight > 50)){\n\n    msg.payload = { main_sklad, sklad, weight, plomba}\n    msg.info = { main_sklad, sklad, weight, plomba}\n    return [msg, null];\n} else if (!plomba && main_sklad && sklad && (weight > 50)){\n    msg.payload = \"Пломба не заповнена\"\n    return [null, msg];\n}\n\n\nreturn [msg, null];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -3621,7 +3581,7 @@
         "links": [
             "1282afc20df153fe"
         ],
-        "x": 955,
+        "x": 1095,
         "y": 960,
         "wires": []
     },
@@ -3640,9 +3600,6 @@
             [
                 "0e5ae93a8e415269",
                 "62cdf0c52850b379",
-                "bada28a9fd8be2df",
-                "05897679937ec25a",
-                "4ad66a9e40fcabc3",
                 "9e2315d850e822f7"
             ]
         ]
@@ -3670,7 +3627,7 @@
         "id": "a975dfac3f3cb716",
         "type": "ui_toast",
         "z": "7a204b0920df63ed",
-        "position": "top left",
+        "position": "top right",
         "displayTime": "3",
         "highlight": "",
         "sendall": true,
@@ -3738,7 +3695,7 @@
         "type": "ui_ui_control",
         "z": "7a204b0920df63ed",
         "name": "ui control",
-        "x": 1180,
+        "x": 1280,
         "y": 920,
         "wires": [
             []
@@ -3755,7 +3712,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1040,
+        "x": 1140,
         "y": 920,
         "wires": [
             [
@@ -3767,7 +3724,7 @@
         "id": "9a6e869cf410e717",
         "type": "ui_toast",
         "z": "7a204b0920df63ed",
-        "position": "top left",
+        "position": "top right",
         "displayTime": "3",
         "highlight": "red",
         "sendall": true,
@@ -3922,8 +3879,8 @@
         "z": "7a204b0920df63ed",
         "name": "Перехід на сторінку 1",
         "info": "",
-        "x": 160,
-        "y": 980,
+        "x": 140,
+        "y": 1020,
         "wires": []
     },
     {
@@ -3932,7 +3889,7 @@
         "z": "7a204b0920df63ed",
         "name": "Дозвіл на перехід сторінку 3",
         "info": "",
-        "x": 120,
+        "x": 140,
         "y": 800,
         "wires": []
     },
@@ -3968,7 +3925,7 @@
         "type": "ui_text",
         "z": "7a204b0920df63ed",
         "group": "1903964e747c6a1c",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3985,7 +3942,7 @@
         "type": "ui_text",
         "z": "7a204b0920df63ed",
         "group": "1903964e747c6a1c",
-        "order": 0,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -4002,7 +3959,7 @@
         "type": "ui_text",
         "z": "7a204b0920df63ed",
         "group": "1903964e747c6a1c",
-        "order": 0,
+        "order": 6,
         "width": 0,
         "height": 0,
         "name": "",
@@ -4011,7 +3968,7 @@
         "layout": "row-left",
         "className": "",
         "x": 1220,
-        "y": 1900,
+        "y": 2020,
         "wires": []
     },
     {
@@ -4019,15 +3976,15 @@
         "type": "ui_text",
         "z": "7a204b0920df63ed",
         "group": "1903964e747c6a1c",
-        "order": 0,
+        "order": 7,
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Замовлення:  ",
-        "format": "{{msg.payload}}",
+        "label": "Репродукція:  ",
+        "format": "{{msg.info.sklad.NomenclatureCharacteristics}}",
         "layout": "row-left",
         "className": "",
-        "x": 1240,
+        "x": 1230,
         "y": 1860,
         "wires": []
     },
@@ -4036,19 +3993,169 @@
         "type": "function",
         "z": "7a204b0920df63ed",
         "name": "function 48",
-        "func": "msg.payload = msg.info.sklad.DocumentNumber + \", \" + msg.info.sklad.NomenclatureName \nreturn msg;",
+        "func": "return msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1010,
+        "x": 990,
         "y": 1860,
         "wires": [
             [
-                "c8cc892f4e1b77ab"
+                "c8cc892f4e1b77ab",
+                "bada28a9fd8be2df",
+                "05897679937ec25a",
+                "3f54ce3064460eb5",
+                "76045e6545665dc9",
+                "3cfdff4345d870d5",
+                "4ad66a9e40fcabc3"
             ]
         ]
+    },
+    {
+        "id": "b10c28678e490840",
+        "type": "link in",
+        "z": "7a204b0920df63ed",
+        "name": "link in 7",
+        "links": [
+            "d5ce801b61b84f7f"
+        ],
+        "x": 125,
+        "y": 2060,
+        "wires": [
+            [
+                "a5060de1a0fb8592"
+            ]
+        ]
+    },
+    {
+        "id": "39b8750674f88ecb",
+        "type": "link in",
+        "z": "7a204b0920df63ed",
+        "name": "link in 8",
+        "links": [
+            "931cd1115348bdc2"
+        ],
+        "x": 125,
+        "y": 2100,
+        "wires": [
+            [
+                "220ff70d6dfd12d2"
+            ]
+        ]
+    },
+    {
+        "id": "1625456348eb257e",
+        "type": "comment",
+        "z": "7a204b0920df63ed",
+        "name": "Перехід на звірення",
+        "info": "",
+        "x": 1190,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "459de62c474ff6c0",
+        "type": "debug",
+        "z": "7a204b0920df63ed",
+        "name": "debug 48",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d3aac7a6991337b8",
+        "type": "debug",
+        "z": "7a204b0920df63ed",
+        "name": "debug 49",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "3f54ce3064460eb5",
+        "type": "ui_text",
+        "z": "7a204b0920df63ed",
+        "group": "1903964e747c6a1c",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Номенклатура:",
+        "format": "{{msg.info.sklad.NomenclatureName}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1240,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "76045e6545665dc9",
+        "type": "ui_text",
+        "z": "7a204b0920df63ed",
+        "group": "1903964e747c6a1c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Номер документа:",
+        "format": "{{msg.info.sklad.DocumentNumber}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1250,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "3cfdff4345d870d5",
+        "type": "ui_text",
+        "z": "7a204b0920df63ed",
+        "group": "1903964e747c6a1c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Код номенклатури:",
+        "format": "{{msg.info.sklad.NomenclatureCode}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1250,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "4e9c5106b8279f32",
+        "type": "debug",
+        "z": "7a204b0920df63ed",
+        "name": "debug 50",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 360,
+        "wires": []
     },
     {
         "id": "fd880cdb89252940",
@@ -4093,7 +4200,7 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "str1",
-        "func": "msg.str1 = msg.info.sklad.NomenclatureName; //\"Нас. оз. пш. Мулан\"\nmsg.str2 = msg.info.sklad.NomenclatureCharacteristics; //\"Мулан, нас., ЕН, 2019\"\nmsg.str3 = \"Сорт: \" + msg.info.sklad.NomenclatureCharacteristics.split(',')[0]//\"Сорт: Мулан\"\nmsg.str4 = \"Репродукція: \" + msg.info.sklad.NomenclatureCharacteristics.split(',')[2]//доробити\nmsg.str5 = msg.info.weight + \" кг.\"//\"973 кг\"\n\n\nmsg.str6 = \"Протруйники: \" + (msg.info.sklad.Disinfectant1 ? msg.info.sklad.Disinfectant1 + \", \" : \"\") + (msg.info.sklad.Disinfectant2 ? msg.info.sklad.Disinfectant2 + \", \" : \"\") + (msg.info.sklad.Disinfectant3 ? msg.info.sklad.Disinfectant3 + \", \" : \"\") + (msg.info.sklad.Disinfectant4 ? msg.info.sklad.Disinfectant4 + \", \"  : \"\")\nmsg.str7 = msg.info.plomba//\"L99482284\" // Доробити\nmsg.str8 = \"Примітка: \" + msg.info.sklad.Note\n\nreturn msg;",
+        "func": "msg.str1 = msg.info.sklad.NomenclatureName; //\"Нас. оз. пш. Мулан\"\nmsg.str2 = msg.info.sklad.NomenclatureCharacteristics; //\"Мулан, нас., ЕН, 2019\"\nmsg.str3 = \"Сорт: \" + msg.info.sklad.NomenclatureCharacteristics.split(',')[0]//\"Сорт: Мулан\"\nvar reproduction = msg.info.sklad.NomenclatureCharacteristics.split(',')\nmsg.str4 = \"Репродукція: \" + reproduction[2] + \" \" + reproduction[3]//доробити\nmsg.str5 = msg.info.weight + \" кг.\"//\"973 кг\"\n\n\nmsg.str6 = \"Протруйники: \" + (msg.info.sklad.Disinfectant1 ? msg.info.sklad.Disinfectant1 + \", \" : \"\") + (msg.info.sklad.Disinfectant2 ? msg.info.sklad.Disinfectant2 + \", \" : \"\") + (msg.info.sklad.Disinfectant3 ? msg.info.sklad.Disinfectant3 + \", \" : \"\") + (msg.info.sklad.Disinfectant4 ? msg.info.sklad.Disinfectant4 + \", \"  : \"\")\nmsg.str7 = msg.info.plomba//\"L99482284\" // Доробити\nmsg.str8 = \"Примітка: \" + msg.info.sklad.Note\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4167,7 +4274,7 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "function 16",
-        "func": "var barcode = msg.barcode\nvar str1 = msg.str1\nvar str2 = msg.str2\nvar str3 = msg.str3\nvar str4 = msg.str4\nvar str5 = msg.str5//вес\nvar str6 = msg.str6\nvar str7 = msg.str7\nvar str8 = msg.str8\nvar verticalText = `\n          <svg>\n            <text\n              transform=\"translate(24, 80) rotate(-90)\"\n              font-weight=\"bold\"\n              style=\"font-size: 10px;\"\n            >\n              Дата: ${global.get(\"dateHlobal\")}\n            </text>\n          </svg>\n        `\n\nmsg.payload = {\n    \"content\": [\n        { text: str1, fontSize: 20, bold: true },\n        { text: str2, fontSize: 14, bold: true },\n        str3,\n        str4,\n        {\n          columns: [\n            { text: \"H/B::\", fontSize: 14},\n            { text: str5, fontSize: 16, bold: true }\n          ]\n        },\n        str6,\n        {\n          columns: [\n            { text: \"Номер пломби: \" + str7},\n            { text: \"Маса т.з.:\", margin: [45, 0, 0, 0]}\n          ]\n        },\n        str8,\n        {\n            columns: [\n                {\n                    image: barcode,\n                    width: 200,\n                    height: 100\n                },\n                {\n                    width: 32,\n                    svg: verticalText\n                },\n            ]\n        }\n    ],\n    pageSize: {\n        width: 400,\n        height: 380\n    },\n    pageMargins: [40, 30, 40, 40],\n    \n}\nreturn msg;\n",
+        "func": "var barcode = msg.barcode\nvar str1 = msg.str1\nvar str2 = msg.str2\nvar str3 = msg.str3\nvar str4 = msg.str4\nvar str5 = msg.str5//вес\nvar str6 = msg.str6\nvar str7 = msg.str7\nvar str8 = msg.str8\nvar verticalText = `\n          <svg>\n            <text\n              transform=\"translate(24, 80) rotate(-90)\"\n              font-weight=\"bold\"\n              style=\"font-size: 10px;\"\n            >\n              Дата: ${global.get(\"dateHlobal\")}\n            </text>\n          </svg>\n        `\n\nmsg.payload = {\n    \"content\": [\n        { text: str1, fontSize: 20, bold: true },\n        { text: str2, fontSize: 14, bold: true },\n        str3,\n        str4,\n        {\n          columns: [\n            { text: \"H/B::\", fontSize: 14},\n            { text: str5, fontSize: 16, bold: true }\n          ]\n        },\n        str6,\n        {\n          columns: [\n            { text: \"Номер пломби: \" + str7},\n            { text: \"Маса т.з.:\", margin: [45, 0, 0, 0]}\n          ]\n        },\n        str8,\n        \" \",\n        {\n            columns: [\n                {\n                    image: barcode,\n                    width: 200,\n                    height: 100\n                },\n                {\n                    width: 32,\n                    svg: verticalText\n                },\n            ]\n        }\n    ],\n    pageSize: {\n        width: 400,\n        height: 380\n    },\n    pageMargins: [40, 30, 40, 40],\n    \n}\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4354,7 +4461,7 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "function 21",
-        "func": "var mainData = msg.info\nmainData.id = Date.now();\nvar file = \"/home/pi/db_date/db_log.txt\"\nmsg.filename = file;\nmsg.payload = mainData;\n\n//msg.url = global.get(\"sendTo1C\");\nreturn msg;\n\n// global.set(\"printerName\", \"\");\n// global.set(\"sendTo1C\", \"\");\n// global.set(\"getWith1C\", \"\");",
+        "func": "var mainData = msg.info\nmainData.id = Date.now();\nvar file = \"/home/pi/db_date/db_log.txt\"\nmsg.filename = file;\nmsg.payload = mainData;\n\nmsg.url = global.get(\"sendTo1C\");\nreturn msg;\n\n// global.set(\"printerName\", \"\");\n// global.set(\"sendTo1C\", \"\");\n// global.set(\"getWith1C\", \"\");",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4364,7 +4471,8 @@
         "y": 280,
         "wires": [
             [
-                "1cc6e5cead3162b2"
+                "1cc6e5cead3162b2",
+                "9180bb5ecc384c6c"
             ]
         ]
     },
@@ -4379,8 +4487,8 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "utf8",
-        "x": 680,
-        "y": 320,
+        "x": 700,
+        "y": 360,
         "wires": [
             []
         ]
@@ -4498,12 +4606,12 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://192.168.0.100:1880/send",
+        "url": "",
         "tls": "",
         "persist": false,
         "proxy": "",
         "insecureHTTPParser": false,
-        "authType": "",
+        "authType": "basic",
         "senderr": false,
         "headers": [],
         "x": 850,
@@ -4659,7 +4767,7 @@
         "id": "a7871f7f9d9c65dd",
         "type": "inject",
         "z": "656dc0405eaa1150",
-        "name": "",
+        "name": "Інтервал",
         "props": [
             {
                 "p": "payload"
@@ -4676,7 +4784,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
+        "x": 180,
         "y": 1460,
         "wires": [
             [
@@ -4689,13 +4797,13 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "function 27",
-        "func": "var dateLog = flow.get(\"DB_log\");\nvar dateLog1C = flow.get(\"DB_log_1C\");\nvar mustSend = []\n\nfor (let i = 0; i < dateLog.length; i++) {\n    //const array1 = [1, 2, 3];\n    //console.log(array1.includes(2));\n    // expected output: true\n    if (dateLog1C.includes(dateLog[i].id)){\n        \n    }else{\n        mustSend.push(dateLog[i])\n    }\n    \n    \n}\n\n//msg.payload = mustSend;\nif (mustSend.length){\n    msg.info = mustSend[0];\n    msg.payload = mustSend[0];\n    msg.requestTimeout = 15 * 1000;\n    return msg;\n}\n\n",
+        "func": "var dateLog = flow.get(\"DB_log\");\nvar dateLog1C = flow.get(\"DB_log_1C\");\nvar mustSend = []\n\nfor (let i = 0; i < dateLog.length; i++) {\n    //const array1 = [1, 2, 3];\n    //console.log(array1.includes(2));\n    // expected output: true\n    if (dateLog1C.includes(dateLog[i].id)){\n        \n    }else{\n        mustSend.push(dateLog[i])\n    }\n    \n    \n}\n\n//msg.payload = mustSend;\nif (mustSend.length){\n    msg.info = mustSend[0];\n    msg.payload = mustSend[0];\n    msg.requestTimeout = 15 * 1000;\n    msg.url = global.get(\"sendTo1C\");\n    return msg;\n}\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
+        "x": 610,
         "y": 1460,
         "wires": [
             [
@@ -4716,7 +4824,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
+        "x": 780,
         "y": 1420,
         "wires": []
     },
@@ -4741,8 +4849,8 @@
         "topic": "",
         "payload": "DB_log",
         "payloadType": "flow",
-        "x": 110,
-        "y": 1500,
+        "x": 130,
+        "y": 1560,
         "wires": [
             [
                 "4343bee4251bf336"
@@ -4770,8 +4878,8 @@
         "topic": "",
         "payload": "DB_log_1C",
         "payloadType": "flow",
-        "x": 120,
-        "y": 1540,
+        "x": 140,
+        "y": 1600,
         "wires": [
             [
                 "4343bee4251bf336"
@@ -4790,8 +4898,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 300,
-        "y": 1500,
+        "x": 320,
+        "y": 1560,
         "wires": []
     },
     {
@@ -4802,15 +4910,15 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://192.168.0.105:1880/send",
+        "url": "",
         "tls": "",
         "persist": false,
         "proxy": "",
         "insecureHTTPParser": false,
-        "authType": "",
+        "authType": "basic",
         "senderr": false,
         "headers": [],
-        "x": 530,
+        "x": 810,
         "y": 1460,
         "wires": [
             [
@@ -4832,7 +4940,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
+        "x": 1000,
         "y": 1420,
         "wires": []
     },
@@ -4847,7 +4955,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
+        "x": 1010,
         "y": 1460,
         "wires": [
             [
@@ -4867,80 +4975,11 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "utf8",
-        "x": 900,
+        "x": 1180,
         "y": 1460,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "1ed20efcbfc0fa5f",
-        "type": "http request",
-        "z": "656dc0405eaa1150",
-        "name": "",
-        "method": "POST",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://192.168.0.102:1880/send",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 330,
-        "y": 1640,
-        "wires": [
-            [
-                "ae584c790cd93b92"
-            ]
-        ]
-    },
-    {
-        "id": "2b369fa7991d872b",
-        "type": "inject",
-        "z": "656dc0405eaa1150",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 1640,
-        "wires": [
-            [
-                "1ed20efcbfc0fa5f"
-            ]
-        ]
-    },
-    {
-        "id": "ae584c790cd93b92",
-        "type": "debug",
-        "z": "656dc0405eaa1150",
-        "name": "debug 15",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 500,
-        "y": 1640,
-        "wires": []
     },
     {
         "id": "6d55bb4957e36748",
@@ -5119,7 +5158,7 @@
         "type": "function",
         "z": "656dc0405eaa1150",
         "name": "друк файла",
-        "func": "var file = msg.filename\n//var printerName = global.get(\"printerName\");\n//msg.payload = `lp -d ${printerName} ` + file; \nmsg.payload = \"lp -d ZT410_2 \" + file; \nreturn msg;\n\n\n",
+        "func": "var file = msg.filename\nvar printerName = global.get(\"printerName\");\n//msg.payload = `lp -d ${printerName} ` + file; \nmsg.payload = `lp -d ${printerName} ` + file; \nreturn msg;\n\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5277,7 +5316,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 920,
+        "x": 1200,
         "y": 1420,
         "wires": []
     },
@@ -5287,8 +5326,8 @@
         "z": "656dc0405eaa1150",
         "name": "Відправка у випадку відсутності зв'язку",
         "info": "",
-        "x": 180,
-        "y": 1420,
+        "x": 560,
+        "y": 1340,
         "wires": []
     },
     {
@@ -5367,8 +5406,8 @@
         "z": "656dc0405eaa1150",
         "name": "Збереження етикетки в локальну базу",
         "info": "",
-        "x": 770,
-        "y": 280,
+        "x": 790,
+        "y": 320,
         "wires": []
     },
     {
@@ -5389,6 +5428,16 @@
         "info": "",
         "x": 1280,
         "y": 160,
+        "wires": []
+    },
+    {
+        "id": "fd2609af0233c48a",
+        "type": "comment",
+        "z": "656dc0405eaa1150",
+        "name": "Вказати інтервал часу ",
+        "info": "",
+        "x": 240,
+        "y": 1420,
         "wires": []
     }
 ]
