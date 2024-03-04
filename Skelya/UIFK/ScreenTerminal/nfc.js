@@ -31,3 +31,10 @@ nfc.on('reader', reader => {
 nfc.on('error', err => {
     console.log('an error occurred', err);
 });
+
+// {
+//   "dependencies": {
+//     "nfc-pcsc": "^0.8.1"
+//   }
+// }
+
